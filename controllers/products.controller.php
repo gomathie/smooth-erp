@@ -24,6 +24,8 @@ class controllerProducts{
 
 		if(isset($_POST["newDescription"])){
 
+			csrf_verify();
+
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["newDescription"]) &&
 			   preg_match('/^[0-9]+$/', $_POST["newStock"]) &&	
 			   preg_match('/^[0-9.]+$/', $_POST["newBuyingPrice"]) &&
@@ -161,6 +163,8 @@ class controllerProducts{
 	static public function ctrEditProduct(){
 
 		if(isset($_POST["editDescription"])){
+
+			csrf_verify();
 
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editDescription"]) &&
 			   preg_match('/^[0-9]+$/', $_POST["editStock"]) &&	
@@ -311,14 +315,23 @@ class controllerProducts{
 
 		if(isset($_GET["idProduct"])){
 
+			csrf_verify();
+
 			$table ="products";
 			$datum = $_GET["idProduct"];
 
-			if($_GET["image"] != "" && $_GET["image"] != "views/img/products/default/anonymous.png"){
+			$image = $_GET["image"] ?? '';
+			$code  = $_GET["Code"]  ?? '';
 
-				unlink($_GET["image"]);
-				rmdir('views/img/products/'.$_GET["code"]);
+			if ($image !== '' &&
+				$image !== 'views/img/products/default/anonymous.png' &&
+				strpos($image, 'views/img/products/') === 0 &&
+				file_exists($image)) {
+				unlink($image);
+			}
 
+			if ($code !== '' && preg_match('/^[a-zA-Z0-9\-]+$/', $code)) {
+				@rmdir('views/img/products/' . $code);
 			}
 
 			$answer = ProductsModel::mdlDeleteProduct($table, $datum);

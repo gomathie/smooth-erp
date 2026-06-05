@@ -76,17 +76,17 @@
 						<?php 
 
 							if ($_SESSION["photo"] != "") {
-								
-								echo '<img src="'.$_SESSION["photo"].'"class="user-image">';
-							
+
+								echo '<img src="'.htmlspecialchars($_SESSION["photo"], ENT_QUOTES, 'UTF-8').'" class="user-image">';
+
 							}else{
 
 								echo '<img class="user-image" src="views/img/users/default/anonymous.png">';
 							}
 
 						?>
-						
-						<span class="hidden-xs"><?php echo $_SESSION["name"]; ?></span>
+
+						<span class="hidden-xs"><?php echo htmlspecialchars($_SESSION["name"], ENT_QUOTES, 'UTF-8'); ?></span>
 
 					</a>
 

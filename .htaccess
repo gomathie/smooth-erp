@@ -1,5 +1,11 @@
 Options All -Indexes
 
+# Block direct access to environment and sensitive files
+<FilesMatch "^\.env(\.example)?$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
 RewriteEngine On
 
 RewriteRule ^([-a-zA-Z0-9]+)$ index.php?route=$1

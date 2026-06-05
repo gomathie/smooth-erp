@@ -1,5 +1,16 @@
 <?php
+  session_set_cookie_params([
+      'lifetime' => 0,
+      'path'     => '/',
+      'secure'   => false,
+      'httponly' => true,
+      'samesite' => 'Strict',
+  ]);
   session_start();
+
+  if (empty($_SESSION['csrf_token'])) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+  }
 
   $validThemes = [
     'skin-blue','skin-blue-light','skin-black','skin-black-light',
@@ -28,6 +39,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   <link rel="icon" href="views/img/template/icono-negro.png">
+  <meta name="csrf-token" content="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
 
   <!--=================================
   =            Plugins CSS            =

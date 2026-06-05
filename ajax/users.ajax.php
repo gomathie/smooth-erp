@@ -1,5 +1,6 @@
 <?php
 
+require_once "../helpers/security.php";
 require_once "../controllers/users.controller.php";
 require_once "../models/users.model.php";
 
@@ -80,6 +81,8 @@ ACTIVATE USER
 =============================================*/
 
 if (isset($_POST["activateUser"])) {
+
+	csrf_verify();
 
 	$activateUser = new AjaxUsers();
 	$activateUser -> activateUser = $_POST["activateUser"];

@@ -53,7 +53,8 @@ $(".tables").on("click", "tbody .btnDeleteCustomer", function(){
       }).then(function(result){
         if (result.value) {
           
-            window.location = "index.php?route=customers&idCustomer="+idCustomer;
+            var csrf = $('meta[name="csrf-token"]').attr('content');
+            window.location = "index.php?route=customers&idCustomer="+idCustomer+"&_csrf="+encodeURIComponent(csrf);
         }
 
   })

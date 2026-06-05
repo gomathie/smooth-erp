@@ -10,10 +10,12 @@ class ControllerCustomers{
 
 		if(isset($_POST["newCustomer"])){
 
+			csrf_verify();
+
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["newCustomer"]) &&
 			   preg_match('/^[0-9]+$/', $_POST["newIdDocument"]) &&
-			   preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["newEmail"]) && 
-			   preg_match('/^[()\-0-9 ]+$/', $_POST["newPhone"]) && 
+			   filter_var($_POST["newEmail"], FILTER_VALIDATE_EMAIL) &&
+			   preg_match('/^[()\-0-9 ]+$/', $_POST["newPhone"]) &&
 			   preg_match('/^[#\.\-a-zA-Z0-9 ]+$/', $_POST["newAddress"])){
 
 			   	$table = "customers";
@@ -95,10 +97,12 @@ class ControllerCustomers{
 
 		if(isset($_POST["editCustomer"])){
 
+			csrf_verify();
+
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editCustomer"]) &&
 			   preg_match('/^[0-9]+$/', $_POST["editIdDocument"]) &&
-			   preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["editEmail"]) && 
-			   preg_match('/^[()\-0-9 ]+$/', $_POST["editPhone"]) && 
+			   filter_var($_POST["editEmail"], FILTER_VALIDATE_EMAIL) &&
+			   preg_match('/^[()\-0-9 ]+$/', $_POST["editPhone"]) &&
 			   preg_match('/^[#\.\-a-zA-Z0-9 ]+$/', $_POST["editAddress"])){
 
 			   	$table = "customers";
@@ -168,6 +172,8 @@ class ControllerCustomers{
 	static public function ctrDeleteCustomer(){
 
 		if(isset($_GET["idCustomer"])){
+
+			csrf_verify();
 
 			$table ="customers";
 			$data = $_GET["idCustomer"];

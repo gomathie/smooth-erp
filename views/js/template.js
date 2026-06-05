@@ -1,4 +1,15 @@
 /*====================================
+=       CSRF — send token with every AJAX request
+====================================*/
+
+$.ajaxSetup({
+  headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
+});
+
+/*=====  End of CSRF setup  ======*/
+
+
+/*====================================
 =            theme picker            =
 ====================================*/
 

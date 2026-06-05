@@ -1,0 +1,114 @@
+/* =============================================================
+   POS Theme Engine
+   -------------------------------------------------------------
+   All colours come from CSS variables set by themes.config.js.
+   DO NOT edit hex values here — edit themes.config.js instead.
+   ============================================================= */
+
+/* ── Top navigation bar ───────────────────────────────────── */
+.main-header .navbar {
+  background-color: var(--pos-primary) !important;
+}
+.main-header .navbar .nav > li > a,
+.main-header .navbar .sidebar-toggle {
+  color: #ffffff !important;
+}
+.main-header .navbar .nav > li > a:hover,
+.main-header .navbar .nav > li > a:active,
+.main-header .navbar .nav > li > a:focus,
+.main-header .navbar .nav .open > a,
+.main-header .navbar .nav .open > a:hover,
+.main-header .navbar .nav .open > a:focus,
+.main-header .navbar .nav > .active > a {
+  background: rgba(0, 0, 0, 0.10) !important;
+  color: #f0f0f0 !important;
+}
+.main-header .navbar .sidebar-toggle:hover {
+  background-color: var(--pos-primary-dark) !important;
+  color: #ffffff !important;
+}
+
+/* ── Logo / brand bar ─────────────────────────────────────── */
+.main-header .logo {
+  background-color: var(--pos-primary-dark) !important;
+  color: #ffffff !important;
+  border-bottom: 0 solid transparent !important;
+}
+.main-header .logo:hover {
+  background-color: var(--pos-primary-dark) !important;
+  filter: brightness(0.93);
+}
+
+/* ── User dropdown header ─────────────────────────────────── */
+.main-header li.user-header {
+  background-color: var(--pos-primary) !important;
+}
+
+/* ── Sidebar panel ────────────────────────────────────────── */
+.main-sidebar,
+.left-side {
+  background-color: var(--pos-sidebar-bg) !important;
+}
+
+/* ── Sidebar links + icons ────────────────────────────────── */
+.sidebar-menu > li > a,
+.sidebar-menu > li > a > span,
+.sidebar-menu > li > a > .fa,
+.sidebar-menu > li > a > .glyphicon,
+.sidebar-menu > li > a > .ion,
+.sidebar-menu > li > a > .pull-right-container > .fa {
+  color: var(--pos-sidebar-text) !important;
+}
+.sidebar-menu > li .treeview-menu > li > a,
+.sidebar-menu > li .treeview-menu > li > a > .fa {
+  color: var(--pos-sidebar-text) !important;
+  opacity: 0.85;
+}
+
+/* ── Sidebar hover ────────────────────────────────────────── */
+.sidebar-menu > li > a:hover {
+  background: var(--pos-sidebar-hover) !important;
+  color: var(--pos-sidebar-text) !important;
+}
+.sidebar-menu > li .treeview-menu > li > a:hover {
+  background: var(--pos-sidebar-hover) !important;
+  opacity: 1;
+}
+
+/* ── Sidebar active item ──────────────────────────────────── */
+.sidebar-menu > li.active > a,
+.sidebar-menu > li.menu-open > a {
+  background: var(--pos-sidebar-hover) !important;
+  border-left: 3px solid var(--pos-primary) !important;
+  color: var(--pos-sidebar-text) !important;
+}
+.sidebar-menu > li .treeview-menu > li.active > a {
+  background: var(--pos-sidebar-hover) !important;
+  color: var(--pos-sidebar-text) !important;
+  opacity: 1;
+}
+
+/* ── Treeview sub-menu background ─────────────────────────── */
+.sidebar-menu li.treeview .treeview-menu {
+  background-color: var(--pos-sidebar-bg) !important;
+  filter: brightness(0.96);
+}
+
+/* ── Sidebar user-panel ───────────────────────────────────── */
+.sidebar .user-panel > .info,
+.sidebar .user-panel > .info > a {
+  color: var(--pos-sidebar-text) !important;
+}
+
+/* ── Sidebar search form ──────────────────────────────────── */
+.sidebar-form {
+  border-color: var(--pos-sidebar-hover) !important;
+  background-color: var(--pos-sidebar-hover) !important;
+}
+.sidebar-form input[type="text"] {
+  color: var(--pos-sidebar-text) !important;
+  background-color: transparent !important;
+}
+.sidebar-form .btn {
+  color: var(--pos-sidebar-text) !important;
+}

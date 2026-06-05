@@ -1,5 +1,18 @@
 <?php
   session_start();
+
+  $validThemes = [
+    'skin-blue','skin-blue-light','skin-black','skin-black-light',
+    'skin-purple','skin-purple-light','skin-red','skin-red-light',
+    'skin-green','skin-green-light','skin-yellow','skin-yellow-light'
+  ];
+  $currentTheme = 'skin-red-light';
+  if (isset($_SESSION['pos_theme']) && in_array($_SESSION['pos_theme'], $validThemes)) {
+      $currentTheme = $_SESSION['pos_theme'];
+  } elseif (isset($_COOKIE['pos_theme']) && in_array($_COOKIE['pos_theme'], $validThemes)) {
+      $currentTheme = $_COOKIE['pos_theme'];
+      $_SESSION['pos_theme'] = $currentTheme;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -102,7 +115,7 @@
   
 </head>
 
-<body class="hold-transition skin-red-light sidebar-collapse sidebar-mini login-page">
+<body class="hold-transition <?php echo $currentTheme; ?> sidebar-collapse sidebar-mini login-page">
 
 <!-- Site wrapper -->
 

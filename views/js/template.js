@@ -1,4 +1,48 @@
 /*====================================
+=            theme picker            =
+====================================*/
+
+var allSkins = [
+  'skin-blue','skin-blue-light','skin-black','skin-black-light',
+  'skin-purple','skin-purple-light','skin-red','skin-red-light',
+  'skin-green','skin-green-light','skin-yellow','skin-yellow-light'
+];
+
+// Style the swatches and mark the active one
+(function initSwatches() {
+  var activeSkin = $.grep(document.body.className.split(' '), function(c) {
+    return c.indexOf('skin-') === 0;
+  })[0] || 'skin-red-light';
+
+  $('.theme-swatch').css({
+    display: 'inline-block',
+    width: '30px',
+    height: '30px',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    transition: 'transform .15s, box-shadow .15s',
+    boxSizing: 'border-box'
+  });
+
+  $('.theme-swatch[data-skin="' + activeSkin + '"]').css({
+    boxShadow: '0 0 0 3px rgba(0,0,0,.5)',
+    transform: 'scale(1.2)'
+  });
+})();
+
+$(document).on('click', '.theme-swatch', function (e) {
+  e.stopPropagation();
+  var skin = $(this).data('skin');
+  $('body').removeClass(allSkins.join(' ')).addClass(skin);
+  $('.theme-swatch').css({ boxShadow: '', transform: '' });
+  $(this).css({ boxShadow: '0 0 0 3px rgba(0,0,0,.5)', transform: 'scale(1.2)' });
+  $.post('ajax/theme.ajax.php', { theme: skin });
+});
+
+/*=====  End of theme picker  ======*/
+
+
+/*====================================
 =            sidebar menu            =
 ====================================*/
 

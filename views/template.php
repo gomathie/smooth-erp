@@ -134,7 +134,13 @@
   
 </head>
 
-<body class="hold-transition sidebar-collapse sidebar-mini login-page">
+<?php
+  $bodyClass = (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == "ok")
+    ? 'hold-transition fixed sidebar-collapse sidebar-mini'
+    : 'hold-transition login-page';
+?>
+
+<body class="<?php echo $bodyClass; ?>">
 
 <!-- Site wrapper -->
 

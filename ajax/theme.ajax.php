@@ -5,9 +5,9 @@ require_once "../helpers/security.php";
 session_start();
 
 $validThemes = [
-    'skin-blue','skin-blue-light','skin-black','skin-black-light',
-    'skin-purple','skin-purple-light','skin-red','skin-red-light',
-    'skin-green','skin-green-light','skin-yellow','skin-yellow-light'
+    'blue','blue-light','black','black-light',
+    'purple','purple-light','red','red-light',
+    'green','green-light','yellow','yellow-light',
 ];
 
 csrf_verify();

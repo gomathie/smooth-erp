@@ -50,20 +50,8 @@
 					<ul class="dropdown-menu" style="padding:15px 15px 10px; min-width:265px; right:0; left:auto;">
 						<li>
 							<p style="margin:0 0 10px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#999;">Theme Color</p>
-							<div id="theme-swatches" style="display:flex; flex-wrap:wrap; gap:8px;">
-								<span class="theme-swatch" data-skin="skin-blue"          title="Blue"          style="background:#3c8dbc;"></span>
-								<span class="theme-swatch" data-skin="skin-blue-light"    title="Blue Light"    style="background:#3c8dbc; border:2px solid #d2d6de;"></span>
-								<span class="theme-swatch" data-skin="skin-black"         title="Black"         style="background:#222d32;"></span>
-								<span class="theme-swatch" data-skin="skin-black-light"   title="Black Light"   style="background:#444; border:2px solid #d2d6de;"></span>
-								<span class="theme-swatch" data-skin="skin-purple"        title="Purple"        style="background:#605ca8;"></span>
-								<span class="theme-swatch" data-skin="skin-purple-light"  title="Purple Light"  style="background:#605ca8; border:2px solid #d2d6de;"></span>
-								<span class="theme-swatch" data-skin="skin-red"           title="Red"           style="background:#dd4b39;"></span>
-								<span class="theme-swatch" data-skin="skin-red-light"     title="Red Light"     style="background:#dd4b39; border:2px solid #d2d6de;"></span>
-								<span class="theme-swatch" data-skin="skin-green"         title="Green"         style="background:#00a65a;"></span>
-								<span class="theme-swatch" data-skin="skin-green-light"   title="Green Light"   style="background:#00a65a; border:2px solid #d2d6de;"></span>
-								<span class="theme-swatch" data-skin="skin-yellow"        title="Yellow"        style="background:#f39c12;"></span>
-								<span class="theme-swatch" data-skin="skin-yellow-light"  title="Yellow Light"  style="background:#f39c12; border:2px solid #d2d6de;"></span>
-							</div>
+							<!-- Swatches are built by JS from themes.config.js -->
+							<div id="theme-swatches" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
 						</li>
 					</ul>
 				</li>

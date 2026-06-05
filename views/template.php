@@ -12,18 +12,21 @@
       $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
   }
 
-  $validThemes = [
-    'skin-blue','skin-blue-light','skin-black','skin-black-light',
-    'skin-purple','skin-purple-light','skin-red','skin-red-light',
-    'skin-green','skin-green-light','skin-yellow','skin-yellow-light'
+  $validThemeKeys = [
+    'blue','blue-light','black','black-light',
+    'purple','purple-light','red','red-light',
+    'green','green-light','yellow','yellow-light',
   ];
-  $currentTheme = 'skin-red-light';
-  if (isset($_SESSION['pos_theme']) && in_array($_SESSION['pos_theme'], $validThemes)) {
-      $currentTheme = $_SESSION['pos_theme'];
-  } elseif (isset($_COOKIE['pos_theme']) && in_array($_COOKIE['pos_theme'], $validThemes)) {
-      $currentTheme = $_COOKIE['pos_theme'];
-      $_SESSION['pos_theme'] = $currentTheme;
+  $currentThemeKey = 'red-light';
+
+  // Read stored key from session or cookie
+  $stored = $_SESSION['pos_theme'] ?? $_COOKIE['pos_theme'] ?? '';
+  // Migrate old skin-* format (strip the prefix)
+  if (strpos($stored, 'skin-') === 0) { $stored = substr($stored, 5); }
+  if (in_array($stored, $validThemeKeys, true)) {
+      $currentThemeKey = $stored;
   }
+  $_SESSION['pos_theme'] = $currentThemeKey;
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +43,7 @@
 
   <link rel="icon" href="views/img/template/icono-negro.png">
   <meta name="csrf-token" content="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+  <meta name="pos-theme"  content="<?php echo htmlspecialchars($currentThemeKey, ENT_QUOTES, 'UTF-8'); ?>">
 
   <!--=================================
   =            Plugins CSS            =
@@ -56,8 +60,11 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
 
-  <!-- AdminLTE Skins -->
-  <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css"> 
+  <!-- POS custom theme engine (CSS variables — edit themes.config.js, not this) -->
+  <link rel="stylesheet" href="views/dist/css/pos-themes.css">
+
+  <!-- themes.config.js must run in <head> to set CSS vars before first paint -->
+  <script src="views/js/themes.config.js"></script>
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> 
@@ -127,7 +134,7 @@
   
 </head>
 
-<body class="hold-transition <?php echo $currentTheme; ?> sidebar-collapse sidebar-mini login-page">
+<body class="hold-transition sidebar-collapse sidebar-mini login-page">
 
 <!-- Site wrapper -->
 

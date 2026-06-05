@@ -227,7 +227,8 @@ $(document).on("click", ".btnDeleteUser", function(){
 
 		if(result.value){
 
-		  window.location = "index.php?route=users&userId="+userId+"&username="+username+"&userPhoto="+userPhoto;
+		  var csrf = $('meta[name="csrf-token"]').attr('content');
+		  window.location = "index.php?route=users&userId="+userId+"&username="+username+"&userPhoto="+userPhoto+"&_csrf="+encodeURIComponent(csrf);
 
 		}
 

@@ -267,7 +267,8 @@ $(".productsTable tbody").on("click", "button.btnDeleteProduct", function(){
     }).then(function(result){
       if (result.value) {
 
-      	window.location = "index.php?route=products&idProduct="+idProduct+"&image="+image+"&Code="+code;
+      	var csrf = $('meta[name="csrf-token"]').attr('content');
+      	window.location = "index.php?route=products&idProduct="+idProduct+"&image="+image+"&Code="+code+"&_csrf="+encodeURIComponent(csrf);
 
       }
     })

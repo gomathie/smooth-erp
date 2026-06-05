@@ -10,6 +10,8 @@
 
 		if(isset($_POST['newCategory'])){
 
+			csrf_verify();
+
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["newCategory"])){
 
 				$table = 'categories';
@@ -85,6 +87,8 @@
 
 		if(isset($_POST["editCategory"])){
 
+			csrf_verify();
+
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editCategory"])){
 
 				$table = "categories";
@@ -149,6 +153,8 @@
 	static public function ctrDeleteCategory(){
 
 		if(isset($_GET["idCategory"])){
+
+			csrf_verify();
 
 			$table ="categories";
 			$data = $_GET["idCategory"];

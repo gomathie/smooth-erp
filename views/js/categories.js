@@ -50,7 +50,8 @@ $(".tables").on("click", ".btnDeleteCategory", function(){
 
 	 	if(result.value){
 
-	 		window.location = "index.php?route=categories&idCategory="+idCategory;
+	 		var csrf = $('meta[name="csrf-token"]').attr('content');
+	 		window.location = "index.php?route=categories&idCategory="+idCategory+"&_csrf="+encodeURIComponent(csrf);
 
 	 	}
 

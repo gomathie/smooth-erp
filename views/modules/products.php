@@ -91,6 +91,8 @@ if($_SESSION["profile"] == "Seller"){
 
       <form role="form" method="POST" enctype="multipart/form-data">
 
+        <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+
         <!--=====================================
         HEADER
         ======================================-->
@@ -301,6 +303,8 @@ EDIT PRODUCT
     <div class="modal-content">
 
       <form role="form" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
 
         <!--=====================================
         HEADER

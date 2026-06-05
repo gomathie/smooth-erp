@@ -110,6 +110,7 @@ if($_SESSION["profile"] == "Seller"){
     <!-- Modal content-->
     <div class="modal-content">
       <form role="form" method="POST">
+        <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Categories</h4>
@@ -155,6 +156,7 @@ if($_SESSION["profile"] == "Seller"){
     <!-- Modal content-->
     <div class="modal-content">
       <form role="form" method="POST">
+        <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Edit Categories</h4>

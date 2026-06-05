@@ -140,6 +140,8 @@
 
       <form role="form" method="POST" enctype="multipart/form-data">
 
+        <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+
         <!--=====================================
         HEADER
         ======================================-->
@@ -275,6 +277,8 @@
     <div class="modal-content">
 
       <form role="form" method="POST" enctype="multipart/form-data">
+
+        <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
 
         <!--=====================================
         HEADER

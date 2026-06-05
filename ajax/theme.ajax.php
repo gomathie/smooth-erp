@@ -1,5 +1,7 @@
 <?php
 
+require_once "../helpers/security.php";
+
 session_start();
 
 $validThemes = [
@@ -7,6 +9,8 @@ $validThemes = [
     'skin-purple','skin-purple-light','skin-red','skin-red-light',
     'skin-green','skin-green-light','skin-yellow','skin-yellow-light'
 ];
+
+csrf_verify();
 
 if (isset($_POST['theme']) && in_array($_POST['theme'], $validThemes, true)) {
     $theme = $_POST['theme'];

@@ -1,6 +1,6 @@
 <footer class="main-footer">
 
-	<strong>&copy; 2022 - Point of Sale System in PHP</strong>
+	<strong>&copy; 2026 - Smooth Point of Sale System</strong>
 	
 	All rights reserved
 

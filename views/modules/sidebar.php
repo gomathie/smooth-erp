@@ -1,4 +1,4 @@
-<aside class="main-sidebar">
+﻿<aside class="main-sidebar">
 
 	<section class="sidebar">
 		
@@ -161,5 +161,5 @@
 		</ul>
 
 	</section>
-	<!-- Log on to codeastro.com for more projects! -->
+	<!--  -->
 </aside>

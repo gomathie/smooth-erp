@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
  class ControllerCategories{
 
@@ -76,7 +76,7 @@
 
 		return $answer;
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	EDIT CATEGORY
 	=============================================*/
@@ -141,7 +141,7 @@
 		}
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	DELETE CATEGORY
 	=============================================*/

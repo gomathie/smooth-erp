@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 if($_SESSION["profile"] == "Special" || $_SESSION["profile"] == "Seller"){
 
@@ -17,7 +17,7 @@ if($_SESSION["profile"] == "Special" || $_SESSION["profile"] == "Seller"){
 
   <section class="content-header">
     
-    <h1><!-- Log on to codeastro.com for more projects! -->
+    <h1><!--  -->
       
       Sales report
     
@@ -52,7 +52,7 @@ if($_SESSION["profile"] == "Special" || $_SESSION["profile"] == "Seller"){
           </button>
 
         </div>
-		<!-- Log on to codeastro.com for more projects! -->
+		<!--  -->
         <div class="box-tools pull-right">
 
         <?php
@@ -128,5 +128,6 @@ if($_SESSION["profile"] == "Special" || $_SESSION["profile"] == "Seller"){
     </div>
 
   </section>
-	<!-- Log on to codeastro.com for more projects! -->
+	<!--  -->
  </div>
+

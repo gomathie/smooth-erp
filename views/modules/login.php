@@ -1,5 +1,5 @@
-<div id="back"></div>
-<!-- Log on to codeastro.com for more projects! -->
+﻿<div id="back"></div>
+<!--  -->
 <div class="login-box">
 
   <div class="login-logo">
@@ -52,4 +52,5 @@
   </div>
 
 </div>
-<!-- Log on to codeastro.com for more projects! -->
+<!--  -->
+

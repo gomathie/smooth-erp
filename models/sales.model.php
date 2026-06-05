@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 require_once 'connection.php';
 
@@ -7,7 +7,7 @@ class ModelSales{
 	/*=============================================
 	SHOWING SALES
 	=============================================*/
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 
 	static public function mdlShowSales($table, $item, $value){
 
@@ -40,7 +40,7 @@ class ModelSales{
 	/*=============================================
 	REGISTERING SALE
 	=============================================*/
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	static public function mdlAddSale($table, $data){
 
 		$stmt = Connection::connect()->prepare("INSERT INTO $table(code, idCustomer, idSeller, products, tax, netPrice, totalPrice, paymentMethod) VALUES (:code, :idCustomer, :idSeller, :products, :tax, :netPrice, :totalPrice, :paymentMethod)");
@@ -68,7 +68,7 @@ class ModelSales{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	EDIT SALE
 	=============================================*/
@@ -100,7 +100,7 @@ class ModelSales{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	DELETE SALE
 	=============================================*/
@@ -126,7 +126,7 @@ class ModelSales{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	DATES RANGE
 	=============================================*/	
@@ -181,7 +181,7 @@ class ModelSales{
 
 	}
 
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	Adding TOTAL sales
 	=============================================*/

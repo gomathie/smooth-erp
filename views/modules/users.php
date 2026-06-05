@@ -1,6 +1,6 @@
-
+﻿
 <div class="content-wrapper">
-	<!-- Log on to codeastro.com for more projects! -->
+	<!--  -->
   <section class="content-header">
 
     <h1>
@@ -53,7 +53,7 @@
            </tr> 
 
           </thead>
-			<!-- Log on to codeastro.com for more projects! -->
+			<!--  -->
           <tbody>
 
             <?php
@@ -398,7 +398,7 @@
     </div>
 
   </div>
-	<!-- Log on to codeastro.com for more projects! -->
+	<!--  -->
 </div>
 
 <?php

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
@@ -7,7 +7,7 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 
 class ControllerSales{
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	SHOW SALES
 	=============================================*/
@@ -83,7 +83,7 @@ class ControllerSales{
 			$value1b = $date.' '.$hour;
 
 			$dateCustomer = ModelCustomers::mdlUpdateCustomer($tableCustomers, $item1b, $value1b, $valueCustomer);
-			/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+			/*  */
 			/*=============================================
 			SAVE THE SALE
 			=============================================*/	
@@ -197,7 +197,7 @@ class ControllerSales{
 		}
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	EDIT SALE
 	=============================================*/
@@ -273,7 +273,7 @@ class ControllerSales{
 				$value1a = $getCustomer["purchases"] - array_sum($totalPurchasedProducts);
 
 				$customerPurchases = ModelCustomers::mdlUpdateCustomer($tableCustomers, $item1a, $value1a, $valueCustomer);
-				/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+				/*  */
 				/*=============================================
 				UPDATE THE CUSTOMER'S PURCHASES AND REDUCE THE STOCK AND INCREMENT PRODUCT SALES
 				=============================================*/
@@ -329,7 +329,7 @@ class ControllerSales{
 				$dateCustomer_2 = ModelCustomers::mdlUpdateCustomer($tableCustomers_2, $item1b_2, $value1b_2, $value_2);
 
 			}
-			/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+			/*  */
 			/*=============================================
 			SAVE PURCHASE CHANGES
 			=============================================*/	
@@ -372,7 +372,7 @@ class ControllerSales{
 		}
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	Delete Sale
 	=============================================*/
@@ -441,7 +441,7 @@ class ControllerSales{
 				$customerPurchases = ModelCustomers::mdlUpdateCustomer($tableCustomers, $item, $value, $valueIdCustomer);
 
 			}
-			/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+			/*  */
 			/*=============================================
 			FORMAT PRODUCTS AND CUSTOMERS TABLE
 			=============================================*/
@@ -516,7 +516,7 @@ class ControllerSales{
 		}
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	DATES RANGE
 	=============================================*/	
@@ -628,7 +628,7 @@ class ControllerSales{
 
 	}
 
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	Adding TOTAL sales
 	=============================================*/

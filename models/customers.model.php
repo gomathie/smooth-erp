@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 require_once "connection.php";
 
@@ -7,7 +7,7 @@ class ModelCustomers{
 	/*=============================================
 	CREATE CUSTOMERS
 	=============================================*/
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	static public function mdlAddCustomer($table, $data){
 
 		$stmt = Connection::connect()->prepare("INSERT INTO $table(name, idDocument, email, phone, address, birthdate) VALUES (:name, :idDocument, :email, :phone, :address, :birthdate)");
@@ -33,7 +33,7 @@ class ModelCustomers{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	SHOW CUSTOMERS
 	=============================================*/
@@ -65,7 +65,7 @@ class ModelCustomers{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	EDIT CUSTOMER
 	=============================================*/
@@ -96,7 +96,7 @@ class ModelCustomers{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	DELETE CUSTOMER
 	=============================================*/
@@ -122,7 +122,7 @@ class ModelCustomers{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	UPDATE CUSTOMER
 	=============================================*/

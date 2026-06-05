@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 $item = null;
 $value = null;
@@ -39,7 +39,7 @@ foreach ($sales as $key => $valueSales) {
 $dontrepeatnames = array_unique($arraySellers);
 
 ?>
-<!-- Log on to codeastro.com for more projects! -->
+<!--  -->
 
 <!--=====================================
 Sellers

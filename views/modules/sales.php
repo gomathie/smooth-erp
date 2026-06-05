@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 if($_SESSION["profile"] == "Special"){
 
@@ -29,7 +29,7 @@ if($xml){
   <section class="content-header">
 
     <h1>
-	<!-- Log on to codeastro.com for more projects! -->
+	<!--  -->
       Sales Management
 
     </h1>
@@ -71,7 +71,7 @@ if($xml){
       </div>
 
       <div class="box-body">
-		<!-- Log on to codeastro.com for more projects! -->
+		<!--  -->
         <table class="table table-bordered table-hover table-striped dt-responsive tables" width="100%">
        
           <thead>
@@ -184,7 +184,7 @@ if($xml){
       </div>
     
     </div>
-	<!-- Log on to codeastro.com for more projects! -->
+	<!--  -->
   </section>
 
 </div>

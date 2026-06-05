@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 if($_SESSION["profile"] == "Seller"){
 
@@ -24,7 +24,7 @@ if($_SESSION["profile"] == "Seller"){
     </h1>
 
     <ol class="breadcrumb">
-		<!-- Log on to codeastro.com for more projects! -->
+		<!--  -->
       <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
 
       <li class="active">Dashboard</li>
@@ -48,7 +48,7 @@ if($_SESSION["profile"] == "Seller"){
         <table class="table table-bordered table-hover table-striped dt-responsive productsTable" width="100%">
        
           <thead>
-			<!-- Log on to codeastro.com for more projects! -->
+			<!--  -->
            <tr>
              
              <th style="width:10px">#</th>
@@ -84,7 +84,7 @@ if($_SESSION["profile"] == "Seller"){
 
 <!-- Modal -->
 <div id="addProduct" class="modal fade" role="dialog">
-	<!-- Log on to codeastro.com for more projects! -->
+	<!--  -->
   <div class="modal-dialog">
 
     <div class="modal-content">
@@ -195,7 +195,7 @@ if($_SESSION["profile"] == "Seller"){
                 </div>
 
               </div>
-			  <!-- Log on to codeastro.com for more projects! -->
+			  <!--  -->
 
               <!-- INPUT SELLING PRICE -->
               <div class="col-xs-12 col-sm-6">  
@@ -274,7 +274,7 @@ if($_SESSION["profile"] == "Seller"){
         </div>
 
       </form>
-	  <!-- Log on to codeastro.com for more projects! -->
+	  <!--  -->
 
       <?php
 
@@ -317,7 +317,7 @@ EDIT PRODUCT
         <!--=====================================
          BODY
         ======================================-->
-		<!-- Log on to codeastro.com for more projects! -->
+		<!--  -->
         <div class="modal-body">
 
           <div class="box-body">
@@ -391,7 +391,7 @@ EDIT PRODUCT
 
                   </div>
 
-                </div><!-- Log on to codeastro.com for more projects! -->
+                </div><!--  -->
 
                 <!-- INPUT FOR SELLING PRICE -->
                 <div class="col-xs-12 col-sm-6">
@@ -484,7 +484,7 @@ EDIT PRODUCT
 
   </div>
 
-</div><!-- Log on to codeastro.com for more projects! -->
+</div><!--  -->
 
 <?php
 
@@ -492,3 +492,4 @@ EDIT PRODUCT
   $deleteProduct -> ctrDeleteProduct();
 
 ?>
+

@@ -1,9 +1,9 @@
-<?php
+﻿<?php
 
 require_once 'connection.php';
 
 class ProductsModel{
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	SHOWING PRODUCTS
 	=============================================*/
@@ -35,7 +35,7 @@ class ProductsModel{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	ADDING PRODUCT
 	=============================================*/
@@ -65,7 +65,7 @@ class ProductsModel{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	EDITING PRODUCT
 	=============================================*/
@@ -95,7 +95,7 @@ class ProductsModel{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	DELETING PRODUCT
 	=============================================*/
@@ -121,7 +121,7 @@ class ProductsModel{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	UPDATE PRODUCT
 	=============================================*/
@@ -148,7 +148,7 @@ class ProductsModel{
 		$stmt = null;
 
 	}
-	/* --LOG ON TO codeastro.com FOR MORE PROJECTS-- */
+	/*  */
 	/*=============================================
 	SHOW ADDING OF THE SALES
 	=============================================*/	

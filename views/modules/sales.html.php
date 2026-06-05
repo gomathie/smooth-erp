@@ -1,4 +1,4 @@
-<div class="content-wrapper">
+﻿<div class="content-wrapper">
 
   <section class="content-header">
 
@@ -31,7 +31,7 @@
   
           </button>
         </a>
-		<!-- Log on to codeastro.com for more projects! -->
+		<!--  -->
       </div>
 
       <div class="box-body">
@@ -55,7 +55,7 @@
            </tr> 
 
           </thead>
-			<!-- Log on to codeastro.com for more projects! -->
+			<!--  -->
           <tbody>
 
             <?php
@@ -121,7 +121,7 @@
       </div>
     
     </div>
-	<!-- Log on to codeastro.com for more projects! -->
+	<!--  -->
   </section>
 
 </div>

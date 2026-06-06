@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //============================================================+
 // File name   : tcpdf_images.php
 // Version     : 1.0.005
@@ -307,7 +307,7 @@ class TCPDF_IMAGES {
 					if ($n > 0) {
 						$trns = array();
 						for ($i = 0; $i < $n; ++ $i) {
-							$trns[] = ord($t{$i});
+							$trns[] = ord($t[$i]);
 						}
 					}
 				}

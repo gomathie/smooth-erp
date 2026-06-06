@@ -68,7 +68,8 @@ class TCPDFBarcode {
 	 * <li>$arrcode['bcode'][$k]['p'] bar top position (0 = top, 1 = middle)</li></ul>
 	 * @param $code (string) code to print
  	 * @param $type (string) type of barcode: <ul><li>C39 : CODE 39 - ANSI MH10.8M-1983 - USD-3 - 3 of 9.</li><li>C39+ : CODE 39 with checksum</li><li>C39E : CODE 39 EXTENDED</li><li>C39E+ : CODE 39 EXTENDED + CHECKSUM</li><li>C93 : CODE 93 - USS-93</li><li>S25 : Standard 2 of 5</li><li>S25+ : Standard 2 of 5 + CHECKSUM</li><li>I25 : Interleaved 2 of 5</li><li>I25+ : Interleaved 2 of 5 + CHECKSUM</li><li>C128 : CODE 128</li><li>C128A : CODE 128 A</li><li>C128B : CODE 128 B</li><li>C128C : CODE 128 C</li><li>EAN2 : 2-Digits UPC-Based Extension</li><li>EAN5 : 5-Digits UPC-Based Extension</li><li>EAN8 : EAN 8</li><li>EAN13 : EAN 13</li><li>UPCA : UPC-A</li><li>UPCE : UPC-E</li><li>MSI : MSI (Variation of Plessey code)</li><li>MSI+ : MSI + CHECKSUM (modulo 11)</li><li>POSTNET : POSTNET</li><li>PLANET : PLANET</li><li>RMS4CC : RMS4CC (Royal Mail 4-state Customer Code) - CBC (Customer Bar Code)</li><li>KIX : KIX (Klant index - Customer index)</li><li>IMB: Intelligent Mail Barcode - Onecode - USPS-B-3200</li><li>CODABAR : CODABAR</li><li>CODE11 : CODE 11</li><li>PHARMA : PHARMACODE</li><li>PHARMA2T : PHARMACODE TWO-TRACKS</li></ul>
- 	 * @public
+	 * @return void
+	 * @public
 	 */
 	public function __construct($code, $type) {
 		$this->setBarcode($code, $type);
@@ -170,6 +171,7 @@ class TCPDFBarcode {
  	 * @public
 	 */
 	public function getBarcodePNG($w=2, $h=30, $color=array(0,0,0)) {
+		/** @var string|false $data */
 		$data = $this->getBarcodePngData($w, $h, $color);
 		// send headers
 		header('Content-Type: image/png');
@@ -178,7 +180,11 @@ class TCPDFBarcode {
 		header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 		header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
 		//header('Content-Length: '.strlen($data));
-		echo $data;
+		if ($data === false) {
+			// nothing to output
+			return;
+		}
+		echo (string)$data;
 	}
 
 	/**
@@ -186,13 +192,14 @@ class TCPDFBarcode {
 	 * @param $w (int) Width of a single bar element in pixels.
 	 * @param $h (int) Height of a single bar element in pixels.
 	 * @param $color (array) RGB (0-255) foreground color for bar elements (background is transparent).
- 	 * @return image or false in case of error.
- 	 * @public
+	 * @return string|false PNG binary data on success, or false on error.
+	 * @public
 	 */
 	public function getBarcodePngData($w=2, $h=30, $color=array(0,0,0)) {
 		// calculate image size
 		$width = ($this->barcode_array['maxw'] * $w);
 		$height = $h;
+		$bar = null;
 		if (function_exists('imagecreate')) {
 			// GD library
 			$imagick = false;
@@ -202,12 +209,12 @@ class TCPDFBarcode {
 			$fgcol = imagecolorallocate($png, $color[0], $color[1], $color[2]);
 		} elseif (extension_loaded('imagick')) {
 			$imagick = true;
-			$bgcol = new imagickpixel('rgb(255,255,255');
-			$fgcol = new imagickpixel('rgb('.$color[0].','.$color[1].','.$color[2].')');
+			$bgcol = new ImagickPixel('rgb(255,255,255)');
+			$fgcol = new ImagickPixel('rgb('.$color[0].','.$color[1].','.$color[2].')');
 			$png = new Imagick();
 			$png->newImage($width, $height, 'none', 'png');
-			$bar = new imagickdraw();
-			$bar->setfillcolor($fgcol);
+			$bar = new ImagickDraw();
+			$bar->setFillColor($fgcol);
 		} else {
 			return false;
 		}
@@ -228,8 +235,11 @@ class TCPDFBarcode {
 			$x += $bw;
 		}
 		if ($imagick) {
-			$png->drawimage($bar);
-			return $png;
+			$png->drawImage($bar);
+			// ensure PNG format and return binary data blob
+			$png->setImageFormat('png');
+			$imagedata = $png->getImageBlob();
+			return $imagedata;
 		} else {
 			ob_start();
 			imagepng($png);
@@ -379,6 +389,7 @@ class TCPDFBarcode {
 			}
 		}
 		$this->barcode_array = $arrcode;
+		return $arrcode;
 	}
 
 	/**
@@ -464,7 +475,7 @@ class TCPDFBarcode {
 				} else {
 					$t = false; // space
 				}
-				$w = $chr[$char]{$j};
+				$w = $chr[$char][$j];
 				$bararray['bcode'][$k] = array('t' => $t, 'w' => $w, 'h' => 1, 'p' => 0);
 				$bararray['maxw'] += $w;
 				++$k;
@@ -531,7 +542,7 @@ class TCPDFBarcode {
 	/**
 	 * Calculate CODE 39 checksum (modulo 43).
 	 * @param $code (string) code to represent.
-	 * @return char checksum.
+	 * @return string checksum.
 	 * @protected
 	 */
 	protected function checksum_code39($code) {
@@ -667,7 +678,7 @@ class TCPDFBarcode {
 				} else {
 					$t = false; // space
 				}
-				$w = $chr[$char]{$j};
+				$w = $chr[$char][$j];
 				$bararray['bcode'][$k] = array('t' => $t, 'w' => $w, 'h' => 1, 'p' => 0);
 				$bararray['maxw'] += $w;
 				++$k;
@@ -929,7 +940,7 @@ class TCPDFBarcode {
 			$seq = '';
 			$chrlen = strlen($chr[$char_bar]);
 			for ($s = 0; $s < $chrlen; $s++){
-				$seq .= $chr[$char_bar]{$s} . $chr[$char_space]{$s};
+				$seq .= $chr[$char_bar][$s] . $chr[$char_space][$s];
 			}
 			$seqlen = strlen($seq);
 			for ($j = 0; $j < $seqlen; ++$j) {
@@ -1180,7 +1191,7 @@ class TCPDFBarcode {
 								}
 							}
 							for ($i = 0; $i < $seq[2]; ++$i) {
-								$char = $seq[1]{$i};
+								$char = $seq[1][$i];
 								$char_id = ord($char);
 								if (($char_id >= 241) AND ($char_id <= 244)) {
 									$code_data[] = $fnc_a[$char_id];
@@ -1223,7 +1234,7 @@ class TCPDFBarcode {
 								}
 							}
 							for ($i = 0; $i < $seq[2]; ++$i) {
-								$char = $seq[1]{$i};
+								$char = $seq[1][$i];
 								$char_id = ord($char);
 								if (($char_id >= 241) AND ($char_id <= 244)) {
 									$code_data[] = $fnc_b[$char_id];
@@ -1240,7 +1251,7 @@ class TCPDFBarcode {
 								$code_data[] = 99;
 							}
 							for ($i = 0; $i < $seq[2]; $i+=2) {
-								$chrnum = $seq[1]{$i}.$seq[1]{$i+1};
+								$chrnum = $seq[1][$i].$seq[1][$i+1];
 								$code_data[] = intval($chrnum);
 							}
 							break;

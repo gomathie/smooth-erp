@@ -476,7 +476,7 @@ class TCPDF_STATIC {
 
 	/**
 	 * Return the current TCPDF producer.
-	 * @return TCPDF producer string
+	 * @return string TCPDF producer string
 	 * @since 6.0.000 (2013-03-16)
 	 * @public static
 	 */
@@ -495,14 +495,14 @@ class TCPDF_STATIC {
 			$version = PHP_VERSION;
 			define('PHP_VERSION_ID', (($version[0] * 10000) + ($version[2] * 100) + $version[4]));
 		}
-		if (PHP_VERSION_ID < 50300) {
+		if (PHP_VERSION_ID < 50300 AND function_exists('set_magic_quotes_runtime')) {
 			@set_magic_quotes_runtime($mqr);
 		}
 	}
 
 	/**
 	 * Gets the current active configuration setting of magic_quotes_runtime (if the get_magic_quotes_runtime function exist)
-	 * @return Returns 0 if magic quotes runtime is off or get_magic_quotes_runtime doesn't exist, 1 otherwise.
+	 * @return int 0 if magic quotes runtime is off or get_magic_quotes_runtime doesn't exist, 1 otherwise.
 	 * @since 4.6.025 (2009-08-17)
 	 * @public static
 	 */
@@ -542,7 +542,7 @@ class TCPDF_STATIC {
 	 * @param $points (boolean) If true uses user units as unit of measure, otherwise uses PDF points.
 	 * @param $k (float) Scale factor (number of points in user unit).
 	 * @param $pagedim (array) Array of page dimensions.
-	 * @return pagedim array of page dimensions.
+	 * @return array page dimensions.
 	 * @since 5.0.010 (2010-05-17)
 	 * @public static
 	 */
@@ -568,7 +568,7 @@ class TCPDF_STATIC {
 	 * Swap X and Y coordinates of page boxes (change page boxes orientation).
 	 * @param $page (int) page number
 	 * @param $pagedim (array) Array of page dimensions.
-	 * @return pagedim array of page dimensions.
+	 * @return array page dimensions.
 	 * @since 5.0.010 (2010-05-17)
 	 * @public static
 	 */
@@ -672,7 +672,7 @@ class TCPDF_STATIC {
 	/**
 	 * Check if the URL exist.
 	 * @param $url (string) URL to check.
-	 * @return Boolean true if the URl exist, false otherwise.
+	 * @return bool true if the URL exist, false otherwise.
 	 * @since 5.9.204 (2013-01-28)
 	 * @public static
 	 */
@@ -712,7 +712,7 @@ class TCPDF_STATIC {
 	 * @param $brd (mixed) Indicates if borders must be drawn around the cell block. The value can be a number:<ul><li>0: no border (default)</li><li>1: frame</li></ul>or a string containing some or all of the following characters (in any order):<ul><li>L: left</li><li>T: top</li><li>R: right</li><li>B: bottom</li></ul> or an array of line styles for each border group: array('LTRB' => array('width' => 2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)))
 	 * @param $position (string) multicell position: 'start', 'middle', 'end'
 	 * @param $opencell (boolean) True when the cell is left open at the page bottom, false otherwise.
-	 * @return border mode array
+	 * @return array border mode
 	 * @since 4.4.002 (2008-12-09)
 	 * @public static
 	 */
@@ -818,7 +818,7 @@ class TCPDF_STATIC {
 	/**
 	* Escape some special characters (&lt; &gt; &amp;) for XML output.
 	* @param $str (string) Input string to convert.
-	* @return converted string
+	* @return string converted string
 	* @since 5.9.121 (2011-09-28)
 	 * @public static
 	 */
@@ -836,11 +836,7 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function objclone($object) {
-		if (($object instanceof Imagick) AND (version_compare(phpversion('imagick'), '3.0.1') !== 1)) {
-			// on the versions after 3.0.1 the clone() method was deprecated in favour of clone keyword
-			return @$object->clone();
-		}
-		return @clone($object);
+		return clone $object;
 	}
 
 	/**
@@ -863,7 +859,7 @@ class TCPDF_STATIC {
 	 * @param $page (string) Page content.
 	 * @param $replace (array) Array of replacements (array keys are replacement strings, values are alias arrays).
 	 * @param $diff (int) If passed, this will be set to the total char number difference between alias and replacements.
-	 * @return replaced page content and updated $diff parameter as array.
+	 * @return array replaced page content and updated $diff parameter.
 	 * @public static
 	 */
 	public static function replacePageNumAliases($page, $replace, $diff=0) {
@@ -1013,7 +1009,7 @@ class TCPDF_STATIC {
 	 * Reads up to length bytes from the file pointer referenced by handle. Reading stops as soon as one of the following conditions is met: length bytes have been read; EOF (end of file) is reached.
 	 * @param $handle (resource)
 	 * @param $length (int)
-	 * @return Returns the read string or FALSE in case of error.
+	 * @return string|false the read string or FALSE in case of error.
 	 * @author Nicola Asuni
 	 * @since 4.5.027 (2009-03-16)
 	 * @public static
@@ -1032,8 +1028,8 @@ class TCPDF_STATIC {
 
 	/**
 	 * Read a 4-byte (32 bit) integer from file.
-	 * @param $f (string) file name.
-	 * @return 4-byte integer
+	 * @param resource $f file handle.
+	 * @return int 4-byte integer
 	 * @public static
 	 */
 	public static function _freadint($f) {
@@ -1090,10 +1086,9 @@ class TCPDF_STATIC {
 		// padding (RFC 2898, PKCS #5: Password-Based Cryptography Specification Version 2.0)
 		$padding = 16 - (strlen($text) % 16);
 		$text .= str_repeat(chr($padding), $padding);
-		$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC), MCRYPT_RAND);
-		$text = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $text, MCRYPT_MODE_CBC, $iv);
-		$text = $iv.$text;
-		return $text;
+		$iv = openssl_random_pseudo_bytes(16);
+		$text = openssl_encrypt($text, 'AES-128-CBC', substr($key, 0, 16), OPENSSL_RAW_DATA | OPENSSL_ZERO_PADDING, $iv);
+		return $iv.(string)$text;
 	}
 
 	/**
@@ -1103,16 +1098,12 @@ class TCPDF_STATIC {
 	 * @param $text (String) Input text to be encrypted.
 	 * @param $last_enc_key (String) Reference to last RC4 key encrypted.
 	 * @param $last_enc_key_c (String) Reference to last RC4 computed key.
-	 * @return String encrypted text
+	 * @return string encrypted text
 	 * @since 2.0.000 (2008-01-02)
 	 * @author Klemen Vodopivec, Nicola Asuni
 	 * @public static
 	 */
 	public static function _RC4($key, $text, &$last_enc_key, &$last_enc_key_c) {
-		if (function_exists('mcrypt_encrypt') AND ($out = @mcrypt_encrypt(MCRYPT_ARCFOUR, $key, $text, MCRYPT_MODE_STREAM, ''))) {
-			// try to use mcrypt function if exist
-			return $out;
-		}
 		if ($last_enc_key != $key) {
 			$k = str_repeat($key, ((256 / strlen($key)) + 1));
 			$rc4 = range(0, 255);
@@ -1206,7 +1197,7 @@ class TCPDF_STATIC {
 	/**
 	 * Convert string to hexadecimal string (byte string)
 	 * @param $s (string) string to convert
-	 * @return byte string
+	 * @return string hex byte string
 	 * @since 5.0.010 (2010-05-17)
 	 * @author Nicola Asuni
 	 * @public static
@@ -1654,7 +1645,7 @@ class TCPDF_STATIC {
 	/**
 	 * Extracts the CSS properties from a CSS string.
 	 * @param $cssdata (string) string containing CSS definitions.
-	 * @return An array where the keys are the CSS selectors and the values are the CSS properties.
+	 * @return array where the keys are the CSS selectors and the values are the CSS properties.
 	 * @author Nicola Asuni
 	 * @since 5.1.000 (2010-05-25)
 	 * @public static
@@ -2119,7 +2110,7 @@ class TCPDF_STATIC {
 	 * @param $haystack (string) The string to search in.
 	 * @param $needle (string) substring to search.
 	 * @param $offset (int) May be specified to begin searching an arbitrary number of characters into the string.
-	 * @return Returns the position where the needle exists. Returns FALSE if the needle was not found.
+	 * @return int|false the position where the needle exists, or FALSE if not found.
 	 * @since 4.8.038 (2010-03-13)
 	 * @public static
 	 */
@@ -2258,7 +2249,7 @@ class TCPDF_STATIC {
 	 * Get the product of two SVG tranformation matrices
 	 * @param $ta (array) first SVG tranformation matrix
 	 * @param $tb (array) second SVG tranformation matrix
-	 * @return transformation array
+	 * @return array transformation matrix
 	 * @author Nicola Asuni
 	 * @since 5.0.000 (2010-05-02)
 	 * @public static
@@ -2401,7 +2392,7 @@ class TCPDF_STATIC {
 	 * @param $subject (string) The input string.
 	 * @param $limit (int) If specified, then only substrings up to limit are returned with the rest of the string being placed in the last substring. A limit of -1, 0 or NULL means "no limit" and, as is standard across PHP, you can use NULL to skip to the flags parameter.
 	 * @param $flags (int) The flags as specified on the preg_split PHP function.
-	 * @return Returns an array containing substrings of subject split along boundaries matched by pattern.modifier
+	 * @return array substrings of subject split along boundaries matched by pattern.modifier
 	 * @author Nicola Asuni
 	 * @since 6.0.023
 	 * @public static
@@ -2426,9 +2417,9 @@ class TCPDF_STATIC {
 
 	/**
 	 * Wrapper to use fopen only with local files
-	 * @param filename (string) Name of the file to open
-	 * @param $mode (string) 
-	 * @return Returns a file pointer resource on success, or FALSE on error.  
+	 * @param string $filename Name of the file to open
+	 * @param string $mode
+	 * @return resource|false file pointer resource on success, or FALSE on error.
 	 * @public static
 	 */
 	public static function fopenLocal($filename, $mode) {
@@ -2444,7 +2435,7 @@ class TCPDF_STATIC {
 	 * Reads entire file into a string.
 	 * The file can be also an URL.
 	 * @param $file (string) Name of the file or URL to read.
-	 * @return The function returns the read data or FALSE on failure. 
+	 * @return string|false the read data or FALSE on failure.
 	 * @author Nicola Asuni
 	 * @since 6.0.025
 	 * @public static
@@ -2491,6 +2482,7 @@ class TCPDF_STATIC {
 			$urldata = @parse_url($_SERVER['SCRIPT_URI']);
 			$alt[] = $urldata['scheme'].'://'.$urldata['host'].(($file[0] == '/') ? '' : '/').$file;
 		}
+		$ret = false;
 		foreach ($alt as $f) {
 			$ret = @file_get_contents($f);
 			if (($ret === FALSE)

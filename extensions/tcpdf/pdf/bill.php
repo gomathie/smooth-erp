@@ -13,6 +13,8 @@ require_once "../../../models/users.model.php";
 require_once "../../../controllers/products.controller.php";
 require_once "../../../models/products.model.php";
 
+require_once('tcpdf_include.php');
+
 class printBill{
 
 public $code;
@@ -26,31 +28,29 @@ $valueSale = $this->code;
 
 $answerSale = ControllerSales::ctrShowSales($itemSale, $valueSale);
 
-$saledate = substr($answerSale["saledate"],0,-8);
-$products = json_decode($answerSale["products"], true);
-$netPrice = number_format($answerSale["netPrice"],2);
-$tax = number_format($answerSale["tax"],2);
-$totalPrice = number_format($answerSale["totalPrice"],2);
-// Recompute total from raw values to ensure accuracy
-$computedTotal = number_format(floatval($answerSale["netPrice"]) + floatval($answerSale["tax"]), 2);
+if (!is_array($answerSale)) {
+    die('Sale not found.');
+}
+
+$saledate   = substr((string)$answerSale["saledate"], 0, -8);
+$products   = json_decode((string)$answerSale["products"], true) ?? [];
+$netPrice   = number_format((float)$answerSale["netPrice"], 2);
+$tax        = number_format((float)$answerSale["tax"], 2);
+$totalPrice = number_format((float)$answerSale["totalPrice"], 2);
 
 // FETCH CUSTOMER INFORMATION
 
 $itemCustomer = "id";
-$valueCustomer = $answerSale["idCustomer"];
+$valueCustomer = (int)$answerSale["idCustomer"];
 
 $answerCustomer = ControllerCustomers::ctrShowCustomers($itemCustomer, $valueCustomer);
 
 // FETCH SELLER INFORMATION
 
 $itemSeller = "id";
-$valueSeller = $answerSale["idSeller"];
+$valueSeller = (int)$answerSale["idSeller"];
 
 $answerSeller = ControllerUsers::ctrShowUsers($itemSeller, $valueSeller);
-
-// REQUIRE TCPDF
-
-require_once('tcpdf_include.php');
 
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $pdf->setPrintHeader(false);
@@ -110,7 +110,7 @@ $productsTable .= '<tr style="background-color:#eeeeee">'
 	. '<td width="15%" align="right"><strong>Total</strong></td>'
 	. '</tr>';
 
-foreach ($products as $key => $item) {
+foreach ($products as $item) {
 	$desc = htmlspecialchars($item["description"]);
 	$qty = (int)$item["quantity"];
 	$unit = number_format($item["price"], 2);
@@ -150,7 +150,7 @@ $totals = <<<EOF
 <tr>
 	<td></td>
 	<td align="right">TOTAL:</td>
-	<td align="right">$ $computedTotal</td>
+	<td align="right">$ $totalPrice</td>
 </tr>
 </table>
 EOF;

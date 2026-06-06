@@ -51,6 +51,7 @@ class TCPDF2DBarcode {
 
 	/**
 	 * Array representation of barcode.
+	 * @var array|false
 	 * @protected
 	 */
 	protected $barcode_array = false;

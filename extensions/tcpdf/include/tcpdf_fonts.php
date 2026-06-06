@@ -1389,7 +1389,7 @@ class TCPDF_FONTS {
 	 * Outputs font widths
 	 * @param $font (array) font data
 	 * @param $cidoffset (int) offset for CID values
-	 * @return PDF command string for font widths
+	 * @return string PDF command string for font widths
 	 * @author Nicola Asuni
 	 * @since 4.4.000 (2008-12-07)
 	 * @public static
@@ -1494,7 +1494,7 @@ class TCPDF_FONTS {
 	 * Returns the unicode caracter specified by the value
 	 * @param $c (int) UTF-8 value
 	 * @param $unicode (boolean) True if we are in unicode mode, false otherwise.
-	 * @return Returns the specified character.
+	 * @return string the specified character.
 	 * @since 2.3.000 (2008-03-05)
 	 * @public static
 	 */
@@ -1522,7 +1522,7 @@ class TCPDF_FONTS {
 	/**
 	 * Returns the unicode caracter specified by UTF-8 value
 	 * @param $c (int) UTF-8 value
-	 * @return Returns the specified character.
+	 * @return string the specified character.
 	 * @public static
 	 */
 	public static function unichrUnicode($c) {
@@ -1532,7 +1532,7 @@ class TCPDF_FONTS {
 	/**
 	 * Returns the unicode caracter specified by ASCII value
 	 * @param $c (int) UTF-8 value
-	 * @return Returns the specified character.
+	 * @return string the specified character.
 	 * @public static
 	 */
 	public static function unichrASCII($c) {
@@ -1607,7 +1607,7 @@ class TCPDF_FONTS {
 	 * Convert an array of UTF8 values to array of unicode characters
 	 * @param $ta (array) The input array of UTF8 values.
 	 * @param $isunicode (boolean) True for Unicode mode, false otherwise.
-	 * @return Return array of unicode characters
+	 * @return array unicode characters
 	 * @since 4.5.037 (2009-04-07)
 	 * @public static
 	 */
@@ -1620,11 +1620,11 @@ class TCPDF_FONTS {
 
 	/**
 	 * Extract a slice of the $strarr array and return it as string.
-	 * @param $strarr (string) The input array of characters.
+	 * @param $strarr (array) The input array of characters.
 	 * @param $start (int) the starting element of $strarr.
 	 * @param $end (int) first element that will not be returned.
 	 * @param $unicode (boolean) True if we are in unicode mode, false otherwise.
-	 * @return Return part of a string
+	 * @return string part of a string
 	 * @public static
 	 */
 	public static function UTF8ArrSubString($strarr, $start='', $end='', $unicode=true) {
@@ -1643,10 +1643,10 @@ class TCPDF_FONTS {
 
 	/**
 	 * Extract a slice of the $uniarr array and return it as string.
-	 * @param $uniarr (string) The input array of characters.
+	 * @param $uniarr (array) The input array of characters.
 	 * @param $start (int) the starting element of $strarr.
 	 * @param $end (int) first element that will not be returned.
-	 * @return Return part of a string
+	 * @return string part of a string
 	 * @since 4.5.037 (2009-04-07)
 	 * @public static
 	 */
@@ -1748,9 +1748,9 @@ class TCPDF_FONTS {
 	}
 
 	/**
-	 * Converts UTF-8 characters array to array of Latin1 string<br>
+	 * Converts UTF-8 characters array to Latin1 string<br>
 	 * @param $unicode (array) array containing UTF-8 unicode values
-	 * @return array
+	 * @return string
 	 * @author Nicola Asuni
 	 * @since 4.8.023 (2010-01-15)
 	 * @public static

@@ -1,4 +1,4 @@
-﻿<div id="back"></div>
+<div id="back"></div>
 <!--  -->
 <div class="login-box">
 

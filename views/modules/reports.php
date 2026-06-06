@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 if($_SESSION["profile"] == "Special" || $_SESSION["profile"] == "Seller"){
 

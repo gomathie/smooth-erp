@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once "../controllers/products.controller.php";
 require_once "../models/products.model.php";

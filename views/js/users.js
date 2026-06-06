@@ -81,11 +81,9 @@ $(document).on("click", ".btnEditUser", function(){
 
  			$("#EditUser").val(answer["user"]);
 
- 			$("#EditProfile").html(answer["profile"]);
+				$("#EditEmail").val(answer["email"] || '');
 
- 			$("#EditProfile").val(answer["profile"]);
-
- 			$("#currentPasswd").val(answer["password"]);
+				$("#EditPhone").val(answer["phone"] || '');
 
  			$("#currentPicture").val(answer["photo"]);
  			

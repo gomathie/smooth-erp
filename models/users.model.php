@@ -38,7 +38,7 @@ class UsersModel{
 	static public function mdlAddUser($table, $data){
 
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO `users`(name, user, password, profile, photo) VALUES (:name, :user, :password, :profile, :photo)"
+			"INSERT INTO `users`(name, user, password, profile, photo, email, phone) VALUES (:name, :user, :password, :profile, :photo, :email, :phone)"
 		);
 
 		$stmt->bindParam(":name",     $data["name"],     PDO::PARAM_STR);
@@ -46,6 +46,8 @@ class UsersModel{
 		$stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
 		$stmt->bindParam(":profile",  $data["profile"],  PDO::PARAM_STR);
 		$stmt->bindParam(":photo",    $data["photo"],    PDO::PARAM_STR);
+		$stmt->bindParam(":email",    $data["email"],    PDO::PARAM_STR);
+		$stmt->bindParam(":phone",    $data["phone"],    PDO::PARAM_STR);
 
 		return $stmt->execute() ? 'ok' : 'error';
 	}
@@ -58,7 +60,7 @@ class UsersModel{
 	static public function mdlEditUser($table, $data){
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE `users` SET name = :name, password = :password, profile = :profile, photo = :photo WHERE user = :user"
+			"UPDATE `users` SET name = :name, password = :password, profile = :profile, photo = :photo, email = :email, phone = :phone WHERE user = :user"
 		);
 
 		$stmt->bindParam(":name",     $data["name"],     PDO::PARAM_STR);
@@ -66,6 +68,8 @@ class UsersModel{
 		$stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
 		$stmt->bindParam(":profile",  $data["profile"],  PDO::PARAM_STR);
 		$stmt->bindParam(":photo",    $data["photo"],    PDO::PARAM_STR);
+		$stmt->bindParam(":email",    $data["email"],    PDO::PARAM_STR);
+		$stmt->bindParam(":phone",    $data["phone"],    PDO::PARAM_STR);
 
 		return $stmt->execute() ? 'ok' : 'error';
 	}

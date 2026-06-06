@@ -573,16 +573,16 @@ class ControllerSales{
 			echo utf8_decode("<table border='0'> 
 
 					<tr> 
-					<td style='font-weight:bold; border:1px solid #eee;'>CÓDIGO</td> 
-					<td style='font-weight:bold; border:1px solid #eee;'>customer</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Code</td> 
+					<td style='font-weight:bold; border:1px solid #eee;'>Customer</td>
 					<td style='font-weight:bold; border:1px solid #eee;'>Seller</td>
-					<td style='font-weight:bold; border:1px solid #eee;'>quantity</td>
-					<td style='font-weight:bold; border:1px solid #eee;'>products</td>
-					<td style='font-weight:bold; border:1px solid #eee;'>tax</td>
-					<td style='font-weight:bold; border:1px solid #eee;'>netPrice</td>		
-					<td style='font-weight:bold; border:1px solid #eee;'>TOTAL</td>		
-					<td style='font-weight:bold; border:1px solid #eee;'>METODO DE PAGO</td	
-					<td style='font-weight:bold; border:1px solid #eee;'>FECHA</td>		
+					<td style='font-weight:bold; border:1px solid #eee;'>Quantity</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Products</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Tax</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Net Price</td>		
+					<td style='font-weight:bold; border:1px solid #eee;'>Total</td>		
+					<td style='font-weight:bold; border:1px solid #eee;'>Payment Method</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Date</td>		
 					</tr>");
 
 			foreach ($sales as $row => $item){

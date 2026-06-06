@@ -144,9 +144,10 @@ class ModelSales{
 
 		}else if($initialDate == $finalDate){
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate like '%$finalDate%'");
+			$searchDate = '%' . $finalDate . '%';
+			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate LIKE :saledate");
 
-			$stmt -> bindParam(":saledate", $finalDate, PDO::PARAM_STR);
+			$stmt -> bindParam(":saledate", $searchDate, PDO::PARAM_STR);
 
 			$stmt -> execute();
 

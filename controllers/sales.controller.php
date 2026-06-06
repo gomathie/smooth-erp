@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;

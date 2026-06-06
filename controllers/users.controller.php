@@ -84,9 +84,14 @@ class ControllerUsers{
 
 			csrf_verify();
 
+			$newEmail = trim($_POST["newEmail"] ?? '');
+			$newPhone = trim($_POST["newPhone"] ?? '');
+
 			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["newName"]) &&
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["newUser"]) &&
-				strlen($_POST["newPasswd"]) > 0) {
+				strlen($_POST["newPasswd"]) > 0 &&
+				(empty($newEmail) || filter_var($newEmail, FILTER_VALIDATE_EMAIL)) &&
+				(empty($newPhone) || preg_match('/^[0-9()+\- ]+$/', $newPhone))) {
 
 				$photo = "";
 
@@ -135,6 +140,8 @@ class ControllerUsers{
 					'password' => $encryptpass,
 					'profile'  => $_POST["newProfile"],
 					'photo'    => $photo,
+					'email'    => $newEmail,
+					'phone'    => $newPhone,
 				);
 
 				$answer = UsersModel::mdlAddUser($table, $data);
@@ -192,7 +199,12 @@ class ControllerUsers{
 
 			csrf_verify();
 
-			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["EditName"])) {
+			$editEmail = trim($_POST["EditEmail"] ?? '');
+			$editPhone = trim($_POST["EditPhone"] ?? '');
+
+			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["EditName"]) &&
+				(empty($editEmail) || filter_var($editEmail, FILTER_VALIDATE_EMAIL)) &&
+				(empty($editPhone) || preg_match('/^[0-9()+\- ]+$/', $editPhone))) {
 
 				$photo = $_POST["currentPicture"];
 
@@ -254,6 +266,8 @@ class ControllerUsers{
 					'password' => $encryptpass,
 					'profile'  => $_POST["EditProfile"],
 					'photo'    => $photo,
+					'email'    => $editEmail,
+					'phone'    => $editPhone,
 				);
 
 				$answer = UsersModel::mdlEditUser($table, $data);

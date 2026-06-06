@@ -44,6 +44,8 @@
              <th style="width:10px">#</th>
              <th>Name</th>
              <th>Username</th>
+             <th>Email</th>
+             <th>Phone</th>
              <th>Photo</th>
              <th>Profile</th>
              <th>Status</th>
@@ -72,7 +74,9 @@
                   <tr>
                     <td>'.($key+1).'</td>
                     <td>'.$value["name"].'</td>
-                    <td>'.$value["user"].'</td>';
+                    <td>'.$value["user"].'</td>
+                    <td>'.(!empty($value["email"]) ? $value["email"] : '').'</td>
+                    <td>'.(!empty($value["phone"]) ? $value["phone"] : '').'</td>';
 
                     if ($value["photo"] != ""){
 
@@ -183,6 +187,32 @@
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
                 <input class="form-control input-lg" type="text" id="newUser" name="newUser" placeholder="Enter username" required>
+
+              </div>
+
+            </div>
+
+            <!-- input email -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+
+                <input class="form-control input-lg" type="email" name="newEmail" placeholder="Email (optional)">
+
+              </div>
+
+            </div>
+
+            <!-- input phone -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+
+                <input class="form-control input-lg" type="text" name="newPhone" placeholder="Phone (optional)">
 
               </div>
 
@@ -321,6 +351,32 @@
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
                 <input class="form-control input-lg" type="text" id="EditUser" name="EditUser" placeholder="Edit username" readonly>
+
+              </div>
+
+            </div>
+
+            <!-- input email -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+
+                <input class="form-control input-lg" type="email" id="EditEmail" name="EditEmail" placeholder="Email (optional)">
+
+              </div>
+
+            </div>
+
+            <!-- input phone -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+
+                <input class="form-control input-lg" type="text" id="EditPhone" name="EditPhone" placeholder="Phone (optional)">
 
               </div>
 

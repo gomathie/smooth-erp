@@ -166,6 +166,8 @@ CREATE TABLE `users` (
   `password` text COLLATE utf8_spanish_ci NOT NULL,
   `profile` text COLLATE utf8_spanish_ci NOT NULL,
   `photo` text COLLATE utf8_spanish_ci NOT NULL,
+  `email` text COLLATE utf8_spanish_ci NOT NULL,
+  `phone` text COLLATE utf8_spanish_ci NOT NULL,
   `status` int(1) NOT NULL,
   `lastLogin` datetime NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -175,10 +177,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `user`, `password`, `profile`, `photo`, `status`, `lastLogin`, `date`) VALUES
-(1, 'Administrator', 'admin', '$2a$07$asxx54ahjppf45sd87a5auJvme8CFSgJ.CVouof6guZgq6uhIs55K', 'Administrator', 'views/img/users/admin/admin-icn.png', 1, '2022-12-12 22:42:22', '2022-12-13 03:42:22'),
-(2, 'Jonathan Barbour', 'seller', '$2a$07$asxx54ahjppf45sd87a5au8uJqn2VoaOMw86zRUoDH6inuYomGLDq', 'Seller', 'views/img/users/jonathan/239.jpg', 1, '2022-12-10 12:39:15', '2022-12-10 17:39:15'),
-(3, 'Carmen McLeod', 'carmen', '$2a$07$asxx54ahjppf45sd87a5au8uJqn2VoaOMw86zRUoDH6inuYomGLDq', 'Special', 'views/img/users/carmen/215.jpg', 1, '2022-12-10 12:17:55', '2022-12-10 17:17:55');
+INSERT INTO `users` (`id`, `name`, `user`, `password`, `profile`, `photo`, `email`, `phone`, `status`, `lastLogin`, `date`) VALUES
+(1, 'Administrator', 'admin', '$2a$07$asxx54ahjppf45sd87a5auJvme8CFSgJ.CVouof6guZgq6uhIs55K', 'Administrator', 'views/img/users/admin/admin-icn.png', '', '', 1, '2022-12-12 22:42:22', '2022-12-13 03:42:22'),
+(2, 'Jonathan Barbour', 'seller', '$2a$07$asxx54ahjppf45sd87a5au8uJqn2VoaOMw86zRUoDH6inuYomGLDq', 'Seller', 'views/img/users/jonathan/239.jpg', '', '', 1, '2022-12-10 12:39:15', '2022-12-10 17:39:15'),
+(3, 'Carmen McLeod', 'carmen', '$2a$07$asxx54ahjppf45sd87a5au8uJqn2VoaOMw86zRUoDH6inuYomGLDq', 'Special', 'views/img/users/carmen/215.jpg', '', '', 1, '2022-12-10 12:17:55', '2022-12-10 17:17:55');
 
 --
 -- Indexes for dumped tables

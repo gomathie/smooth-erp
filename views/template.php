@@ -1,8 +1,13 @@
 <?php
+  ini_set('session.use_strict_mode', '1');
+  $secureSessionCookie = (
+      (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+      || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
+  );
   session_set_cookie_params([
       'lifetime' => 0,
       'path'     => '/',
-      'secure'   => false,
+      'secure'   => $secureSessionCookie,
       'httponly' => true,
       'samesite' => 'Strict',
   ]);
@@ -237,6 +242,18 @@
 <script src="views/js/payments.js"></script>
 <script src="views/js/accounting.js"></script>
 <script src="views/js/reports.js"></script>
+<script>
+$(function () {
+  var csrf = $('meta[name="csrf-token"]').attr('content') || '';
+  if (!csrf) { return; }
+  $(document).on('submit', 'form[method="post"], form[method="POST"]', function () {
+    var form = $(this);
+    if (form.find('input[name="_csrf"]').length === 0) {
+      $('<input>', { type: 'hidden', name: '_csrf', value: csrf }).appendTo(form);
+    }
+  });
+});
+</script>
 
 </body>
 </html>

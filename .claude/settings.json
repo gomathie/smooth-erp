@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/c/xampp/php/php.exe /c/xampp/htdocs/POS-PHP/_quote_test.php)",
+      "Bash(/c/xampp/mysql/bin/mysql.exe -u root posystem -e \"SELECT id, quoteNumber, idCustomer, totalPrice, status, createdBy, quoteDate FROM quotations;\")",
+      "Bash(/c/xampp/mysql/bin/mysqldump.exe -u root --add-drop-table --default-character-set=utf8 posystem)",
+      "Bash(rm -f dumperr.txt)",
+      "Bash(grep \"CREATE TABLE \\\\`quotations\\\\`\" posystem.sql)",
+      "Bash(cat)",
+      "Bash(rm -f /tmp/inv_discount.sql)",
+      "Bash(/c/xampp/mysql/bin/mysql.exe -u root posystem -e \"SHOW COLUMNS FROM invoices LIKE 'discount%';\")",
+      "Bash(/c/xampp/php/php.exe /c/xampp/htdocs/POS-PHP/_inv2_test.php)"
+    ]
+  }
+}

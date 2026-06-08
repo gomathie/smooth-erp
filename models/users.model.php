@@ -15,7 +15,7 @@ class UsersModel{
 		if ($item != null) {
 
 			// Whitelist allowed column names to prevent SQL injection
-			if (!in_array($item, ['id', 'user'], true)) return false;
+			if (!in_array($item, ['id', 'user', 'email', 'resetToken'], true)) return false;
 
 			$stmt = Connection::connect()->prepare("SELECT * FROM `users` WHERE `$item` = :val");
 			$stmt->bindParam(':val', $value, PDO::PARAM_STR);
@@ -82,7 +82,7 @@ class UsersModel{
 	static public function mdlUpdateUser($table, $item1, $value1, $item2, $value2){
 
 		// Whitelist columns to prevent SQL injection via dynamic column names
-		$allowed = ['id', 'user', 'status', 'lastLogin', 'password'];
+		$allowed = ['id', 'user', 'status', 'lastLogin', 'password', 'resetToken', 'resetTokenExpires'];
 
 		if (!in_array($item1, $allowed, true) || !in_array($item2, $allowed, true)) {
 			return 'error';
@@ -94,6 +94,42 @@ class UsersModel{
 
 		$stmt->bindParam(':v1', $value1, PDO::PARAM_STR);
 		$stmt->bindParam(':v2', $value2, PDO::PARAM_STR);
+
+		return $stmt->execute() ? 'ok' : 'error';
+	}
+
+	/*=============================================
+	SET PASSWORD RESET TOKEN
+	=============================================*/
+
+	static public function mdlSetPasswordReset($userId, $tokenHash, $expiresAt){
+
+		$stmt = Connection::connect()->prepare(
+			"UPDATE `users` SET resetToken = :token, resetTokenExpires = :expires WHERE id = :id"
+		);
+
+		$stmt->bindParam(':token', $tokenHash, PDO::PARAM_STR);
+		$stmt->bindParam(':expires', $expiresAt, PDO::PARAM_STR);
+		$stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+
+		return $stmt->execute() ? 'ok' : 'error';
+	}
+
+	/*=============================================
+	CLEAR PASSWORD RESET TOKEN
+	=============================================*/
+
+	static public function mdlClearPasswordReset($userId){
+
+		$empty = null;
+
+		$stmt = Connection::connect()->prepare(
+			"UPDATE `users` SET resetToken = :token, resetTokenExpires = :expires WHERE id = :id"
+		);
+
+		$stmt->bindParam(':token', $empty, PDO::PARAM_NULL);
+		$stmt->bindParam(':expires', $empty, PDO::PARAM_NULL);
+		$stmt->bindParam(':id', $userId, PDO::PARAM_INT);
 
 		return $stmt->execute() ? 'ok' : 'error';
 	}

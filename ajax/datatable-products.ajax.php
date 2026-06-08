@@ -36,6 +36,7 @@ We bring the category
 $item = "id";
 $value = $products[$i]["idCategory"];
 $categories = ControllerCategories::ctrShowCategories($item, $value);
+$categoryName = ($categories && isset($categories["Category"])) ? $categories["Category"] : "Uncategorized";
 
 /*=============================================
 Stock
@@ -63,7 +64,7 @@ $data[] = [
 $image,
 $products[$i]["code"],
 $products[$i]["description"],
-$categories["Category"],
+$categoryName,
 $stock,
 "$ " . $products[$i]["buyingPrice"],
 "$ " . $products[$i]["sellingPrice"],

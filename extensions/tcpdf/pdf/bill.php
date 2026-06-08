@@ -65,7 +65,7 @@ $pdf->SetMargins(2, 1, 2);
 $pdf->SetFont('helvetica', '', 8);
 
 // Company / header block
-$company = 'Smooth POS System';
+$company = 'Smooth ERP';
 $address = '86 Bel Meadow Drive';
 $contact = '300 786 52 49';
 

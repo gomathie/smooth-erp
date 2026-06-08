@@ -222,6 +222,8 @@ $(".productsTable tbody").on("click", "button.btnEditProduct", function(){
 
          $("#editCode").val(answer["code"]);
 
+         $("#editProductType").val(answer["type"] ? answer["type"] : "good");
+
          $("#editDescription").val(answer["description"]);
 
          $("#editStock").val(answer["stock"]);

@@ -282,7 +282,8 @@
                             
                               <option value="">-Select Payment Method-</option>
                               <option value="cash">Cash</option>
-                              <option value="CC">Credit Card</option>
+                              <option value="MM">Mobile Money</option>
+                              <option value="BT">Bank Transfer</option>
                               <option value="DC">Debit Card</option>
 
                           </select>

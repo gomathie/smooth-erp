@@ -121,7 +121,33 @@
 
 						</a>
 
-					</li> </ul>';
+					</li>
+
+					<li>
+
+						<a href="quotations">
+
+							<i class="fa fa-circle"></i>
+
+							<span>Quotations</span>
+
+						</a>
+
+					</li>
+
+					<li>
+
+						<a href="invoices">
+
+							<i class="fa fa-circle"></i>
+
+							<span>Invoices</span>
+
+						</a>
+
+					</li>
+
+					</ul>';
 
 				}
 
@@ -137,16 +163,44 @@
 
 						</a>
 
-					</li>
-					
-					
-					<li>
+					</li>';
+
+					if (ControllerSettings::ctrAccountingEnabled()) {
+
+						echo '<li class="treeview">
+
+							<a href="#"><i class="fa fa-balance-scale"></i> <span>Accounting</span>
+								<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+
+							<ul class="treeview-menu">
+								<li><a href="accounting"><i class="fa fa-circle"></i> <span>Overview</span></a></li>
+								<li><a href="expenses"><i class="fa fa-circle"></i> <span>Expenses</span></a></li>
+								<li><a href="chart-of-accounts"><i class="fa fa-circle"></i> <span>Chart of Accounts</span></a></li>
+							</ul>
+
+						</li>';
+
+					}
+
+					echo '<li>
 
 						<a href="users">
 
 							<i class="fa fa-user"></i>
 
 							<span>User Management</span>
+
+						</a>
+
+					</li>
+
+					<li>
+
+						<a href="settings">
+
+							<i class="fa fa-cog"></i>
+
+							<span>Settings</span>
 
 						</a>
 

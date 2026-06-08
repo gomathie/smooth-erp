@@ -144,6 +144,22 @@ if($_SESSION["profile"] == "Seller"){
 
             </div>
 
+            <!-- input type (Goods vs Service) -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+
+                <select class="form-control input-lg" id="newProductType" name="newProductType">
+                  <option value="good">Goods (stock-tracked)</option>
+                  <option value="service">Service (no stock)</option>
+                </select>
+
+              </div>
+
+            </div>
+
             <!--Input Code -->
             <div class="form-group">
 
@@ -334,7 +350,7 @@ EDIT PRODUCT
                 <span class="input-group-addon"><i class="fa fa-th"></i></span> 
 
                 <select class="form-control input-lg" name="editCategory" readonly required>
-                  
+
                   <option id="editCategory"></option>
 
                 </select>
@@ -343,7 +359,23 @@ EDIT PRODUCT
 
             </div>
 
-            <!-- INPUT FOR THE CODE -->          
+            <!-- type (Goods vs Service) -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+
+                <select class="form-control input-lg" id="editProductType" name="editProductType">
+                  <option value="good">Goods (stock-tracked)</option>
+                  <option value="service">Service (no stock)</option>
+                </select>
+
+              </div>
+
+            </div>
+
+            <!-- INPUT FOR THE CODE -->
             <div class="form-group">
               
               <div class="input-group">

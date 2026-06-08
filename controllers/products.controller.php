@@ -5,7 +5,7 @@ class controllerProducts{
 	/*=============================================
 	SHOW PRODUCTS
 	=============================================*/
-	
+
 	static public function ctrShowProducts($item, $value, $order){
 
 		$table = "products";
@@ -27,17 +27,18 @@ class controllerProducts{
 			csrf_verify();
 
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["newDescription"]) &&
-			   preg_match('/^[0-9]+$/', $_POST["newStock"]) &&	
+			   preg_match('/^[0-9]+$/', $_POST["newStock"]) &&
 			   preg_match('/^[0-9.]+$/', $_POST["newBuyingPrice"]) &&
 			   preg_match('/^[0-9.]+$/', $_POST["newSellingPrice"])){
 
-		   		/*=============================================
+				/*=============================================
 				VALIDATE IMAGE
 				=============================================*/
 
-			   	$route = "views/img/products/default/anonymous.png";
+				$route = "views/img/products/default/anonymous.png";
 
-			   	if(isset($_FILES["newProdPhoto"]["tmp_name"])){
+				if(isset($_FILES["newProdPhoto"])
+					&& $_FILES["newProdPhoto"]["error"] === UPLOAD_ERR_OK){
 
 					list($width, $height) = getimagesize($_FILES["newProdPhoto"]["tmp_name"]);
 
@@ -66,7 +67,7 @@ class controllerProducts{
 
 						$route = "views/img/products/".$_POST["newCode"]."/".$random.".jpg";
 
-						$origin = imagecreatefromjpeg($_FILES["newProdPhoto"]["tmp_name"]);						
+						$origin = imagecreatefromjpeg($_FILES["newProdPhoto"]["tmp_name"]);
 
 						$destiny = imagecreatetruecolor($newWidth, $newHeight);
 
@@ -86,7 +87,7 @@ class controllerProducts{
 
 						$route = "views/img/products/".$_POST["newCode"]."/".$random.".png";
 
-						$origin = imagecreatefrompng($_FILES["newProdPhoto"]["tmp_name"]);						
+						$origin = imagecreatefrompng($_FILES["newProdPhoto"]["tmp_name"]);
 
 						$destiny = imagecreatetruecolor($newWidth, $newHeight);
 
@@ -101,6 +102,7 @@ class controllerProducts{
 				$table = "products";
 
 				$data = array("idCategory" => $_POST["newCategory"],
+							   "type" => (($_POST["newProductType"] ?? "good") === "service") ? "service" : "good",
 							   "code" => $_POST["newCode"],
 							   "description" => $_POST["newDescription"],
 							   "stock" => $_POST["newStock"],
@@ -149,7 +151,7 @@ class controllerProducts{
 							}
 						})
 
-			  	</script>';
+				</script>';
 			}
 
 		}
@@ -167,17 +169,17 @@ class controllerProducts{
 			csrf_verify();
 
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editDescription"]) &&
-			   preg_match('/^[0-9]+$/', $_POST["editStock"]) &&	
+			   preg_match('/^[0-9]+$/', $_POST["editStock"]) &&
 			   preg_match('/^[0-9.]+$/', $_POST["editBuyingPrice"]) &&
 			   preg_match('/^[0-9.]+$/', $_POST["editSellingPrice"])){
 
-		   		/*=============================================
+				/*=============================================
 				VALIDATE IMAGE
 				=============================================*/
 
-			   	$route = $_POST["currentImage"];
+				$route = $_POST["currentImage"];
 
-			   	if(isset($_FILES["editImage"]["tmp_name"]) && !empty($_FILES["editImage"]["tmp_name"])){
+				if(isset($_FILES["editImage"]["tmp_name"]) && !empty($_FILES["editImage"]["tmp_name"])){
 
 					list($width, $height) = getimagesize($_FILES["editImage"]["tmp_name"]);
 
@@ -200,10 +202,10 @@ class controllerProducts{
 
 					}else{
 
-						mkdir($folder, 0755);	
-					
+						mkdir($folder, 0755);
+
 					}
-					
+
 					/*=============================================
 					WE APPLY DEFAULT PHP FUNCTIONS ACCORDING TO THE IMAGE FORMAT
 					=============================================*/
@@ -218,7 +220,7 @@ class controllerProducts{
 
 						$route = "views/img/products/".$_POST["editCode"]."/".$random.".jpg";
 
-						$origin = imagecreatefromjpeg($_FILES["editImage"]["tmp_name"]);						
+						$origin = imagecreatefromjpeg($_FILES["editImage"]["tmp_name"]);
 
 						$destiny = imagecreatetruecolor($newWidth, $newHeight);
 
@@ -253,6 +255,7 @@ class controllerProducts{
 				$table = "products";
 
 				$data = array("idCategory" => $_POST["editCategory"],
+							   "type" => (($_POST["editProductType"] ?? "good") === "service") ? "service" : "good",
 							   "code" => $_POST["editCode"],
 							   "description" => $_POST["editDescription"],
 							   "stock" => $_POST["editStock"],
@@ -301,7 +304,7 @@ class controllerProducts{
 							}
 						})
 
-			  	</script>';
+				</script>';
 			}
 
 		}
@@ -355,8 +358,8 @@ class controllerProducts{
 
 				</script>';
 
-			}		
-		
+			}
+
 		}
 
 	}

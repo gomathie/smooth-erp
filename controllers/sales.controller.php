@@ -55,10 +55,20 @@ class ControllerSales{
 
 			    $newSales = ProductsModel::mdlUpdateProduct($tableProducts, $item1a, $value1a, $valueProductId);
 
-				$item1b = "stock";
-				$value1b = $value["stock"];
-
-				$newStock = ProductsModel::mdlUpdateProduct($tableProducts, $item1b, $value1b, $valueProductId);
+				/*=============================================
+				STOCK OUT VIA THE PERPETUAL MOVEMENT LEDGER (goods only)
+				=============================================*/
+				if (($getProduct["type"] ?? "good") !== "service") {
+					ModelInventory::mdlAddMovement([
+						"idProduct"    => $valueProductId,
+						"sourceType"   => "sale",
+						"sourceId"     => (int)$_POST["newSale"],
+						"qtyChange"    => -(int)$value["quantity"],
+						"unitCost"     => $getProduct["buyingPrice"],
+						"movementDate" => date("Y-m-d"),
+						"note"         => "Sale #" . $_POST["newSale"],
+					]);
+				}
 
 			}
 
@@ -255,10 +265,21 @@ class ControllerSales{
 
 					$newSales = ProductsModel::mdlUpdateProduct($tableProducts, $item1a, $value1a, $value);
 
-					$item1b = "stock";
-					$value1b = $value["quantity"] + $getProduct["stock"];
-
-					$stockNew = ProductsModel::mdlUpdateProduct($tableProducts, $item1b, $value1b, $value);
+					/*=============================================
+					RESTORE OLD ITEM STOCK VIA THE MOVEMENT LEDGER (goods only)
+					=============================================*/
+					$prodRestore = ProductsModel::mdlShowProducts("products", "id", $value["id"], "id");
+					if (is_array($prodRestore) && ($prodRestore["type"] ?? "good") !== "service") {
+						ModelInventory::mdlAddMovement([
+							"idProduct"    => $value["id"],
+							"sourceType"   => "sale_edit",
+							"sourceId"     => (int)$_POST["editSale"],
+							"qtyChange"    => (int)$value["quantity"],
+							"unitCost"     => $prodRestore["buyingPrice"],
+							"movementDate" => date("Y-m-d"),
+							"note"         => "Sale edit — old item restored",
+						]);
+					}
 
 				}
 
@@ -299,10 +320,20 @@ class ControllerSales{
 
 					$newSales_2 = ProductsModel::mdlUpdateProduct($tableProducts_2, $item1a_2, $value1a_2, $value_2);
 
-					$item1b_2 = "stock";
-					$value1b_2 = $getProduct_2["stock"] - $value["quantity"];
-
-					$newStock_2 = ProductsModel::mdlUpdateProduct($tableProducts_2, $item1b_2, $value1b_2, $value_2);
+					/*=============================================
+					APPLY NEW ITEM STOCK OUT VIA THE MOVEMENT LEDGER (goods only)
+					=============================================*/
+					if (($getProduct_2["type"] ?? "good") !== "service") {
+						ModelInventory::mdlAddMovement([
+							"idProduct"    => $value_2,
+							"sourceType"   => "sale_edit",
+							"sourceId"     => (int)$_POST["editSale"],
+							"qtyChange"    => -(int)$value["quantity"],
+							"unitCost"     => $getProduct_2["buyingPrice"],
+							"movementDate" => date("Y-m-d"),
+							"note"         => "Sale edit — new item",
+						]);
+					}
 
 				}
 
@@ -467,10 +498,20 @@ class ControllerSales{
 
 				$newSales = ProductsModel::mdlUpdateProduct($tableProducts, $item1a, $value1a, $valueProductId);
 
-				$item1b = "stock";
-				$value1b = $value["quantity"] + $getProduct["stock"];
-
-				$stockNew = ProductsModel::mdlUpdateProduct($tableProducts, $item1b, $value1b, $valueProductId);
+				/*=============================================
+				STOCK BACK IN VIA THE MOVEMENT LEDGER (goods only)
+				=============================================*/
+				if (($getProduct["type"] ?? "good") !== "service") {
+					ModelInventory::mdlAddMovement([
+						"idProduct"    => $valueProductId,
+						"sourceType"   => "sale_reversal",
+						"sourceId"     => (int)$_GET["idSale"],
+						"qtyChange"    => (int)$value["quantity"],
+						"unitCost"     => $getProduct["buyingPrice"],
+						"movementDate" => date("Y-m-d"),
+						"note"         => "Sale deleted",
+					]);
+				}
 
 			}
 

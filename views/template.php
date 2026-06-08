@@ -36,7 +36,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>POS System</title>
+  <title>Smooth ERP</title>
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -176,6 +176,18 @@
             $_GET["route"] == 'sales' ||
             $_GET["route"] == 'create-sale' ||
             $_GET["route"] == 'edit-sale' ||
+            $_GET["route"] == 'invoices' ||
+            $_GET["route"] == 'create-invoice' ||
+            $_GET["route"] == 'edit-invoice' ||
+            $_GET["route"] == 'quotations' ||
+            $_GET["route"] == 'create-quotation' ||
+            $_GET["route"] == 'edit-quotation' ||
+            $_GET["route"] == 'invoice-detail' ||
+            $_GET["route"] == 'customer-statement' ||
+            $_GET["route"] == 'accounting' ||
+            $_GET["route"] == 'expenses' ||
+            $_GET["route"] == 'chart-of-accounts' ||
+            $_GET["route"] == 'settings' ||
             $_GET["route"] == 'reports' ||
             $_GET["route"] == 'logout'){
 
@@ -220,6 +232,10 @@
 <script src="views/js/products.js"></script>
 <script src="views/js/customers.js"></script>
 <script src="views/js/sales.js"></script>
+<script src="views/js/invoices.js"></script>
+<script src="views/js/quotations.js"></script>
+<script src="views/js/payments.js"></script>
+<script src="views/js/accounting.js"></script>
 <script src="views/js/reports.js"></script>
 
 </body>

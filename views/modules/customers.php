@@ -107,7 +107,9 @@ if($_SESSION["profile"] == "Special"){
                       <td>
 
                         <div class="btn-group">
-                            
+
+                          <a class="btn btn-default" href="index.php?route=customer-statement&idCustomer='.$value["id"].'" title="Statement"><i class="fa fa-file-text-o"></i></a>
+
                           <button class="btn btn-primary btnEditCustomer" data-toggle="modal" data-target="#modalEditCustomer" idCustomer="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
 
                           <button class="btn btn-danger btnDeleteCustomer" idCustomer="'.$value["id"].'"><i class="fa fa-trash"></i></button>

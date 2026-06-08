@@ -2,7 +2,22 @@
 
 class Connection{
 
+	/** @var PDO|null Single shared connection for the request (unit of work). */
+	static private $instance = null;
+
+	/** @var int Nesting depth so nested begin/commit behave like one transaction. */
+	static private $txDepth = 0;
+
+	/** @var bool Set when an inner scope rolls back so the outer commit aborts. */
+	static private $txRolledBack = false;
+
 	static public function connect(){
+
+		// Reuse one PDO per request so transactions can span multiple model
+		// calls. Real accounting systems use exactly one unit-of-work here.
+		if (self::$instance instanceof PDO) {
+			return self::$instance;
+		}
 
 		$env = self::loadEnv();
 
@@ -20,7 +35,55 @@ class Connection{
 			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$charset}"
 		]);
 
+		self::$instance = $link;
+
 		return $link;
+	}
+
+	/*=============================================
+	UNIT-OF-WORK TRANSACTION HELPERS
+	=============================================
+	MySQL/PDO has no true nested transactions, so we emulate them with a
+	depth counter: only the outermost begin/commit actually hits the DB.
+	This lets a high-level operation (e.g. recalc) wrap several model calls
+	that may each also open a transaction, and still commit atomically.
+	*/
+
+	static public function begin(): void {
+		$link = self::connect();
+		if (self::$txDepth === 0) {
+			$link->beginTransaction();
+			self::$txRolledBack = false;
+		}
+		self::$txDepth++;
+	}
+
+	static public function commit(): void {
+		$link = self::connect();
+		if (self::$txDepth <= 0) {
+			return;
+		}
+		self::$txDepth--;
+		if (self::$txDepth === 0 && $link->inTransaction()) {
+			if (self::$txRolledBack) {
+				$link->rollBack();
+			} else {
+				$link->commit();
+			}
+		}
+	}
+
+	static public function rollBack(): void {
+		$link = self::connect();
+		// Mark so the outer commit aborts; only physically roll back at depth 1.
+		self::$txRolledBack = true;
+		if (self::$txDepth <= 1 && $link->inTransaction()) {
+			$link->rollBack();
+			self::$txDepth = 0;
+			self::$txRolledBack = false;
+		} elseif (self::$txDepth > 1) {
+			self::$txDepth--;
+		}
 	}
 
 	static private function loadEnv(){

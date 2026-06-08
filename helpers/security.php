@@ -14,6 +14,24 @@ function csrf_verify() {
     }
 }
 
+function csrf_token() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function csrf_field() {
+    return '<input type="hidden" name="_csrf" value="' . h(csrf_token()) . '">';
+}
+
+function csrf_query() {
+    return '_csrf=' . rawurlencode(csrf_token());
+}
+
 function h($value) {
     return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
 }

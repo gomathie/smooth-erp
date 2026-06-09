@@ -21,7 +21,7 @@ class ModelAccounting {
 	 */
 	public static function mdlAccountIdByCode(string $code): ?int {
 
-		$stmt = Connection::connect()->prepare("SELECT id FROM accounts WHERE code = :code LIMIT 1");
+		$stmt = Connection::connect()->prepare("SELECT id FROM accounts WHERE code = :code AND idOrganization = " . (int)Tenant::id() . " LIMIT 1");
 		$stmt->bindParam(":code", $code, PDO::PARAM_STR);
 		$stmt->execute();
 
@@ -37,7 +37,7 @@ class ModelAccounting {
 
 	public static function mdlShowAccounts(): array {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM accounts ORDER BY code ASC");
+		$stmt = Connection::connect()->prepare("SELECT * FROM accounts WHERE idOrganization = " . (int)Tenant::id() . " ORDER BY code ASC");
 		$stmt->execute();
 
 		return $stmt->fetchAll() ?: [];
@@ -50,7 +50,7 @@ class ModelAccounting {
 	 */
 	public static function mdlGetAccount(int $id) {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM accounts WHERE id = :id");
+		$stmt = Connection::connect()->prepare("SELECT * FROM accounts WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 		$stmt->execute();
 
@@ -65,7 +65,7 @@ class ModelAccounting {
 	 */
 	public static function mdlAccountsByType(string $type): array {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM accounts WHERE type = :type ORDER BY code ASC");
+		$stmt = Connection::connect()->prepare("SELECT * FROM accounts WHERE type = :type AND idOrganization = " . (int)Tenant::id() . " ORDER BY code ASC");
 		$stmt->bindParam(":type", $type, PDO::PARAM_STR);
 		$stmt->execute();
 
@@ -76,7 +76,7 @@ class ModelAccounting {
 	public static function mdlAddAccount(array $data): string {
 
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO accounts (code, name, type, isSystem) VALUES (:code, :name, :type, 0)"
+			"INSERT INTO accounts (code, name, type, isSystem, idOrganization) VALUES (:code, :name, :type, 0, " . (int)Tenant::id() . ")"
 		);
 		$stmt->bindParam(":code", $data["code"], PDO::PARAM_STR);
 		$stmt->bindParam(":name", $data["name"], PDO::PARAM_STR);
@@ -90,7 +90,7 @@ class ModelAccounting {
 
 		// Code is immutable for system accounts; only name/type are updated here.
 		$stmt = Connection::connect()->prepare(
-			"UPDATE accounts SET name = :name, type = :type WHERE id = :id"
+			"UPDATE accounts SET name = :name, type = :type WHERE id = :id AND idOrganization = " . (int)Tenant::id() . ""
 		);
 		$stmt->bindParam(":id",   $data["id"],   PDO::PARAM_INT);
 		$stmt->bindParam(":name", $data["name"], PDO::PARAM_STR);
@@ -102,7 +102,7 @@ class ModelAccounting {
 
 	public static function mdlDeleteAccount(int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM accounts WHERE id = :id");
+		$stmt = Connection::connect()->prepare("DELETE FROM accounts WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 
 		return $stmt->execute() ? "ok" : "error";
@@ -116,7 +116,7 @@ class ModelAccounting {
 	 */
 	public static function mdlAccountInUse(int $id): bool {
 
-		$stmt = Connection::connect()->prepare("SELECT COUNT(*) AS n FROM journal_lines WHERE idAccount = :id");
+		$stmt = Connection::connect()->prepare("SELECT COUNT(*) AS n FROM journal_lines WHERE idAccount = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 		$stmt->execute();
 		$row = $stmt->fetch();
@@ -132,7 +132,7 @@ class ModelAccounting {
 	 */
 	public static function mdlCodeExists(string $code): bool {
 
-		$stmt = Connection::connect()->prepare("SELECT COUNT(*) AS n FROM accounts WHERE code = :code");
+		$stmt = Connection::connect()->prepare("SELECT COUNT(*) AS n FROM accounts WHERE code = :code AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":code", $code, PDO::PARAM_STR);
 		$stmt->execute();
 		$row = $stmt->fetch();
@@ -161,9 +161,9 @@ class ModelAccounting {
 
 			$stmt = $link->prepare(
 				"INSERT INTO journal_entries
-				   (entryDate, reference, sourceType, sourceId, description, createdBy)
+				   (entryDate, reference, sourceType, sourceId, description, createdBy, idOrganization)
 				 VALUES
-				   (:entryDate, :reference, :sourceType, :sourceId, :description, :createdBy)"
+				   (:entryDate, :reference, :sourceType, :sourceId, :description, :createdBy, " . (int)Tenant::id() . ")"
 			);
 
 			$stmt->bindParam(":entryDate",   $entry["entryDate"],   PDO::PARAM_STR);
@@ -177,8 +177,8 @@ class ModelAccounting {
 			$entryId = (int)$link->lastInsertId();
 
 			$lineStmt = $link->prepare(
-				"INSERT INTO journal_lines (idJournalEntry, idAccount, debit, credit)
-				 VALUES (:idJournalEntry, :idAccount, :debit, :credit)"
+				"INSERT INTO journal_lines (idJournalEntry, idAccount, debit, credit, idOrganization)
+				 VALUES (:idJournalEntry, :idAccount, :debit, :credit, " . (int)Tenant::id() . ")"
 			);
 
 			foreach ($lines as $line) {
@@ -229,7 +229,7 @@ class ModelAccounting {
 
 		// Collect entry ids first so we can clear their lines.
 		$find = $link->prepare(
-			"SELECT id FROM journal_entries WHERE sourceType = :sourceType AND sourceId = :sourceId"
+			"SELECT id FROM journal_entries WHERE sourceType = :sourceType AND sourceId = :sourceId AND idOrganization = " . (int)Tenant::id() . ""
 		);
 		$find->bindParam(":sourceType", $sourceType, PDO::PARAM_STR);
 		$find->bindParam(":sourceId",   $sourceId,   PDO::PARAM_INT);
@@ -244,7 +244,7 @@ class ModelAccounting {
 		}
 
 		$delEntry = $link->prepare(
-			"DELETE FROM journal_entries WHERE sourceType = :sourceType AND sourceId = :sourceId"
+			"DELETE FROM journal_entries WHERE sourceType = :sourceType AND sourceId = :sourceId AND idOrganization = " . (int)Tenant::id() . ""
 		);
 		$delEntry->bindParam(":sourceType", $sourceType, PDO::PARAM_STR);
 		$delEntry->bindParam(":sourceId",   $sourceId,   PDO::PARAM_INT);
@@ -267,7 +267,7 @@ class ModelAccounting {
 			        COALESCE(SUM(l.credit), 0) AS credit
 			   FROM accounts a
 			   LEFT JOIN journal_lines l ON l.idAccount = a.id
-			  GROUP BY a.id, a.code, a.name, a.type
+			  WHERE a.idOrganization = " . (int)Tenant::id() . " GROUP BY a.id, a.code, a.name, a.type
 			  ORDER BY a.code ASC"
 		);
 		$stmt->execute();
@@ -300,7 +300,7 @@ class ModelAccounting {
 		$link = Connection::connect();
 
 		$stmt = $link->prepare(
-			"SELECT * FROM journal_entries ORDER BY entryDate DESC, id DESC LIMIT :limit"
+			"SELECT * FROM journal_entries WHERE idOrganization = " . (int)Tenant::id() . " ORDER BY entryDate DESC, id DESC LIMIT :limit"
 		);
 		$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
 		$stmt->execute();

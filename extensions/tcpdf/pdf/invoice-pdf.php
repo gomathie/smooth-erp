@@ -42,6 +42,7 @@ class PrintInvoice {
 
         $amountPaid = (float)($invoice["amountPaid"] ?? 0);
         $balanceDue = (float)($invoice["balanceDue"] ?? $invoice["totalPrice"]);
+        $cur        = $invoice["currency"] ?? "USD";  // currency code shown on the PDF
 
         // Overdue: computed, never stored
         $today     = date("Y-m-d");
@@ -156,8 +157,8 @@ HTML;
                 . '<td width="5%"  align="center" style="color:#888;">'.$rowNum.'</td>'
                 . '<td width="49%">'.$desc.'</td>'
                 . '<td width="12%" align="center">'.$qty.'</td>'
-                . '<td width="17%" align="right">$ '.$unitPrice.'</td>'
-                . '<td width="17%" align="right">$ '.$lineTotal.'</td>'
+                . '<td width="17%" align="right">' . $cur . ' '.$unitPrice.'</td>'
+                . '<td width="17%" align="right">' . $cur . ' '.$lineTotal.'</td>'
                 . '</tr>';
             $rowNum++;
         }
@@ -167,16 +168,16 @@ HTML;
         $pdf->Ln(4);
 
         // TOTALS — full breakdown
-        $discountRow    = ((float)($invoice["discount"]    ?? 0) > 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Discount:</td><td width=\"20%\" align=\"right\" style=\"color:#e74c3c;\">- \$ {$discount}</td></tr>" : "";
-        $shippingRow    = ((float)($invoice["shipping"]    ?? 0) > 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Shipping:</td><td width=\"20%\" align=\"right\">\$ {$shipping}</td></tr>" : "";
-        $adjustmentsRow = ((float)($invoice["adjustments"] ?? 0) != 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Adjustment:</td><td width=\"20%\" align=\"right\">\$ {$adjustments}</td></tr>" : "";
+        $discountRow    = ((float)($invoice["discount"]    ?? 0) > 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Discount:</td><td width=\"20%\" align=\"right\" style=\"color:#e74c3c;\">- {$cur} {$discount}</td></tr>" : "";
+        $shippingRow    = ((float)($invoice["shipping"]    ?? 0) > 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Shipping:</td><td width=\"20%\" align=\"right\">{$cur} {$shipping}</td></tr>" : "";
+        $adjustmentsRow = ((float)($invoice["adjustments"] ?? 0) != 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Adjustment:</td><td width=\"20%\" align=\"right\">{$cur} {$adjustments}</td></tr>" : "";
 
         $totals = <<<HTML
 <table cellpadding="4" cellspacing="0" style="width:100%; font-size:9px;">
   <tr>
     <td width="60%"></td>
     <td width="20%" align="right" style="color:#555;">Subtotal:</td>
-    <td width="20%" align="right">\$ {$subtotal}</td>
+    <td width="20%" align="right">{$cur} {$subtotal}</td>
   </tr>
   {$discountRow}
   {$shippingRow}
@@ -184,12 +185,12 @@ HTML;
   <tr>
     <td width="60%"></td>
     <td width="20%" align="right" style="color:#555;">Net:</td>
-    <td width="20%" align="right">\$ {$netPrice}</td>
+    <td width="20%" align="right">{$cur} {$netPrice}</td>
   </tr>
   <tr>
     <td width="60%"></td>
     <td width="20%" align="right" style="color:#555;">Tax:</td>
-    <td width="20%" align="right">\$ {$taxAmount}</td>
+    <td width="20%" align="right">{$cur} {$taxAmount}</td>
   </tr>
   <tr>
     <td width="60%"></td>
@@ -198,17 +199,17 @@ HTML;
   <tr>
     <td width="60%"></td>
     <td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">TOTAL:</td>
-    <td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">\$ {$totalPrice}</td>
+    <td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">{$cur} {$totalPrice}</td>
   </tr>
   <tr>
     <td width="60%"></td>
     <td width="20%" align="right" style="color:#27ae60;">Amount Paid:</td>
-    <td width="20%" align="right" style="color:#27ae60;">\$ {$amountPaidFmt}</td>
+    <td width="20%" align="right" style="color:#27ae60;">{$cur} {$amountPaidFmt}</td>
   </tr>
   <tr>
     <td width="60%"></td>
     <td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">BALANCE DUE:</td>
-    <td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">\$ {$balanceDueFmt}</td>
+    <td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">{$cur} {$balanceDueFmt}</td>
   </tr>
 </table>
 HTML;

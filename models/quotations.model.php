@@ -21,13 +21,13 @@ class ModelQuotations {
 	public static function mdlShowQuotations($item, $value) {
 
 		if ($item != null) {
-			$stmt = Connection::connect()->prepare("SELECT * FROM quotations WHERE {$item} = :{$item} ORDER BY id ASC");
+			$stmt = Connection::connect()->prepare("SELECT * FROM quotations WHERE {$item} = :{$item} AND idOrganization = " . (int)Tenant::id() . " ORDER BY id ASC");
 			$stmt->bindParam(":{$item}", $value, PDO::PARAM_STR);
 			$stmt->execute();
 			return $stmt->fetch();
 		}
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM quotations ORDER BY id ASC");
+		$stmt = Connection::connect()->prepare("SELECT * FROM quotations WHERE idOrganization = " . (int)Tenant::id() . " ORDER BY id ASC");
 		$stmt->execute();
 		return $stmt->fetchAll();
 
@@ -43,16 +43,17 @@ class ModelQuotations {
 			"INSERT INTO quotations
 			   (quoteNumber, orderReference, idCustomer, idSeller, items,
 			    subtotal, discount, discountType, discountValue, shipping, adjustments,
-			    tax, netPrice, totalPrice, expiryDate, status, notes, termsConditions, createdBy)
+			    tax, netPrice, totalPrice, expiryDate, status, notes, termsConditions, createdBy, currency, idOrganization)
 			 VALUES
 			   (:quoteNumber, :orderReference, :idCustomer, :idSeller, :items,
 			    :subtotal, :discount, :discountType, :discountValue, :shipping, :adjustments,
-			    :tax, :netPrice, :totalPrice, :expiryDate, :status, :notes, :termsConditions, :createdBy)"
+			    :tax, :netPrice, :totalPrice, :expiryDate, :status, :notes, :termsConditions, :createdBy, :currency, " . (int)Tenant::id() . ")"
 		);
 
 		self::bindShared($stmt, $data);
 		$stmt->bindParam(":quoteNumber", $data["quoteNumber"], PDO::PARAM_STR);
 		$stmt->bindParam(":createdBy",   $data["createdBy"],   PDO::PARAM_INT);
+		$stmt->bindValue(":currency",    $data["currency"] ?? Currency::base(), PDO::PARAM_STR);
 
 		return $stmt->execute() ? "ok" : "error";
 
@@ -72,13 +73,14 @@ class ModelQuotations {
 			        shipping = :shipping, adjustments = :adjustments, tax = :tax,
 			        netPrice = :netPrice, totalPrice = :totalPrice, expiryDate = :expiryDate,
 			        status = :status, notes = :notes, termsConditions = :termsConditions,
-			        modifiedBy = :modifiedBy, modifiedDate = NOW()
-			  WHERE id = :id"
+			        currency = :currency, modifiedBy = :modifiedBy, modifiedDate = NOW()
+			  WHERE id = :id AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		self::bindShared($stmt, $data);
 		$stmt->bindParam(":id",         $data["id"],         PDO::PARAM_INT);
 		$stmt->bindParam(":modifiedBy", $data["modifiedBy"], PDO::PARAM_INT);
+		$stmt->bindValue(":currency",   $data["currency"] ?? Currency::base(), PDO::PARAM_STR);
 
 		return $stmt->execute() ? "ok" : "error";
 
@@ -90,7 +92,7 @@ class ModelQuotations {
 
 	public static function mdlDeleteQuotation(int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM quotations WHERE id = :id");
+		$stmt = Connection::connect()->prepare("DELETE FROM quotations WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 
 		return $stmt->execute() ? "ok" : "error";
@@ -104,7 +106,7 @@ class ModelQuotations {
 	public static function mdlMarkConverted(int $id, int $idInvoice): string {
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE quotations SET status = 'invoiced', idInvoice = :idInvoice WHERE id = :id"
+			"UPDATE quotations SET status = 'invoiced', idInvoice = :idInvoice WHERE id = :id AND idOrganization = " . (int)Tenant::id() . ""
 		);
 		$stmt->bindParam(":id",        $id,        PDO::PARAM_INT);
 		$stmt->bindParam(":idInvoice", $idInvoice, PDO::PARAM_INT);
@@ -119,7 +121,7 @@ class ModelQuotations {
 
 	public static function mdlNextQuoteNumber(): string {
 
-		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(CAST(quoteNumber AS UNSIGNED)), 1000) + 1 AS n FROM quotations");
+		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(CAST(quoteNumber AS UNSIGNED)), 1000) + 1 AS n FROM quotations WHERE idOrganization = " . (int)Tenant::id() . "");
 		$stmt->execute();
 		$row = $stmt->fetch();
 

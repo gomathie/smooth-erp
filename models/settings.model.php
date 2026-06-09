@@ -19,7 +19,7 @@ class ModelSettings {
 	public static function mdlGet(string $key, string $default = ""): string {
 
 		try {
-			$stmt = Connection::connect()->prepare("SELECT settingValue FROM settings WHERE settingKey = :k LIMIT 1");
+			$stmt = Connection::connect()->prepare("SELECT settingValue FROM settings WHERE settingKey = :k AND idOrganization = " . (int)Tenant::id() . " LIMIT 1");
 			$stmt->bindParam(":k", $key, PDO::PARAM_STR);
 			$stmt->execute();
 			$row = $stmt->fetch();
@@ -30,6 +30,35 @@ class ModelSettings {
 
 		return $row ? (string)$row["settingValue"] : $default;
 
+	}
+
+	/*=============================================
+	GET / SET A SETTING FOR A SPECIFIC ORG (Super Admin use)
+	=============================================*/
+
+	public static function mdlGetForOrg(int $idOrg, string $key, string $default = ""): string {
+		try {
+			$stmt = Connection::connect()->prepare("SELECT settingValue FROM settings WHERE settingKey = :k AND idOrganization = :o LIMIT 1");
+			$stmt->bindParam(":k", $key, PDO::PARAM_STR);
+			$stmt->bindParam(":o", $idOrg, PDO::PARAM_INT);
+			$stmt->execute();
+			$row = $stmt->fetch();
+		} catch (Exception) {
+			return $default;
+		}
+		return $row ? (string)$row["settingValue"] : $default;
+	}
+
+	public static function mdlSetForOrg(int $idOrg, string $key, string $value): string {
+		$stmt = Connection::connect()->prepare(
+			"INSERT INTO settings (settingKey, settingValue, idOrganization) VALUES (:k, :v, :o)
+			 ON DUPLICATE KEY UPDATE settingValue = :v2"
+		);
+		$stmt->bindParam(":k",  $key,   PDO::PARAM_STR);
+		$stmt->bindParam(":v",  $value, PDO::PARAM_STR);
+		$stmt->bindParam(":o",  $idOrg, PDO::PARAM_INT);
+		$stmt->bindParam(":v2", $value, PDO::PARAM_STR);
+		return $stmt->execute() ? "ok" : "error";
 	}
 
 	/*=============================================
@@ -44,7 +73,7 @@ class ModelSettings {
 	public static function mdlSet(string $key, string $value): string {
 
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO settings (settingKey, settingValue) VALUES (:k, :v)
+			"INSERT INTO settings (settingKey, settingValue, idOrganization) VALUES (:k, :v, " . (int)Tenant::id() . ")
 			 ON DUPLICATE KEY UPDATE settingValue = :v2"
 		);
 		$stmt->bindParam(":k",  $key,   PDO::PARAM_STR);

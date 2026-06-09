@@ -156,8 +156,16 @@
       echo '<div class="wrapper">';
 
       /*=============================================
+      =     Super Admin context handling           =
+      =============================================*/
+      // The "Exit org" banner link can be triggered from any page.
+      if (Tenant::isSuperAdmin()) { ControllerSuperAdmin::ctrExitOrg(); }
+      // A Super Admin who hasn't entered an org only sees the organizations panel.
+      if (Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0) { $_GET["route"] = "organizations"; }
+
+      /*=============================================
       =            header          =
-      =============================================*/  
+      =============================================*/
 
       include "modules/header.php";
 
@@ -168,8 +176,18 @@
       include "modules/sidebar.php";
 
       /*=============================================
+      =     Entered-org banner (Super Admin)       =
+      =============================================*/
+      if (Tenant::isSuperAdmin() && Tenant::enteredOrg() > 0) {
+        echo '<div style="background:#dd4b39; color:#fff; padding:8px 15px; margin-left:0;" class="content-wrapper-banner">
+                <i class="fa fa-eye"></i> Operating as admin of <strong>' . htmlspecialchars($_SESSION["enteredOrgName"] ?? "") . '</strong>
+                <a href="index.php?route=organizations&exitOrg=1" class="btn btn-xs btn-default pull-right"><i class="fa fa-sign-out"></i> Exit to Super Admin</a>
+              </div>';
+      }
+
+      /*=============================================
       =            Content          =
-      =============================================*/ 
+      =============================================*/
 
       if(isset($_GET["route"])){
 
@@ -204,6 +222,8 @@
             $_GET["route"] == 'report-payments' ||
             $_GET["route"] == 'report-activity' ||
             $_GET["route"] == 'report-tax' ||
+            $_GET["route"] == 'organizations' ||
+            $_GET["route"] == 'currencies' ||
             $_GET["route"] == 'logout'){
 
           include "modules/".$_GET["route"].".php";

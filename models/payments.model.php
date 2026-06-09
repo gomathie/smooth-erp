@@ -22,7 +22,7 @@ class ModelPayments {
 	public static function mdlShowInvoicePayments(int $idInvoice): array {
 
 		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM payments_received WHERE idInvoice = :idInvoice ORDER BY paymentDate ASC, id ASC"
+			"SELECT * FROM payments_received WHERE idInvoice = :idInvoice AND idOrganization = " . (int)Tenant::id() . " ORDER BY paymentDate ASC, id ASC"
 		);
 
 		$stmt->bindParam(":idInvoice", $idInvoice, PDO::PARAM_INT);
@@ -43,7 +43,7 @@ class ModelPayments {
 	public static function mdlShowCustomerPayments(int $idCustomer): array {
 
 		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM payments_received WHERE idCustomer = :idCustomer ORDER BY paymentDate ASC, id ASC"
+			"SELECT * FROM payments_received WHERE idCustomer = :idCustomer AND idOrganization = " . (int)Tenant::id() . " ORDER BY paymentDate ASC, id ASC"
 		);
 		$stmt->bindParam(":idCustomer", $idCustomer, PDO::PARAM_INT);
 		$stmt->execute();
@@ -58,7 +58,7 @@ class ModelPayments {
 
 	public static function mdlShowAllPayments(): array {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM payments_received ORDER BY paymentDate DESC, id DESC");
+		$stmt = Connection::connect()->prepare("SELECT * FROM payments_received WHERE idOrganization = " . (int)Tenant::id() . " ORDER BY paymentDate DESC, id DESC");
 		$stmt->execute();
 
 		return $stmt->fetchAll() ?: [];
@@ -75,7 +75,7 @@ class ModelPayments {
 	 */
 	public static function mdlGetPayment(int $id) {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM payments_received WHERE id = :id");
+		$stmt = Connection::connect()->prepare("SELECT * FROM payments_received WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 		$stmt->execute();
 
@@ -94,7 +94,7 @@ class ModelPayments {
 	public static function mdlSumInvoicePayments(int $idInvoice): float {
 
 		$stmt = Connection::connect()->prepare(
-			"SELECT COALESCE(SUM(amount), 0) AS paid FROM payments_received WHERE idInvoice = :idInvoice"
+			"SELECT COALESCE(SUM(amount), 0) AS paid FROM payments_received WHERE idInvoice = :idInvoice AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		$stmt->bindParam(":idInvoice", $idInvoice, PDO::PARAM_INT);
@@ -121,9 +121,9 @@ class ModelPayments {
 
 		$stmt = $link->prepare(
 			"INSERT INTO payments_received
-			   (paymentNumber, idInvoice, idCustomer, amount, paymentDate, paymentMode, reference, notes, createdBy)
+			   (paymentNumber, idInvoice, idCustomer, amount, paymentDate, paymentMode, reference, notes, createdBy, idOrganization)
 			 VALUES
-			   (:paymentNumber, :idInvoice, :idCustomer, :amount, :paymentDate, :paymentMode, :reference, :notes, :createdBy)"
+			   (:paymentNumber, :idInvoice, :idCustomer, :amount, :paymentDate, :paymentMode, :reference, :notes, :createdBy, " . (int)Tenant::id() . ")"
 		);
 
 		$stmt->bindParam(":paymentNumber", $data["paymentNumber"], PDO::PARAM_STR);
@@ -158,7 +158,7 @@ class ModelPayments {
 			"UPDATE payments_received
 			    SET amount = :amount, paymentDate = :paymentDate, paymentMode = :paymentMode,
 			        reference = :reference, notes = :notes
-			  WHERE id = :id"
+			  WHERE id = :id AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		$stmt->bindParam(":id",          $data["id"],          PDO::PARAM_INT);
@@ -182,7 +182,7 @@ class ModelPayments {
 	 */
 	public static function mdlDeletePayment(int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM payments_received WHERE id = :id");
+		$stmt = Connection::connect()->prepare("DELETE FROM payments_received WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 
 		return $stmt->execute() ? "ok" : "error";
@@ -199,7 +199,7 @@ class ModelPayments {
 	 */
 	public static function mdlDeleteInvoicePayments(int $idInvoice): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM payments_received WHERE idInvoice = :idInvoice");
+		$stmt = Connection::connect()->prepare("DELETE FROM payments_received WHERE idInvoice = :idInvoice AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":idInvoice", $idInvoice, PDO::PARAM_INT);
 
 		return $stmt->execute() ? "ok" : "error";
@@ -212,7 +212,7 @@ class ModelPayments {
 
 	public static function mdlNextPaymentNumber(): string {
 
-		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(id), 0) + 1 AS nextId FROM payments_received");
+		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(id), 0) + 1 AS nextId FROM payments_received WHERE idOrganization = " . (int)Tenant::id() . "");
 		$stmt->execute();
 		$row = $stmt->fetch();
 

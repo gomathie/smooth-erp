@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: posystem
+-- Host: localhost    Database: smootherpdb
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
 
@@ -32,7 +32,7 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_account_org_code` (`idOrganization`,`code`),
   KEY `idx_acc_org` (`idOrganization`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE `invoice_activity_log` (
   PRIMARY KEY (`id`),
   KEY `idx_activity_invoice` (`idInvoice`),
   KEY `idx_act_org` (`idOrganization`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,6 +196,7 @@ CREATE TABLE `invoice_activity_log` (
 
 LOCK TABLES `invoice_activity_log` WRITE;
 /*!40000 ALTER TABLE `invoice_activity_log` DISABLE KEYS */;
+INSERT INTO `invoice_activity_log` VALUES (4,8,1,'created','Invoice created with total $ 500.00','2026-06-09 14:11:30',1),(5,9,1,'created','Invoice created with total $ 500.00','2026-06-09 14:11:30',1);
 /*!40000 ALTER TABLE `invoice_activity_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,7 +238,7 @@ CREATE TABLE `invoices` (
   `currency` varchar(3) NOT NULL DEFAULT 'USD',
   PRIMARY KEY (`id`),
   KEY `idx_inv_org` (`idOrganization`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,7 +329,7 @@ CREATE TABLE `organization_currencies` (
   `isBase` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_org_currency` (`idOrganization`,`currencyCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -551,7 +552,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES ('accounting_enabled','0',1);
+INSERT INTO `settings` VALUES ('accounting_enabled','0',1),('multicurrency_enabled','0',1);
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -623,7 +624,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Administrator','admin','$2y$10$XgUq9IwiWF5NHW4QXD696euIePVHpFxI59x9RgTj20Xr6IajzJD7W','Administrator','views/img/users/admin/admin-icn.png','admon@yahoo.com','',1,'2026-06-08 16:58:31',NULL,NULL,'2026-06-09 07:33:15',1),(2,'Kwasi Sarpong','seller','','','views/img/users/jonathan/239.jpg','','',1,'2022-12-10 12:39:15',NULL,NULL,'2026-06-09 07:31:52',1),(3,'Nana Banyin','carmen','','','views/img/users/carmen/215.jpg','','',1,'2022-12-10 12:17:55',NULL,NULL,'2026-06-09 07:31:52',1),(4,'Super Admin','superadmin','$2y$10$YhTeDW2wQ6PaktkzHhFVLul/FX1OsVK1qqpASf937aa7fLy97WAFa','SuperAdmin','','','',1,'2026-06-09 10:32:15',NULL,NULL,'2026-06-09 07:32:15',NULL);
+INSERT INTO `users` VALUES (1,'Administrator','admin','$2y$10$XgUq9IwiWF5NHW4QXD696euIePVHpFxI59x9RgTj20Xr6IajzJD7W','Administrator','views/img/users/admin/admin-icn.png','admon@yahoo.com','',1,'2026-06-09 09:07:44',NULL,NULL,'2026-06-09 14:07:44',1),(2,'Kwasi Sarpong','seller','','','views/img/users/jonathan/239.jpg','','',1,'2022-12-10 12:39:15',NULL,NULL,'2026-06-09 07:31:52',1),(3,'Nana Banyin','carmen','','','views/img/users/carmen/215.jpg','','',1,'2022-12-10 12:17:55',NULL,NULL,'2026-06-09 07:31:52',1),(4,'Super Admin','superadmin','$2y$10$YhTeDW2wQ6PaktkzHhFVLul/FX1OsVK1qqpASf937aa7fLy97WAFa','SuperAdmin','','','',1,'2026-06-09 10:32:15',NULL,NULL,'2026-06-09 07:32:15',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -636,4 +637,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-09 16:22:58
+-- Dump completed on 2026-06-10  1:22:49

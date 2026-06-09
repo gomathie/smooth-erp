@@ -181,12 +181,14 @@
             $_GET["route"] == 'sales' ||
             $_GET["route"] == 'create-sale' ||
             $_GET["route"] == 'edit-sale' ||
+            $_GET["route"] == 'sale-detail' ||
             $_GET["route"] == 'invoices' ||
             $_GET["route"] == 'create-invoice' ||
             $_GET["route"] == 'edit-invoice' ||
             $_GET["route"] == 'quotations' ||
             $_GET["route"] == 'create-quotation' ||
             $_GET["route"] == 'edit-quotation' ||
+            $_GET["route"] == 'quotation-detail' ||
             $_GET["route"] == 'invoice-detail' ||
             $_GET["route"] == 'customer-statement' ||
             $_GET["route"] == 'accounting' ||
@@ -194,6 +196,14 @@
             $_GET["route"] == 'chart-of-accounts' ||
             $_GET["route"] == 'settings' ||
             $_GET["route"] == 'reports' ||
+            $_GET["route"] == 'report-overview' ||
+            $_GET["route"] == 'report-sales' ||
+            $_GET["route"] == 'report-inventory' ||
+            $_GET["route"] == 'report-payables' ||
+            $_GET["route"] == 'report-receivables' ||
+            $_GET["route"] == 'report-payments' ||
+            $_GET["route"] == 'report-activity' ||
+            $_GET["route"] == 'report-tax' ||
             $_GET["route"] == 'logout'){
 
           include "modules/".$_GET["route"].".php";

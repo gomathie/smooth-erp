@@ -5,10 +5,8 @@ if ($_SESSION["profile"] != "Administrator") {
   return;
 }
 
-if (!ControllerSettings::ctrAccountingEnabled()) {
-  echo '<script>window.location = "home";</script>';
-  return;
-}
+// Expenses are available regardless of the accounting module toggle.
+// (Journal postings still run in the background so the books stay consistent.)
 
 // Inline action handlers
 ControllerExpenses::ctrAddExpense();
@@ -26,13 +24,15 @@ $paidThrough = array_merge($assetAccounts, $liabilityAccts);
 $totalExpenses = 0.0;
 foreach ($expenses as $e) { $totalExpenses += (float)$e["amount"]; }
 
-function expenseAccountOptions(array $accounts, $selected = null): string {
-  $html = "";
-  foreach ($accounts as $a) {
-    $sel = ((int)$a["id"] === (int)$selected) ? " selected" : "";
-    $html .= '<option value="' . $a["id"] . '"' . $sel . '>' . htmlspecialchars($a["code"] . " · " . $a["name"]) . '</option>';
+if (!function_exists('expenseAccountOptions')) {
+  function expenseAccountOptions(array $accounts, $selected = null): string {
+    $html = "";
+    foreach ($accounts as $a) {
+      $sel = ((int)$a["id"] === (int)$selected) ? " selected" : "";
+      $html .= '<option value="' . $a["id"] . '"' . $sel . '>' . htmlspecialchars($a["code"] . " · " . $a["name"]) . '</option>';
+    }
+    return $html;
   }
-  return $html;
 }
 ?>
 

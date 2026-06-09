@@ -53,6 +53,19 @@ class ModelPayments {
 	}
 
 	/*=============================================
+	ALL PAYMENTS (for reports)
+	=============================================*/
+
+	public static function mdlShowAllPayments(): array {
+
+		$stmt = Connection::connect()->prepare("SELECT * FROM payments_received ORDER BY paymentDate DESC, id DESC");
+		$stmt->execute();
+
+		return $stmt->fetchAll() ?: [];
+
+	}
+
+	/*=============================================
 	GET A SINGLE PAYMENT
 	=============================================*/
 

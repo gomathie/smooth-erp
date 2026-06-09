@@ -6,6 +6,23 @@
 
 			<?php
 
+			/*=============================================
+			SUPER ADMIN (not inside an org) — platform menu only
+			=============================================*/
+			if (Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0) {
+
+				echo '
+					<li class="header">SUPER ADMIN</li>
+					<li class="active">
+						<a href="organizations"><i class="fa fa-building"></i> <span>Organizations</span></a>
+					</li>
+					<li>
+						<a href="logout"><i class="fa fa-sign-out"></i> <span>Log out</span></a>
+					</li>
+				';
+
+			} else {
+
 			if ($_SESSION["profile"] == "Administrator") {
 
 				echo '
@@ -127,7 +144,11 @@
 					</li>';
 				}
 
-				echo '
+				if (Currency::isEnabled()) {
+						echo '<li><a href="currencies"><i class="fa fa-money"></i> <span>Currencies</span></a></li>';
+					}
+
+					echo '
 					<li>
 						<a href="users">
 							<i class="fa fa-user"></i>
@@ -141,6 +162,8 @@
 						</a>
 					</li>';
 			}
+
+			} // end else (org user / entered super admin)
 
 			?>
 

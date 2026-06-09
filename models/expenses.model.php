@@ -21,7 +21,7 @@ class ModelExpenses {
 			   FROM expenses e
 			   LEFT JOIN accounts ea ON ea.id = e.idExpenseAccount
 			   LEFT JOIN accounts pa ON pa.id = e.idPaidThrough
-			  ORDER BY e.expenseDate DESC, e.id DESC"
+			  WHERE e.idOrganization = " . (int)Tenant::id() . " ORDER BY e.expenseDate DESC, e.id DESC"
 		);
 		$stmt->execute();
 
@@ -35,7 +35,7 @@ class ModelExpenses {
 
 	public static function mdlGetExpense(int $id) {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM expenses WHERE id = :id");
+		$stmt = Connection::connect()->prepare("SELECT * FROM expenses WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 		$stmt->execute();
 
@@ -57,9 +57,9 @@ class ModelExpenses {
 
 		$stmt = $link->prepare(
 			"INSERT INTO expenses
-			   (expenseNumber, idExpenseAccount, idPaidThrough, amount, expenseDate, payee, reference, notes, createdBy)
+			   (expenseNumber, idExpenseAccount, idPaidThrough, amount, expenseDate, payee, reference, notes, createdBy, idOrganization)
 			 VALUES
-			   (:expenseNumber, :idExpenseAccount, :idPaidThrough, :amount, :expenseDate, :payee, :reference, :notes, :createdBy)"
+			   (:expenseNumber, :idExpenseAccount, :idPaidThrough, :amount, :expenseDate, :payee, :reference, :notes, :createdBy, " . (int)Tenant::id() . ")"
 		);
 
 		$stmt->bindParam(":expenseNumber",    $data["expenseNumber"],    PDO::PARAM_STR);
@@ -91,7 +91,7 @@ class ModelExpenses {
 			    SET idExpenseAccount = :idExpenseAccount, idPaidThrough = :idPaidThrough,
 			        amount = :amount, expenseDate = :expenseDate, payee = :payee,
 			        reference = :reference, notes = :notes
-			  WHERE id = :id"
+			  WHERE id = :id AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		$stmt->bindParam(":id",               $data["id"],               PDO::PARAM_INT);
@@ -113,7 +113,7 @@ class ModelExpenses {
 
 	public static function mdlDeleteExpense(int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM expenses WHERE id = :id");
+		$stmt = Connection::connect()->prepare("DELETE FROM expenses WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 
 		return $stmt->execute() ? "ok" : "error";
@@ -126,7 +126,7 @@ class ModelExpenses {
 
 	public static function mdlNextExpenseNumber(): string {
 
-		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(id), 0) + 1 AS nextId FROM expenses");
+		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(id), 0) + 1 AS nextId FROM expenses WHERE idOrganization = " . (int)Tenant::id() . "");
 		$stmt->execute();
 		$row = $stmt->fetch();
 

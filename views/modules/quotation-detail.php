@@ -15,6 +15,8 @@ if (!is_array($quote)) {
 $customer = ControllerCustomers::ctrShowCustomers("id", (int)$quote["idCustomer"]);
 $seller   = ControllerUsers::ctrShowUsers("id", (int)$quote["idSeller"]);
 $items    = json_decode((string)$quote["items"], true) ?: [];
+$sym      = Currency::symbol($quote["currency"] ?? Currency::base());
+$curCode  = $quote["currency"] ?? Currency::base();
 
 $today     = date("Y-m-d");
 $isExpired = ($quote["status"] !== "invoiced" && $quote["status"] !== "declined"
@@ -80,6 +82,7 @@ $discountLabel = $quote["discountType"] === "percent"
                 <p style="margin:2px 0;"><strong>Date:</strong> <?php echo substr((string)$quote["quoteDate"], 0, 10); ?></p>
                 <p style="margin:2px 0;"><strong>Valid Until:</strong> <?php echo $quote["expiryDate"] ?: "—"; ?></p>
                 <p style="margin:2px 0;"><strong>Prepared By:</strong> <?php echo htmlspecialchars($seller["name"] ?? "—"); ?></p>
+                <p style="margin:2px 0;"><strong>Currency:</strong> <?php echo htmlspecialchars($curCode); ?></p>
                 <?php if (!empty($quote["orderReference"])) { echo '<p style="margin:2px 0;"><strong>Ref:</strong> '.htmlspecialchars($quote["orderReference"]).'</p>'; } ?>
               </div>
             </div>
@@ -104,8 +107,8 @@ $discountLabel = $quote["discountType"] === "percent"
                     <td><?php echo $n++; ?></td>
                     <td><?php echo htmlspecialchars($it["description"] ?? ""); ?><?php echo $isService ? ' <span class="label label-default">service</span>' : ''; ?></td>
                     <td class="text-center"><?php echo (int)($it["quantity"] ?? 0); ?></td>
-                    <td class="text-right">$ <?php echo number_format((float)($it["price"] ?? 0), 2); ?></td>
-                    <td class="text-right">$ <?php echo number_format((float)($it["totalPrice"] ?? 0), 2); ?></td>
+                    <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)($it["price"] ?? 0), 2); ?></td>
+                    <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)($it["totalPrice"] ?? 0), 2); ?></td>
                   </tr>
                 <?php } ?>
               </tbody>
@@ -114,12 +117,12 @@ $discountLabel = $quote["discountType"] === "percent"
             <div class="row">
               <div class="col-xs-6 col-xs-offset-6">
                 <table class="table" style="margin-bottom:0;">
-                  <tr><td style="color:#888;">Subtotal</td><td class="text-right">$ <?php echo number_format((float)$quote["subtotal"], 2); ?></td></tr>
-                  <?php if ((float)$quote["discount"] > 0) { ?><tr><td style="color:#888;">Discount (<?php echo $discountLabel; ?>)</td><td class="text-right" style="color:#e74c3c;">- $ <?php echo number_format((float)$quote["discount"], 2); ?></td></tr><?php } ?>
-                  <?php if ((float)$quote["shipping"] > 0) { ?><tr><td style="color:#888;">Shipping</td><td class="text-right">$ <?php echo number_format((float)$quote["shipping"], 2); ?></td></tr><?php } ?>
-                  <?php if ((float)$quote["adjustments"] != 0) { ?><tr><td style="color:#888;">Adjustment</td><td class="text-right">$ <?php echo number_format((float)$quote["adjustments"], 2); ?></td></tr><?php } ?>
-                  <tr><td style="color:#888;">Tax</td><td class="text-right">$ <?php echo number_format((float)$quote["tax"], 2); ?></td></tr>
-                  <tr style="border-top:2px solid #1e3a5f;"><td><strong>Total</strong></td><td class="text-right"><strong>$ <?php echo number_format((float)$quote["totalPrice"], 2); ?></strong></td></tr>
+                  <tr><td style="color:#888;">Subtotal</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$quote["subtotal"], 2); ?></td></tr>
+                  <?php if ((float)$quote["discount"] > 0) { ?><tr><td style="color:#888;">Discount (<?php echo $discountLabel; ?>)</td><td class="text-right" style="color:#e74c3c;">- <?php echo $sym; ?> <?php echo number_format((float)$quote["discount"], 2); ?></td></tr><?php } ?>
+                  <?php if ((float)$quote["shipping"] > 0) { ?><tr><td style="color:#888;">Shipping</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$quote["shipping"], 2); ?></td></tr><?php } ?>
+                  <?php if ((float)$quote["adjustments"] != 0) { ?><tr><td style="color:#888;">Adjustment</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$quote["adjustments"], 2); ?></td></tr><?php } ?>
+                  <tr><td style="color:#888;">Tax</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$quote["tax"], 2); ?></td></tr>
+                  <tr style="border-top:2px solid #1e3a5f;"><td><strong>Total</strong></td><td class="text-right"><strong><?php echo $sym; ?> <?php echo number_format((float)$quote["totalPrice"], 2); ?></strong></td></tr>
                 </table>
               </div>
             </div>
@@ -139,7 +142,7 @@ $discountLabel = $quote["discountType"] === "percent"
         <div class="box box-widget">
           <div class="box-body text-center">
             <p style="color:#888; margin-bottom:4px;">Quotation Total</p>
-            <p style="font-size:32px; font-weight:bold; color:#1e3a5f; margin:0;">$ <?php echo number_format((float)$quote["totalPrice"], 2); ?></p>
+            <p style="font-size:32px; font-weight:bold; color:#1e3a5f; margin:0;"><?php echo $sym; ?> <?php echo number_format((float)$quote["totalPrice"], 2); ?></p>
             <p class="text-muted" style="margin-top:6px;"><?php echo $statusLabel; ?><?php echo $quote["expiryDate"] ? ' &middot; valid until '.$quote["expiryDate"] : ''; ?></p>
           </div>
         </div>

@@ -19,6 +19,7 @@ $items    = json_decode((string)$sale["products"], true) ?: [];
 $net   = (float)$sale["netPrice"];
 $tax   = (float)$sale["tax"];
 $total = (float)$sale["totalPrice"];
+$sym   = Currency::symbol($sale["currency"] ?? Currency::base());
 ?>
 <div class="content-wrapper">
 
@@ -80,8 +81,8 @@ $total = (float)$sale["totalPrice"];
                     <td><?php echo $n++; ?></td>
                     <td><?php echo htmlspecialchars($it["description"] ?? ""); ?></td>
                     <td class="text-center"><?php echo (int)($it["quantity"] ?? 0); ?></td>
-                    <td class="text-right">$ <?php echo number_format((float)($it["price"] ?? 0), 2); ?></td>
-                    <td class="text-right">$ <?php echo number_format((float)($it["totalPrice"] ?? 0), 2); ?></td>
+                    <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)($it["price"] ?? 0), 2); ?></td>
+                    <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)($it["totalPrice"] ?? 0), 2); ?></td>
                   </tr>
                 <?php } ?>
               </tbody>
@@ -90,9 +91,9 @@ $total = (float)$sale["totalPrice"];
             <div class="row">
               <div class="col-xs-6 col-xs-offset-6">
                 <table class="table" style="margin-bottom:0;">
-                  <tr><td style="color:#888;">Net</td><td class="text-right">$ <?php echo number_format($net, 2); ?></td></tr>
-                  <tr><td style="color:#888;">Tax</td><td class="text-right">$ <?php echo number_format($tax, 2); ?></td></tr>
-                  <tr style="border-top:2px solid #1e3a5f;"><td><strong>Total</strong></td><td class="text-right"><strong>$ <?php echo number_format($total, 2); ?></strong></td></tr>
+                  <tr><td style="color:#888;">Net</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format($net, 2); ?></td></tr>
+                  <tr><td style="color:#888;">Tax</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format($tax, 2); ?></td></tr>
+                  <tr style="border-top:2px solid #1e3a5f;"><td><strong>Total</strong></td><td class="text-right"><strong><?php echo $sym; ?> <?php echo number_format($total, 2); ?></strong></td></tr>
                 </table>
               </div>
             </div>
@@ -105,7 +106,7 @@ $total = (float)$sale["totalPrice"];
         <div class="box box-widget">
           <div class="box-body text-center">
             <p style="color:#888; margin-bottom:4px;">Total</p>
-            <p style="font-size:32px; font-weight:bold; color:#00a65a; margin:0;">$ <?php echo number_format($total, 2); ?></p>
+            <p style="font-size:32px; font-weight:bold; color:#00a65a; margin:0;"><?php echo $sym; ?> <?php echo number_format($total, 2); ?></p>
             <p class="text-muted" style="margin-top:6px;"><?php echo count($items); ?> item(s) &middot; <?php echo htmlspecialchars($sale["paymentMethod"]); ?></p>
           </div>
         </div>

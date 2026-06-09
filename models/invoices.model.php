@@ -18,9 +18,10 @@ class ModelInvoices {
 
 		if ($item != null) {
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM {$table} WHERE {$item} = :{$item} ORDER BY id ASC");
+			$stmt = Connection::connect()->prepare("SELECT * FROM {$table} WHERE {$item} = :{$item} AND idOrganization = :__org ORDER BY id ASC");
 
 			$stmt->bindParam(":{$item}", $value, PDO::PARAM_STR);
+			$stmt->bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 			$stmt->execute();
 
@@ -28,7 +29,9 @@ class ModelInvoices {
 
 		} else {
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM {$table} ORDER BY id ASC");
+			$stmt = Connection::connect()->prepare("SELECT * FROM {$table} WHERE idOrganization = :__org ORDER BY id ASC");
+
+			$stmt->bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 			$stmt->execute();
 
@@ -58,13 +61,16 @@ class ModelInvoices {
 			"INSERT INTO {$table}
 			   (invoiceNumber, orderReference, idCustomer, idSeller, items,
 			    subtotal, discount, discountType, discountValue, shipping, adjustments, tax, netPrice, totalPrice,
-			    dueDate, paymentTerms, status, notes, termsConditions)
+			    dueDate, paymentTerms, status, notes, termsConditions, currency, idOrganization)
 			 VALUES
 			   (:invoiceNumber, :orderReference, :idCustomer, :idSeller, :items,
 			    :subtotal, :discount, :discountType, :discountValue, :shipping, :adjustments, :tax, :netPrice, :totalPrice,
-			    :dueDate, :paymentTerms, :status, :notes, :termsConditions)"
+			    :dueDate, :paymentTerms, :status, :notes, :termsConditions, :currency, :__org)"
 		);
 
+		$currency = $data["currency"] ?? Currency::base();
+		$stmt->bindValue(":currency", $currency, PDO::PARAM_STR);
+		$stmt->bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 		$stmt->bindParam(":invoiceNumber",  $data["invoiceNumber"],  PDO::PARAM_STR);
 		$stmt->bindParam(":orderReference", $data["orderReference"], PDO::PARAM_STR);
 		$stmt->bindParam(":idCustomer",     $data["idCustomer"],     PDO::PARAM_INT);
@@ -108,13 +114,14 @@ class ModelInvoices {
 			     shipping = :shipping, adjustments = :adjustments,
 			     tax = :tax, netPrice = :netPrice, totalPrice = :totalPrice,
 			     dueDate = :dueDate, paymentTerms = :paymentTerms, status = :status,
-			     notes = :notes, termsConditions = :termsConditions
-			 WHERE id = :id"
+			     notes = :notes, termsConditions = :termsConditions, currency = :currency
+			 WHERE id = :id AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		$discountType  = $data["discountType"]  ?? "amount";
 		$discountValue = $data["discountValue"] ?? "0";
 
+		$stmt->bindValue(":currency", $data["currency"] ?? Currency::base(), PDO::PARAM_STR);
 		$stmt->bindParam(":id",            $data["id"],            PDO::PARAM_INT);
 		$stmt->bindParam(":idCustomer",    $data["idCustomer"],    PDO::PARAM_INT);
 		$stmt->bindParam(":idSeller",      $data["idSeller"],      PDO::PARAM_INT);
@@ -150,7 +157,7 @@ class ModelInvoices {
 	 */
 	public static function mdlDeleteInvoice(string $table, int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM {$table} WHERE id = :id");
+		$stmt = Connection::connect()->prepare("DELETE FROM {$table} WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 
 		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 
@@ -169,7 +176,7 @@ class ModelInvoices {
 	public static function mdlInvoicesByCustomer(int $idCustomer): array {
 
 		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM invoices WHERE idCustomer = :idCustomer ORDER BY invoiceDate ASC, id ASC"
+			"SELECT * FROM invoices WHERE idCustomer = :idCustomer AND idOrganization = " . (int)Tenant::id() . " ORDER BY invoiceDate ASC, id ASC"
 		);
 		$stmt->bindParam(":idCustomer", $idCustomer, PDO::PARAM_INT);
 		$stmt->execute();
@@ -201,7 +208,7 @@ class ModelInvoices {
 			"UPDATE invoices
 			    SET amountPaid = :amountPaid, balanceDue = :balanceDue, status = :status,
 			        modifiedBy = :modifiedBy, modifiedDate = NOW()
-			  WHERE id = :id"
+			  WHERE id = :id AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		$stmt->bindParam(":id",         $id,         PDO::PARAM_INT);
@@ -228,8 +235,8 @@ class ModelInvoices {
 	public static function mdlLogActivity(int $idInvoice, ?int $idUser, string $action, string $description): void {
 
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO invoice_activity_log (idInvoice, idUser, action, description)
-			 VALUES (:idInvoice, :idUser, :action, :description)"
+			"INSERT INTO invoice_activity_log (idInvoice, idUser, action, description, idOrganization)
+			 VALUES (:idInvoice, :idUser, :action, :description, " . (int)Tenant::id() . ")"
 		);
 
 		$stmt->bindParam(":idInvoice",   $idInvoice,   PDO::PARAM_INT);
@@ -251,7 +258,7 @@ class ModelInvoices {
 	public static function mdlShowActivity(int $idInvoice): array {
 
 		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM invoice_activity_log WHERE idInvoice = :idInvoice ORDER BY createdDate DESC, id DESC"
+			"SELECT * FROM invoice_activity_log WHERE idInvoice = :idInvoice AND idOrganization = " . (int)Tenant::id() . " ORDER BY createdDate DESC, id DESC"
 		);
 		$stmt->bindParam(":idInvoice", $idInvoice, PDO::PARAM_INT);
 		$stmt->execute();
@@ -270,7 +277,7 @@ class ModelInvoices {
 			"SELECT a.*, i.invoiceNumber
 			   FROM invoice_activity_log a
 			   LEFT JOIN invoices i ON i.id = a.idInvoice
-			  ORDER BY a.createdDate DESC, a.id DESC"
+			  WHERE a.idOrganization = " . (int)Tenant::id() . " ORDER BY a.createdDate DESC, a.id DESC"
 		);
 		$stmt->execute();
 
@@ -284,7 +291,7 @@ class ModelInvoices {
 
 	public static function mdlDeleteActivity(int $idInvoice): void {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM invoice_activity_log WHERE idInvoice = :idInvoice");
+		$stmt = Connection::connect()->prepare("DELETE FROM invoice_activity_log WHERE idInvoice = :idInvoice AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":idInvoice", $idInvoice, PDO::PARAM_INT);
 		$stmt->execute();
 

@@ -47,6 +47,7 @@ class PrintQuotation {
         $netPrice    = number_format((float)$q["netPrice"], 2);
         $taxAmount   = number_format((float)$q["tax"], 2);
         $totalPrice  = number_format((float)$q["totalPrice"], 2);
+        $cur         = $q["currency"] ?? "USD";  // currency code shown on the PDF
         $notes       = htmlspecialchars((string)($q["notes"] ?? ""));
         $terms       = htmlspecialchars((string)($q["termsConditions"] ?? ""));
 
@@ -123,8 +124,8 @@ HTML;
                 . '<td width="5%" align="center" style="color:#888;">'.$rowNum.'</td>'
                 . '<td width="49%">'.$desc.'</td>'
                 . '<td width="12%" align="center">'.$qty.'</td>'
-                . '<td width="17%" align="right">$ '.$unitPrice.'</td>'
-                . '<td width="17%" align="right">$ '.$lineTotal.'</td>'
+                . '<td width="17%" align="right">' . $cur . ' '.$unitPrice.'</td>'
+                . '<td width="17%" align="right">' . $cur . ' '.$lineTotal.'</td>'
                 . '</tr>';
             $rowNum++;
         }
@@ -132,20 +133,20 @@ HTML;
         $pdf->writeHTML($itemsTable, true, false, true, false, '');
         $pdf->Ln(4);
 
-        $discountRow    = ((float)($q["discount"]    ?? 0) > 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Discount:</td><td width=\"20%\" align=\"right\" style=\"color:#e74c3c;\">- \$ {$discount}</td></tr>" : "";
-        $shippingRow    = ((float)($q["shipping"]    ?? 0) > 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Shipping:</td><td width=\"20%\" align=\"right\">\$ {$shipping}</td></tr>" : "";
-        $adjustmentsRow = ((float)($q["adjustments"] ?? 0) != 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Adjustment:</td><td width=\"20%\" align=\"right\">\$ {$adjustments}</td></tr>" : "";
+        $discountRow    = ((float)($q["discount"]    ?? 0) > 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Discount:</td><td width=\"20%\" align=\"right\" style=\"color:#e74c3c;\">- {$cur} {$discount}</td></tr>" : "";
+        $shippingRow    = ((float)($q["shipping"]    ?? 0) > 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Shipping:</td><td width=\"20%\" align=\"right\">{$cur} {$shipping}</td></tr>" : "";
+        $adjustmentsRow = ((float)($q["adjustments"] ?? 0) != 0) ? "<tr><td width=\"60%\"></td><td width=\"20%\" align=\"right\" style=\"color:#555;\">Adjustment:</td><td width=\"20%\" align=\"right\">{$cur} {$adjustments}</td></tr>" : "";
 
         $totals = <<<HTML
 <table cellpadding="4" cellspacing="0" style="width:100%; font-size:9px;">
-  <tr><td width="60%"></td><td width="20%" align="right" style="color:#555;">Subtotal:</td><td width="20%" align="right">\$ {$subtotal}</td></tr>
+  <tr><td width="60%"></td><td width="20%" align="right" style="color:#555;">Subtotal:</td><td width="20%" align="right">{$cur} {$subtotal}</td></tr>
   {$discountRow}
   {$shippingRow}
   {$adjustmentsRow}
-  <tr><td width="60%"></td><td width="20%" align="right" style="color:#555;">Net:</td><td width="20%" align="right">\$ {$netPrice}</td></tr>
-  <tr><td width="60%"></td><td width="20%" align="right" style="color:#555;">Tax:</td><td width="20%" align="right">\$ {$taxAmount}</td></tr>
+  <tr><td width="60%"></td><td width="20%" align="right" style="color:#555;">Net:</td><td width="20%" align="right">{$cur} {$netPrice}</td></tr>
+  <tr><td width="60%"></td><td width="20%" align="right" style="color:#555;">Tax:</td><td width="20%" align="right">{$cur} {$taxAmount}</td></tr>
   <tr><td width="60%"></td><td colspan="2" style="border-top:1px solid #1e3a5f; padding:1px;"></td></tr>
-  <tr><td width="60%"></td><td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">TOTAL:</td><td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">\$ {$totalPrice}</td></tr>
+  <tr><td width="60%"></td><td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">TOTAL:</td><td width="20%" align="right" style="font-size:11px; font-weight:bold; color:#1e3a5f;">{$cur} {$totalPrice}</td></tr>
 </table>
 HTML;
         $pdf->writeHTML($totals, true, false, true, false, '');

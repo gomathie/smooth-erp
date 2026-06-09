@@ -13,9 +13,10 @@ class ModelSales{
 
 		if($item != null){
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $item = :$item ORDER BY id ASC");
+			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $item = :$item AND idOrganization = :__org ORDER BY id ASC");
 
 			$stmt -> bindParam(":".$item, $value, PDO::PARAM_STR);
+			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 			$stmt -> execute();
 
@@ -23,7 +24,9 @@ class ModelSales{
 
 		}else{
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY id ASC");
+			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE idOrganization = :__org ORDER BY id ASC");
+
+			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 			$stmt -> execute();
 
@@ -43,8 +46,9 @@ class ModelSales{
 	/*  */
 	static public function mdlAddSale($table, $data){
 
-		$stmt = Connection::connect()->prepare("INSERT INTO $table(code, idCustomer, idSeller, products, tax, netPrice, totalPrice, paymentMethod) VALUES (:code, :idCustomer, :idSeller, :products, :tax, :netPrice, :totalPrice, :paymentMethod)");
+		$stmt = Connection::connect()->prepare("INSERT INTO $table(code, idCustomer, idSeller, products, tax, netPrice, totalPrice, paymentMethod, idOrganization) VALUES (:code, :idCustomer, :idSeller, :products, :tax, :netPrice, :totalPrice, :paymentMethod, :__org)");
 
+		$stmt->bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 		$stmt->bindParam(":code", $data["code"], PDO::PARAM_INT);
 		$stmt->bindParam(":idCustomer", $data["idCustomer"], PDO::PARAM_INT);
 		$stmt->bindParam(":idSeller", $data["idSeller"], PDO::PARAM_INT);
@@ -75,8 +79,9 @@ class ModelSales{
 	
 	static public function mdlEditSale($table, $data){
 
-		$stmt = Connection::connect()->prepare("UPDATE $table SET  idCustomer = :idCustomer, idSeller = :idSeller, products = :products, tax = :tax, netPrice = :netPrice, totalPrice= :totalPrice, paymentMethod = :paymentMethod WHERE code = :code");
+		$stmt = Connection::connect()->prepare("UPDATE $table SET  idCustomer = :idCustomer, idSeller = :idSeller, products = :products, tax = :tax, netPrice = :netPrice, totalPrice= :totalPrice, paymentMethod = :paymentMethod WHERE code = :code AND idOrganization = :__org");
 
+		$stmt->bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 		$stmt->bindParam(":code", $data["code"], PDO::PARAM_INT);
 		$stmt->bindParam(":idCustomer", $data["idCustomer"], PDO::PARAM_INT);
 		$stmt->bindParam(":idSeller", $data["idSeller"], PDO::PARAM_INT);
@@ -107,17 +112,18 @@ class ModelSales{
 
 	static public function mdlDeleteSale($table, $data){
 
-		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id");
+		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id AND idOrganization = :__org");
 
 		$stmt -> bindParam(":id", $data, PDO::PARAM_INT);
+		$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 
 			return "ok";
-		
+
 		}else{
 
-			return "error";	
+			return "error";
 
 		}
 
@@ -135,19 +141,22 @@ class ModelSales{
 
 		if($initialDate == null){
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY id ASC");
+			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE idOrganization = :__org ORDER BY id ASC");
+
+			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 			$stmt -> execute();
 
-			return $stmt -> fetchAll();	
+			return $stmt -> fetchAll();
 
 
 		}else if($initialDate == $finalDate){
 
 			$searchDate = '%' . $finalDate . '%';
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate LIKE :saledate");
+			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate LIKE :saledate AND idOrganization = :__org");
 
 			$stmt -> bindParam(":saledate", $searchDate, PDO::PARAM_STR);
+			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 			$stmt -> execute();
 
@@ -165,15 +174,17 @@ class ModelSales{
 
 			if($finalDatePlusOne == $actualDatePlusOne){
 
-				$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate BETWEEN '$initialDate' AND '$finalDatePlusOne'");
+				$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate BETWEEN '$initialDate' AND '$finalDatePlusOne' AND idOrganization = :__org");
 
 			}else{
 
 
-				$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate BETWEEN '$initialDate' AND '$finalDate'");
+				$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate BETWEEN '$initialDate' AND '$finalDate' AND idOrganization = :__org");
 
 			}
-		
+
+			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
+
 			$stmt -> execute();
 
 			return $stmt -> fetchAll();
@@ -189,7 +200,9 @@ class ModelSales{
 
 	static public function mdlAddingTotalSales($table){	
 
-		$stmt = Connection::connect()->prepare("SELECT SUM(netPrice) as total FROM $table");
+		$stmt = Connection::connect()->prepare("SELECT SUM(netPrice) as total FROM $table WHERE idOrganization = :__org");
+
+		$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 		$stmt -> execute();
 

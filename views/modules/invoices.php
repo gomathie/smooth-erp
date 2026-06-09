@@ -109,10 +109,11 @@ if ($_SESSION["profile"] == "Special") {
                 echo '<tr>';
                 echo '<td>' . ($key + 1) . '</td>';
                 echo '<td><a href="index.php?route=invoice-detail&idInvoice=' . $invoice["id"] . '">' . $invoice["invoiceNumber"] . '</a></td>';
+                $cs = Currency::symbol($invoice["currency"] ?? Currency::base());
                 echo '<td>' . htmlspecialchars($customer["name"]) . '</td>';
-                echo '<td>$ ' . number_format($invoice["totalPrice"], 2) . '</td>';
-                echo '<td>$ ' . number_format($invoice["amountPaid"], 2) . '</td>';
-                echo '<td>$ ' . number_format($balance,               2) . '</td>';
+                echo '<td>' . $cs . ' ' . number_format($invoice["totalPrice"], 2) . '</td>';
+                echo '<td>' . $cs . ' ' . number_format($invoice["amountPaid"], 2) . '</td>';
+                echo '<td>' . $cs . ' ' . number_format($balance,               2) . '</td>';
                 echo '<td><span class="btn btn-xs ' . $statusClass . '">' . $statusLabel . '</span></td>';
                 echo '<td>' . ($invoice["dueDate"] ? $invoice["dueDate"] : '-') . '</td>';
                 echo '<td>' . substr($invoice["invoiceDate"], 0, 10) . '</td>';

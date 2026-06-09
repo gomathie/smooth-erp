@@ -46,6 +46,18 @@ class ControllerUsers{
 							$_SESSION["photo"]   = $answer["photo"];
 							$_SESSION["profile"] = $answer["profile"];
 
+							// Multi-tenant context: bind the session to the user's organization.
+							// Super Admin (idOrganization NULL) has no org until they "enter" one.
+							$_SESSION["idOrganization"] = isset($answer["idOrganization"]) && $answer["idOrganization"] !== null
+								? (int)$answer["idOrganization"] : 0;
+							$_SESSION["isSuperAdmin"] = ($answer["profile"] === "SuperAdmin");
+
+							// Load the org's base currency for display/defaults.
+							if ($_SESSION["idOrganization"] > 0 && class_exists("ModelOrganizations")) {
+								$org = ModelOrganizations::mdlGetOrganization($_SESSION["idOrganization"]);
+								$_SESSION["baseCurrency"] = is_array($org) ? $org["baseCurrency"] : "USD";
+							}
+
 							date_default_timezone_set("America/Bogota");
 							$actualDate = date('Y-m-d H:i:s');
 

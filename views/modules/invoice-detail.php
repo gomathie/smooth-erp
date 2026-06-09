@@ -32,6 +32,8 @@ $items    = json_decode((string)$invoice["items"], true) ?: [];
 $total      = (float)$invoice["totalPrice"];
 $paid       = (float)$invoice["amountPaid"];
 $balance    = (float)$invoice["balanceDue"];
+$sym        = Currency::symbol($invoice["currency"] ?? Currency::base());
+$curCode    = $invoice["currency"] ?? Currency::base();
 
 /*=============================================
 DERIVE DISPLAY STATUS (overdue is computed, never stored)
@@ -126,6 +128,7 @@ $paymentModeMap = [
                 <p style="margin:2px 0;"><strong>Due Date:</strong> <?php echo $invoice["dueDate"] ?: "—"; ?></p>
                 <p style="margin:2px 0;"><strong>Terms:</strong> <?php echo $paymentTermsLabel; ?></p>
                 <p style="margin:2px 0;"><strong>Handled By:</strong> <?php echo htmlspecialchars($seller["name"] ?? "—"); ?></p>
+                <p style="margin:2px 0;"><strong>Currency:</strong> <?php echo htmlspecialchars($curCode); ?></p>
                 <?php if (!empty($invoice["orderReference"])) { echo '<p style="margin:2px 0;"><strong>Ref:</strong> '.htmlspecialchars($invoice["orderReference"]).'</p>'; } ?>
               </div>
             </div>
@@ -148,8 +151,8 @@ $paymentModeMap = [
                     <td><?php echo $n++; ?></td>
                     <td><?php echo htmlspecialchars($it["description"] ?? ""); ?></td>
                     <td class="text-center"><?php echo (int)($it["quantity"] ?? 0); ?></td>
-                    <td class="text-right">$ <?php echo number_format((float)($it["price"] ?? 0), 2); ?></td>
-                    <td class="text-right">$ <?php echo number_format((float)($it["totalPrice"] ?? 0), 2); ?></td>
+                    <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)($it["price"] ?? 0), 2); ?></td>
+                    <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)($it["totalPrice"] ?? 0), 2); ?></td>
                   </tr>
                 <?php } ?>
               </tbody>
@@ -158,14 +161,14 @@ $paymentModeMap = [
             <div class="row">
               <div class="col-xs-6 col-xs-offset-6">
                 <table class="table" style="margin-bottom:0;">
-                  <tr><td style="color:#888;">Subtotal</td><td class="text-right">$ <?php echo number_format((float)$invoice["subtotal"], 2); ?></td></tr>
-                  <?php if ((float)$invoice["discount"] > 0) { ?><tr><td style="color:#888;">Discount</td><td class="text-right" style="color:#e74c3c;">- $ <?php echo number_format((float)$invoice["discount"], 2); ?></td></tr><?php } ?>
-                  <?php if ((float)$invoice["shipping"] > 0) { ?><tr><td style="color:#888;">Shipping</td><td class="text-right">$ <?php echo number_format((float)$invoice["shipping"], 2); ?></td></tr><?php } ?>
-                  <?php if ((float)$invoice["adjustments"] != 0) { ?><tr><td style="color:#888;">Adjustment</td><td class="text-right">$ <?php echo number_format((float)$invoice["adjustments"], 2); ?></td></tr><?php } ?>
-                  <tr><td style="color:#888;">Tax</td><td class="text-right">$ <?php echo number_format((float)$invoice["tax"], 2); ?></td></tr>
-                  <tr style="border-top:2px solid #1e3a5f;"><td><strong>Total</strong></td><td class="text-right"><strong>$ <?php echo number_format($total, 2); ?></strong></td></tr>
-                  <tr><td style="color:#27ae60;">Amount Paid</td><td class="text-right" style="color:#27ae60;">$ <?php echo number_format($paid, 2); ?></td></tr>
-                  <tr style="background:#fcf8e3;"><td><strong>Balance Due</strong></td><td class="text-right"><strong>$ <?php echo number_format($balance, 2); ?></strong></td></tr>
+                  <tr><td style="color:#888;">Subtotal</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$invoice["subtotal"], 2); ?></td></tr>
+                  <?php if ((float)$invoice["discount"] > 0) { ?><tr><td style="color:#888;">Discount</td><td class="text-right" style="color:#e74c3c;">- <?php echo $sym; ?> <?php echo number_format((float)$invoice["discount"], 2); ?></td></tr><?php } ?>
+                  <?php if ((float)$invoice["shipping"] > 0) { ?><tr><td style="color:#888;">Shipping</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$invoice["shipping"], 2); ?></td></tr><?php } ?>
+                  <?php if ((float)$invoice["adjustments"] != 0) { ?><tr><td style="color:#888;">Adjustment</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$invoice["adjustments"], 2); ?></td></tr><?php } ?>
+                  <tr><td style="color:#888;">Tax</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$invoice["tax"], 2); ?></td></tr>
+                  <tr style="border-top:2px solid #1e3a5f;"><td><strong>Total</strong></td><td class="text-right"><strong><?php echo $sym; ?> <?php echo number_format($total, 2); ?></strong></td></tr>
+                  <tr><td style="color:#27ae60;">Amount Paid</td><td class="text-right" style="color:#27ae60;"><?php echo $sym; ?> <?php echo number_format($paid, 2); ?></td></tr>
+                  <tr style="background:#fcf8e3;"><td><strong>Balance Due</strong></td><td class="text-right"><strong><?php echo $sym; ?> <?php echo number_format($balance, 2); ?></strong></td></tr>
                 </table>
               </div>
             </div>
@@ -204,7 +207,7 @@ $paymentModeMap = [
                       <td><?php echo $p["paymentDate"]; ?></td>
                       <td><?php echo $modeLabel; ?></td>
                       <td><?php echo htmlspecialchars($p["reference"] ?? ""); ?></td>
-                      <td class="text-right">$ <?php echo number_format((float)$p["amount"], 2); ?></td>
+                      <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$p["amount"], 2); ?></td>
                       <?php if ($_SESSION["profile"] == "Administrator") { ?>
                         <td class="text-right">
                           <button class="btn btn-xs btn-primary btnEditPayment"
@@ -240,9 +243,9 @@ $paymentModeMap = [
           <div class="box-body text-center">
             <p style="color:#888; margin-bottom:4px;">Balance Due</p>
             <p style="font-size:32px; font-weight:bold; color:<?php echo $balance > 0 ? '#e74c3c' : '#27ae60'; ?>; margin:0;">
-              $ <?php echo number_format($balance, 2); ?>
+              <?php echo $sym; ?> <?php echo number_format($balance, 2); ?>
             </p>
-            <p class="text-muted" style="margin-top:6px;">of $ <?php echo number_format($total, 2); ?> total</p>
+            <p class="text-muted" style="margin-top:6px;">of <?php echo $sym; ?> <?php echo number_format($total, 2); ?> total</p>
           </div>
         </div>
 

@@ -17,18 +17,18 @@ if($_SESSION["profile"] == "Special" || $_SESSION["profile"] == "Seller"){
 
   <section class="content-header">
     
-    <h1><!--  -->
-      
-      Sales report
-    
+    <h1>
+
+      Overview
+
     </h1>
 
     <ol class="breadcrumb">
-      
+
       <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
-      
-      <li class="active">Sales report</li>
-    
+
+      <li class="active">Overview</li>
+
     </ol>
 
   </section>

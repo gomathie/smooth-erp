@@ -1,5 +1,9 @@
 <?php
 
+// Tenant context is needed wherever models run (web requests and standalone
+// AJAX endpoints), so load it alongside the DB layer.
+require_once __DIR__ . '/../helpers/tenant.php';
+
 class Connection{
 
 	/** @var PDO|null Single shared connection for the request (unit of work). */

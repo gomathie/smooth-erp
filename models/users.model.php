@@ -12,19 +12,31 @@ class UsersModel{
 
 		if ($tableUsers !== 'users') return false;
 
+		$org = Tenant::id();
+
 		if ($item != null) {
 
 			// Whitelist allowed column names to prevent SQL injection
 			if (!in_array($item, ['id', 'user', 'email', 'resetToken'], true)) return false;
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM `users` WHERE `$item` = :val");
+			// Auth lookups (login / password reset) run before an org context
+			// exists, so they must NOT be org-scoped. Everything else is.
+			$authLookup = in_array($item, ['user', 'email', 'resetToken'], true);
+
+			$sql = "SELECT * FROM `users` WHERE `$item` = :val";
+			if (!$authLookup && $org > 0) { $sql .= " AND idOrganization = " . (int)$org; }
+
+			$stmt = Connection::connect()->prepare($sql);
 			$stmt->bindParam(':val', $value, PDO::PARAM_STR);
 			$stmt->execute();
 			return $stmt->fetch();
 
 		} else {
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM `users`");
+			$sql = "SELECT * FROM `users`";
+			if ($org > 0) { $sql .= " WHERE idOrganization = " . (int)$org; }
+
+			$stmt = Connection::connect()->prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll();
 		}
@@ -38,7 +50,7 @@ class UsersModel{
 	static public function mdlAddUser($table, $data){
 
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO `users`(name, user, password, profile, photo, email, phone) VALUES (:name, :user, :password, :profile, :photo, :email, :phone)"
+			"INSERT INTO `users`(name, user, password, profile, photo, email, phone, idOrganization) VALUES (:name, :user, :password, :profile, :photo, :email, :phone, " . (int)Tenant::id() . ")"
 		);
 
 		$stmt->bindParam(":name",     $data["name"],     PDO::PARAM_STR);
@@ -60,7 +72,7 @@ class UsersModel{
 	static public function mdlEditUser($table, $data){
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE `users` SET name = :name, password = :password, profile = :profile, photo = :photo, email = :email, phone = :phone WHERE user = :user"
+			"UPDATE `users` SET name = :name, password = :password, profile = :profile, photo = :photo, email = :email, phone = :phone WHERE user = :user AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		$stmt->bindParam(":name",     $data["name"],     PDO::PARAM_STR);
@@ -141,7 +153,7 @@ class UsersModel{
 
 	static public function mdlDeleteUser($table, $data){
 
-		$stmt = Connection::connect()->prepare("DELETE FROM `users` WHERE id = :id");
+		$stmt = Connection::connect()->prepare("DELETE FROM `users` WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $data, PDO::PARAM_STR);
 		return $stmt->execute() ? 'ok' : 'error';
 	}

@@ -156,8 +156,16 @@
       echo '<div class="wrapper">';
 
       /*=============================================
+      =     Super Admin context handling           =
+      =============================================*/
+      // The "Exit org" banner link can be triggered from any page.
+      if (Tenant::isSuperAdmin()) { ControllerSuperAdmin::ctrExitOrg(); }
+      // A Super Admin who hasn't entered an org only sees the organizations panel.
+      if (Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0) { $_GET["route"] = "organizations"; }
+
+      /*=============================================
       =            header          =
-      =============================================*/  
+      =============================================*/
 
       include "modules/header.php";
 
@@ -168,8 +176,18 @@
       include "modules/sidebar.php";
 
       /*=============================================
+      =     Entered-org banner (Super Admin)       =
+      =============================================*/
+      if (Tenant::isSuperAdmin() && Tenant::enteredOrg() > 0) {
+        echo '<div style="background:#dd4b39; color:#fff; padding:8px 15px; margin-left:0;" class="content-wrapper-banner">
+                <i class="fa fa-eye"></i> Operating as admin of <strong>' . htmlspecialchars($_SESSION["enteredOrgName"] ?? "") . '</strong>
+                <a href="index.php?route=organizations&exitOrg=1" class="btn btn-xs btn-default pull-right"><i class="fa fa-sign-out"></i> Exit to Super Admin</a>
+              </div>';
+      }
+
+      /*=============================================
       =            Content          =
-      =============================================*/ 
+      =============================================*/
 
       if(isset($_GET["route"])){
 
@@ -181,12 +199,14 @@
             $_GET["route"] == 'sales' ||
             $_GET["route"] == 'create-sale' ||
             $_GET["route"] == 'edit-sale' ||
+            $_GET["route"] == 'sale-detail' ||
             $_GET["route"] == 'invoices' ||
             $_GET["route"] == 'create-invoice' ||
             $_GET["route"] == 'edit-invoice' ||
             $_GET["route"] == 'quotations' ||
             $_GET["route"] == 'create-quotation' ||
             $_GET["route"] == 'edit-quotation' ||
+            $_GET["route"] == 'quotation-detail' ||
             $_GET["route"] == 'invoice-detail' ||
             $_GET["route"] == 'customer-statement' ||
             $_GET["route"] == 'accounting' ||
@@ -194,6 +214,16 @@
             $_GET["route"] == 'chart-of-accounts' ||
             $_GET["route"] == 'settings' ||
             $_GET["route"] == 'reports' ||
+            $_GET["route"] == 'report-overview' ||
+            $_GET["route"] == 'report-sales' ||
+            $_GET["route"] == 'report-inventory' ||
+            $_GET["route"] == 'report-payables' ||
+            $_GET["route"] == 'report-receivables' ||
+            $_GET["route"] == 'report-payments' ||
+            $_GET["route"] == 'report-activity' ||
+            $_GET["route"] == 'report-tax' ||
+            $_GET["route"] == 'organizations' ||
+            $_GET["route"] == 'currencies' ||
             $_GET["route"] == 'logout'){
 
           include "modules/".$_GET["route"].".php";

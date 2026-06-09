@@ -1,4 +1,6 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+
 
 require_once "../controllers/products.controller.php";
 require_once "../models/products.model.php";

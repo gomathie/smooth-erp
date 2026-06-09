@@ -29,9 +29,9 @@ class ModelInventory {
 
 		$stmt = $link->prepare(
 			"INSERT INTO stock_movements
-			   (idProduct, sourceType, sourceId, qtyChange, unitCost, movementDate, note)
+			   (idProduct, sourceType, sourceId, qtyChange, unitCost, movementDate, note, idOrganization)
 			 VALUES
-			   (:idProduct, :sourceType, :sourceId, :qtyChange, :unitCost, :movementDate, :note)"
+			   (:idProduct, :sourceType, :sourceId, :qtyChange, :unitCost, :movementDate, :note, " . (int)Tenant::id() . ")"
 		);
 
 		$unitCost = number_format((float)($data["unitCost"] ?? 0), 2, '.', '');
@@ -65,7 +65,7 @@ class ModelInventory {
 		// Reverse each movement's effect on the cache before deleting it.
 		$find = $link->prepare(
 			"SELECT idProduct, qtyChange FROM stock_movements
-			  WHERE sourceType = :sourceType AND sourceId = :sourceId"
+			  WHERE sourceType = :sourceType AND sourceId = :sourceId AND idOrganization = " . (int)Tenant::id() . ""
 		);
 		$find->bindValue(":sourceType", $sourceType, PDO::PARAM_STR);
 		$find->bindValue(":sourceId",   $sourceId,   PDO::PARAM_INT);
@@ -76,7 +76,7 @@ class ModelInventory {
 		}
 
 		$del = $link->prepare(
-			"DELETE FROM stock_movements WHERE sourceType = :sourceType AND sourceId = :sourceId"
+			"DELETE FROM stock_movements WHERE sourceType = :sourceType AND sourceId = :sourceId AND idOrganization = " . (int)Tenant::id() . ""
 		);
 		$del->bindValue(":sourceType", $sourceType, PDO::PARAM_STR);
 		$del->bindValue(":sourceId",   $sourceId,   PDO::PARAM_INT);
@@ -117,9 +117,27 @@ class ModelInventory {
 	public static function mdlProductMovements(int $idProduct): array {
 
 		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM stock_movements WHERE idProduct = :idProduct ORDER BY movementDate ASC, id ASC"
+			"SELECT * FROM stock_movements WHERE idProduct = :idProduct AND idOrganization = " . (int)Tenant::id() . " ORDER BY movementDate ASC, id ASC"
 		);
 		$stmt->bindValue(":idProduct", $idProduct, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll() ?: [];
+
+	}
+
+	/*=============================================
+	ALL MOVEMENTS WITH PRODUCT INFO (for the Inventory report)
+	=============================================*/
+
+	public static function mdlAllMovements(): array {
+
+		$stmt = Connection::connect()->prepare(
+			"SELECT m.*, p.code, p.description
+			   FROM stock_movements m
+			   LEFT JOIN products p ON p.id = m.idProduct
+			  WHERE m.idOrganization = " . (int)Tenant::id() . " ORDER BY m.movementDate DESC, m.id DESC"
+		);
 		$stmt->execute();
 
 		return $stmt->fetchAll() ?: [];
@@ -135,7 +153,7 @@ class ModelInventory {
 		// Value at the product's current buying price (moving-average proxy).
 		$stmt = Connection::connect()->prepare(
 			"SELECT COALESCE(SUM(p.stock * p.buyingPrice), 0) AS val
-			   FROM products p WHERE p.type = 'good'"
+			   FROM products p WHERE p.type = 'good' AND p.idOrganization = " . (int)Tenant::id() . ""
 		);
 		$stmt->execute();
 		$row = $stmt->fetch();
@@ -153,8 +171,8 @@ class ModelInventory {
 		$link = Connection::connect();
 		$stmt = $link->prepare(
 			"UPDATE products
-			    SET stock = (SELECT COALESCE(SUM(qtyChange), 0) FROM stock_movements WHERE idProduct = :p1)
-			  WHERE id = :p2"
+			    SET stock = (SELECT COALESCE(SUM(qtyChange), 0) FROM stock_movements WHERE idProduct = :p1 AND idOrganization = " . (int)Tenant::id() . ")
+			  WHERE id = :p2 AND idOrganization = " . (int)Tenant::id() . ""
 		);
 		$stmt->bindValue(":p1", $idProduct, PDO::PARAM_INT);
 		$stmt->bindValue(":p2", $idProduct, PDO::PARAM_INT);
@@ -169,7 +187,7 @@ class ModelInventory {
 	private static function adjustStockCache(int $idProduct, int $delta): void {
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE products SET stock = stock + :delta WHERE id = :id"
+			"UPDATE products SET stock = stock + :delta WHERE id = :id AND idOrganization = " . (int)Tenant::id() . ""
 		);
 		$stmt->bindValue(":delta", $delta,     PDO::PARAM_INT);
 		$stmt->bindValue(":id",    $idProduct, PDO::PARAM_INT);

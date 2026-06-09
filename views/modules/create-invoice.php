@@ -122,6 +122,20 @@ if($_SESSION["profile"] == "Special"){
                       </div>
                     </div>
 
+                    <!-- CURRENCY -->
+                    <?php if (Currency::isEnabled()) { ?>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                        <select class="form-control" name="currency">
+                          <?php foreach (Currency::activeForOrg() as $c) { echo '<option value="'.$c["code"].'">'.htmlspecialchars($c["code"]." — ".$c["name"]." (".$c["symbol"].")").'</option>'; } ?>
+                        </select>
+                      </div>
+                    </div>
+                    <?php } else { ?>
+                      <input type="hidden" name="currency" value="<?php echo htmlspecialchars(Currency::base()); ?>">
+                    <?php } ?>
+
 
                     <!--=====================================
                     =            CUSTOMER INPUT           =

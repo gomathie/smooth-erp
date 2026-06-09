@@ -74,11 +74,13 @@ $ctrl->ctrDeleteQuotation();
                 echo '<td>' . ($key + 1) . '</td>';
                 echo '<td>' . htmlspecialchars($q["quoteNumber"]) . '</td>';
                 echo '<td>' . htmlspecialchars($customer["name"] ?? "-") . '</td>';
-                echo '<td>$ ' . number_format($q["totalPrice"], 2) . '</td>';
+                echo '<td>' . Currency::symbol($q["currency"] ?? Currency::base()) . ' ' . number_format($q["totalPrice"], 2) . '</td>';
                 echo '<td><span class="btn btn-xs ' . $statusClass . '">' . $label . '</span></td>';
                 echo '<td>' . ($q["expiryDate"] ?: '-') . '</td>';
                 echo '<td>' . substr($q["quoteDate"], 0, 10) . '</td>';
                 echo '<td><div class="btn-group">';
+
+                echo '<a class="btn btn-default" href="index.php?route=quotation-detail&idQuotation=' . $q["id"] . '" title="View"><i class="fa fa-eye"></i></a>';
 
                 echo '<button class="btn btn-warning btnPrintQuotation" idQuotation="' . $q["id"] . '"><i class="fa fa-print"></i></button>';
 

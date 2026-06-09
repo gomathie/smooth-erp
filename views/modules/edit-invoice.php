@@ -103,6 +103,20 @@
                       </div>
                     </div>
 
+                    <!-- CURRENCY -->
+                    <?php $invCur = $invoice['currency'] ?? Currency::base(); if (Currency::isEnabled()) { ?>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                        <select class="form-control" name="currency">
+                          <?php foreach (Currency::activeForOrg() as $c) { $sel = $c["code"]===$invCur?' selected':''; echo '<option value="'.$c["code"].'"'.$sel.'>'.htmlspecialchars($c["code"]." — ".$c["name"]." (".$c["symbol"].")").'</option>'; } ?>
+                        </select>
+                      </div>
+                    </div>
+                    <?php } else { ?>
+                      <input type="hidden" name="currency" value="<?php echo htmlspecialchars($invCur); ?>">
+                    <?php } ?>
+
 
                     <!--=====================================
                     =            CUSTOMER INPUT           =

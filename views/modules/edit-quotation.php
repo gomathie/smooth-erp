@@ -68,6 +68,20 @@ $items         = json_decode($quote["items"], true) ?: [];
                   </div>
                 </div>
 
+                <!-- CURRENCY -->
+                <?php $qCur = $quote["currency"] ?? Currency::base(); if (Currency::isEnabled()) { ?>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                    <select class="form-control" name="currency">
+                      <?php foreach (Currency::activeForOrg() as $c) { $sel = $c["code"]===$qCur?' selected':''; echo '<option value="'.$c["code"].'"'.$sel.'>'.htmlspecialchars($c["code"]." — ".$c["name"]." (".$c["symbol"].")").'</option>'; } ?>
+                    </select>
+                  </div>
+                </div>
+                <?php } else { ?>
+                  <input type="hidden" name="currency" value="<?php echo htmlspecialchars($qCur); ?>">
+                <?php } ?>
+
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-users"></i></span>

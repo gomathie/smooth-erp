@@ -127,6 +127,24 @@ class ModelInventory {
 	}
 
 	/*=============================================
+	ALL MOVEMENTS WITH PRODUCT INFO (for the Inventory report)
+	=============================================*/
+
+	public static function mdlAllMovements(): array {
+
+		$stmt = Connection::connect()->prepare(
+			"SELECT m.*, p.code, p.description
+			   FROM stock_movements m
+			   LEFT JOIN products p ON p.id = m.idProduct
+			  ORDER BY m.movementDate DESC, m.id DESC"
+		);
+		$stmt->execute();
+
+		return $stmt->fetchAll() ?: [];
+
+	}
+
+	/*=============================================
 	TOTAL INVENTORY VALUE (qty on hand * unit cost, by latest cost)
 	=============================================*/
 

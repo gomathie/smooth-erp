@@ -261,6 +261,24 @@ class ModelInvoices {
 	}
 
 	/*=============================================
+	ALL ACTIVITY (for the Activity report)
+	=============================================*/
+
+	public static function mdlAllActivity(): array {
+
+		$stmt = Connection::connect()->prepare(
+			"SELECT a.*, i.invoiceNumber
+			   FROM invoice_activity_log a
+			   LEFT JOIN invoices i ON i.id = a.idInvoice
+			  ORDER BY a.createdDate DESC, a.id DESC"
+		);
+		$stmt->execute();
+
+		return $stmt->fetchAll() ?: [];
+
+	}
+
+	/*=============================================
 	DELETE ACTIVITY LOG FOR AN INVOICE (cascade on delete)
 	=============================================*/
 

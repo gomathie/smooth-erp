@@ -14,6 +14,7 @@ require_once "controllers/accounting.controller.php";
 require_once "controllers/expenses.controller.php";
 require_once "controllers/settings.controller.php";
 require_once "controllers/quotations.controller.php";
+require_once "controllers/reports.controller.php";
 
 require_once "models/users.model.php";
 require_once "models/categories.model.php";

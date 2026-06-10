@@ -269,25 +269,24 @@ class ControllerUsers{
 
 					mkdir($folder, 0755);
 
-					if ($_FILES["newPhoto"]["type"] == "image/jpeg") {
+					$ptype = $_FILES["newPhoto"]["type"];
+					if ($ptype == "image/jpeg" || $ptype == "image/png") {
 
-						$randomNumber = mt_rand(100, 999);
-						$photo = "views/img/users/" . $safeUser . "/" . $randomNumber . ".jpg";
-						$srcImage = imagecreatefromjpeg($_FILES["newPhoto"]["tmp_name"]);
-						$destination = imagecreatetruecolor($newWidth, $newHeight);
-						imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-						imagejpeg($destination, $photo);
+						$ext   = $ptype == "image/jpeg" ? "jpg" : "png";
+						$photo = "views/img/users/" . $safeUser . "/" . mt_rand(100, 999) . "." . $ext;
 
-					}
-
-					if ($_FILES["newPhoto"]["type"] == "image/png") {
-
-						$randomNumber = mt_rand(100, 999);
-						$photo = "views/img/users/" . $safeUser . "/" . $randomNumber . ".png";
-						$srcImage = imagecreatefrompng($_FILES["newPhoto"]["tmp_name"]);
-						$destination = imagecreatetruecolor($newWidth, $newHeight);
-						imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-						imagepng($destination, $photo);
+						// Resize with GD when available; otherwise store the upload as-is.
+						if (function_exists('imagecreatetruecolor')) {
+							$srcImage = $ext == "jpg"
+								? imagecreatefromjpeg($_FILES["newPhoto"]["tmp_name"])
+								: imagecreatefrompng($_FILES["newPhoto"]["tmp_name"]);
+							$destination = imagecreatetruecolor($newWidth, $newHeight);
+							imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+							if ($ext == "jpg") { imagejpeg($destination, $photo); }
+							else               { imagepng($destination, $photo); }
+						} else {
+							move_uploaded_file($_FILES["newPhoto"]["tmp_name"], $photo);
+						}
 					}
 
 				}
@@ -390,25 +389,24 @@ class ControllerUsers{
 						mkdir($folder, 0755);
 					}
 
-					if ($_FILES["editPhoto"]["type"] == "image/jpeg") {
+					$ptype = $_FILES["editPhoto"]["type"];
+					if ($ptype == "image/jpeg" || $ptype == "image/png") {
 
-						$randomNumber = mt_rand(100, 999);
-						$photo = "views/img/users/" . $safeUser . "/" . $randomNumber . ".jpg";
-						$srcImage = imagecreatefromjpeg($_FILES["editPhoto"]["tmp_name"]);
-						$destination = imagecreatetruecolor($newWidth, $newHeight);
-						imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-						imagejpeg($destination, $photo);
+						$ext   = $ptype == "image/jpeg" ? "jpg" : "png";
+						$photo = "views/img/users/" . $safeUser . "/" . mt_rand(100, 999) . "." . $ext;
 
-					}
-
-					if ($_FILES["editPhoto"]["type"] == "image/png") {
-
-						$randomNumber = mt_rand(100, 999);
-						$photo = "views/img/users/" . $safeUser . "/" . $randomNumber . ".png";
-						$srcImage = imagecreatefrompng($_FILES["editPhoto"]["tmp_name"]);
-						$destination = imagecreatetruecolor($newWidth, $newHeight);
-						imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-						imagepng($destination, $photo);
+						// Resize with GD when available; otherwise store the upload as-is.
+						if (function_exists('imagecreatetruecolor')) {
+							$srcImage = $ext == "jpg"
+								? imagecreatefromjpeg($_FILES["editPhoto"]["tmp_name"])
+								: imagecreatefrompng($_FILES["editPhoto"]["tmp_name"]);
+							$destination = imagecreatetruecolor($newWidth, $newHeight);
+							imagecopyresized($destination, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+							if ($ext == "jpg") { imagejpeg($destination, $photo); }
+							else               { imagepng($destination, $photo); }
+						} else {
+							move_uploaded_file($_FILES["editPhoto"]["tmp_name"], $photo);
+						}
 					}
 
 				}

@@ -22,12 +22,12 @@ if (!Permission::has("sales")) {
 
       <!-- THE FORM -->
       <div class="col-lg-5 col-xs-12">
-        <div class="box box-default">
-          <div class="box-header with-border"></div>
+        <div class="card">
+          <div class="card-header"></div>
 
           <form role="form" method="post" class="quotationForm">
-            <div class="box-body">
-              <div class="box">
+            <div class="card-body">
+              <div class="card">
 
                 <!-- SELLER -->
                 <div class="form-group">
@@ -82,7 +82,7 @@ if (!Permission::has("sales")) {
                         foreach ($customers as $c) { echo '<option value="'.$c["id"].'">'.htmlspecialchars($c["name"]).'</option>'; }
                       ?>
                     </select>
-                    <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalAddCustomer">Add</button></span>
+                    <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer">Add</button></span>
                   </div>
                 </div>
 
@@ -196,7 +196,7 @@ if (!Permission::has("sales")) {
               </div>
             </div>
 
-            <div class="box-footer">
+            <div class="card-footer">
               <button type="submit" class="btn btn-success pull-right">Save Quotation</button>
             </div>
           </form>
@@ -211,9 +211,9 @@ if (!Permission::has("sales")) {
 
       <!-- PRODUCTS TABLE -->
       <div class="col-lg-7 hidden-md hidden-sm hidden-xs">
-        <div class="box box-default">
-          <div class="box-header with-border"></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"></div>
+          <div class="card-body">
             <table class="table table-bordered table-hover table-striped dt-responsive quotationsProductsTable">
               <thead>
                 <tr>
@@ -242,11 +242,11 @@ if (!Permission::has("sales")) {
     <div class="modal-content">
       <form role="form" method="POST">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Customer</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
             <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required></div></div>
             <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required></div></div>
             <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-envelope"></i></span><input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required></div></div>
@@ -257,7 +257,7 @@ if (!Permission::has("sales")) {
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save Customer</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
         <?php
           $createCustomer = new ControllerCustomers();

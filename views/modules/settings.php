@@ -26,32 +26,32 @@ $accountingEnabled = ControllerSettings::ctrAccountingEnabled();
     <div class="row">
       <div class="col-md-8">
 
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-id-card-o"></i> Company Profile &amp; Branding</h3>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-id-card-o"></i> Company Profile &amp; Branding</h3>
           </div>
-          <div class="box-body">
+          <div class="card-body">
             <p>Set your organization's logo, brand color, and company details (address, contact, website). This information appears on your printed documents — invoices, quotations, and receipts.</p>
             <a href="company-profile" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit Company Profile</a>
           </div>
         </div>
 
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-paint-brush"></i> Appearance</h3>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-paint-brush"></i> Appearance</h3>
           </div>
-          <div class="box-body">
+          <div class="card-body">
             <p>Choose your interface theme color. The change applies immediately and is saved for your session.</p>
             <!-- Swatches are built by JS (template.js) from themes.config.js -->
             <div id="theme-swatches" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
           </div>
         </div>
 
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-balance-scale"></i> Accounting Module</h3>
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-balance-scale"></i> Accounting Module</h3>
           </div>
-          <div class="box-body">
+          <div class="card-body">
 
             <p>
               The accounting module adds the <strong>Accounting</strong> dashboard,

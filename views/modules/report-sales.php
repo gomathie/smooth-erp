@@ -21,9 +21,9 @@ foreach ($sales as $s) { $total += (float)$s["totalPrice"]; $tax += (float)$s["t
       <div class="col-md-4 col-sm-4"><div class="info-box"><span class="info-box-icon bg-yellow"><i class="fa fa-percent"></i></span><div class="info-box-content"><span class="info-box-text">Tax Collected</span><span class="info-box-number">$ <?php echo number_format($tax,2); ?></span></div></div></div>
     </div>
 
-    <div class="box box-default">
-      <div class="box-header with-border"><h3 class="box-title">Sales</h3></div>
-      <div class="box-body">
+    <div class="card">
+      <div class="card-header"><h3 class="card-title">Sales</h3></div>
+      <div class="card-body">
         <table class="table table-bordered table-striped dt-responsive" width="100%">
           <thead><tr><th>Code</th><th>Date</th><th>Customer</th><th>Seller</th><th>Payment</th><th class="text-right">Net</th><th class="text-right">Tax</th><th class="text-right">Total</th></tr></thead>
           <tbody>

@@ -17,9 +17,9 @@ $actionLabels = [
   <section class="content">
     <?php include "reports/filter.php"; ?>
 
-    <div class="box box-default">
-      <div class="box-header with-border"><h3 class="box-title">Invoice &amp; Payment Activity <span class="label label-default"><?php echo count($activity); ?></span></h3></div>
-      <div class="box-body">
+    <div class="card">
+      <div class="card-header"><h3 class="card-title">Invoice &amp; Payment Activity <span class="label label-default"><?php echo count($activity); ?></span></h3></div>
+      <div class="card-body">
         <table class="table table-bordered table-striped dt-responsive" width="100%">
           <thead><tr><th>Date / Time</th><th>User</th><th>Invoice</th><th>Action</th><th>Detail</th></tr></thead>
           <tbody>

@@ -18,7 +18,7 @@ $(document).on("click", ".btnEditExpense", function () {
     $("#editExpensePayee").val($(this).data("payee"));
     $("#editExpenseReference").val($(this).data("reference"));
     $("#editExpenseNotes").val($(this).data("notes"));
-    $("#modalEditExpense").modal("show");
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("modalEditExpense")).show();
 });
 
 /*=============================================
@@ -54,7 +54,7 @@ $(document).on("click", ".btnEditAccount", function () {
     $("#editAccountType").prop("disabled", isSystem);
     $("#editTypeLocked").toggle(isSystem);
 
-    $("#modalEditAccount").modal("show");
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("modalEditAccount")).show();
 });
 
 /*=============================================

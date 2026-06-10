@@ -31,12 +31,12 @@ if(!Permission::has("products")){
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
-        <div class="box-header with-border">
-          <button class="btn btn-success" data-toggle="modal" data-target="#addCategories"> <i class="fa fa-plus"></i> Add Categories</button>
+      <div class="card">
+        <div class="card-header">
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCategories"> <i class="fa fa-plus"></i> Add Categories</button>
 
         </div>
-        <div class="box-body">
+        <div class="card-body">
           <table class="table table-bordered table-hover table-striped dt-responsive tables" width="100%">
          
             <thead>
@@ -70,7 +70,7 @@ if(!Permission::has("products")){
 
                             <div class="btn-group">
                                 
-                              <button class="btn btn-primary btnEditCategory" idCategory="'.$value["id"].'" data-toggle="modal" data-target="#editCategories"><i class="fa fa-pencil"></i></button>
+                              <button class="btn btn-primary btnEditCategory" idCategory="'.$value["id"].'" data-bs-toggle="modal" data-bs-target="#editCategories"><i class="fa fa-pencil"></i></button>
 
                               <button class="btn btn-danger btnDeleteCategory" idCategory="'.$value["id"].'"><i class="fa fa-trash"></i></button>
 
@@ -112,11 +112,11 @@ if(!Permission::has("products")){
       <form role="form" method="POST">
         <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Categories</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
 
             <!--Input name -->
             <div class="form-group">
@@ -129,7 +129,7 @@ if(!Permission::has("products")){
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Category</button>
         </div>
       </form>
@@ -158,11 +158,11 @@ if(!Permission::has("products")){
       <form role="form" method="POST">
         <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Edit Categories</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
 
             <!--Input name -->
             <div class="form-group">
@@ -176,7 +176,7 @@ if(!Permission::has("products")){
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Changes</button>
         </div>
 

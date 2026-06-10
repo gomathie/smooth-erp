@@ -36,13 +36,13 @@ $typeLabels = [
 
   <section class="content">
 
-    <div class="box">
-      <div class="box-header with-border">
-        <button class="btn btn-success" data-toggle="modal" data-target="#modalAddAccount">
+    <div class="card">
+      <div class="card-header">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddAccount">
           <i class="fa fa-plus"></i> New Account
         </button>
       </div>
-      <div class="box-body">
+      <div class="card-body">
         <table class="table table-bordered table-hover table-striped dt-responsive accountsTable" width="100%">
           <thead>
             <tr>
@@ -97,7 +97,7 @@ $typeLabels = [
     <div class="modal-content">
       <form method="post" role="form">
         <div class="modal-header" style="background:#00a65a; color:#fff;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">New Account</h4>
         </div>
         <div class="modal-body">
@@ -122,7 +122,7 @@ $typeLabels = [
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Save Account</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -135,7 +135,7 @@ $typeLabels = [
     <div class="modal-content">
       <form method="post" role="form">
         <div class="modal-header" style="background:#3c8dbc; color:#fff;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Edit Account</h4>
         </div>
         <div class="modal-body">
@@ -163,7 +163,7 @@ $typeLabels = [
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Update Account</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

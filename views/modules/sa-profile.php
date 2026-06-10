@@ -29,13 +29,13 @@ if (!is_array($me)) {
     <div class="row">
       <div class="col-md-6">
 
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-user-circle"></i> Super Admin Account</h3>
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-user-circle"></i> Super Admin Account</h3>
           </div>
 
           <form method="post" role="form">
-            <div class="box-body">
+            <div class="card-body">
 
               <div class="form-group">
                 <label>Username</label>
@@ -60,7 +60,7 @@ if (!is_array($me)) {
               </div>
 
             </div>
-            <div class="box-footer">
+            <div class="card-footer">
               <button type="submit" name="saProfileSave" value="1" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
             </div>
           </form>

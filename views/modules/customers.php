@@ -36,18 +36,18 @@ if(!Permission::has("customers")){
 
   <section class="content">
 
-    <div class="box">
+    <div class="card">
 
-      <div class="box-header with-border">
+      <div class="card-header">
 
-        <button class="btn btn-success" data-toggle="modal" data-target="#addCustomer">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCustomer">
 
         Add Customer
 
         </button>
 
       </div>
-      <div class="box-body">
+      <div class="card-body">
         <table class="table table-bordered table-hover table-striped dt-responsive tables" width="100%">
        
           <thead>
@@ -110,7 +110,7 @@ if(!Permission::has("customers")){
 
                           <a class="btn btn-default" href="index.php?route=customer-statement&idCustomer='.$value["id"].'" title="Statement"><i class="fa fa-file-text-o"></i></a>
 
-                          <button class="btn btn-primary btnEditCustomer" data-toggle="modal" data-target="#modalEditCustomer" idCustomer="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
+                          <button class="btn btn-primary btnEditCustomer" data-bs-toggle="modal" data-bs-target="#modalEditCustomer" idCustomer="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
 
                           <button class="btn btn-danger btnDeleteCustomer" idCustomer="'.$value["id"].'"><i class="fa fa-trash"></i></button>
 
@@ -156,7 +156,7 @@ MODAL ADD CUSTOMER
 
         <div class="modal-header" style="background: #DD4B39; color: #fff">
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Add Customer</h4>
 
@@ -168,7 +168,7 @@ MODAL ADD CUSTOMER
 
         <div class="modal-body">
 
-          <div class="box-body">
+          <div class="card-body">
 
              <!-- NAME INPUT -->
 
@@ -234,7 +234,7 @@ MODAL ADD CUSTOMER
         ======================================-->
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Customer</button>
         </div>
       </form>
@@ -272,7 +272,7 @@ MODAL EDIT CUSTOMER
 
         <div class="modal-header" style="background:#DD4B39; color:white">
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Edit Customer</h4>
 
@@ -284,7 +284,7 @@ MODAL EDIT CUSTOMER
 
         <div class="modal-body">
 
-          <div class="box-body">
+          <div class="card-body">
 
             <!-- NAME INPUT -->
             
@@ -380,7 +380,7 @@ MODAL EDIT CUSTOMER
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save Changes</button>
 

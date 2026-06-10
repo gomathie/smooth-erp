@@ -86,9 +86,9 @@
 
         if($_SESSION["profile"] =="Special" || $_SESSION["profile"] =="Seller"){
 
-           echo '<div class="box box-default">
+           echo '<div class="card">
 
-           <div class="box-header">
+           <div class="card-header">
 
            <h1>Welcome ' .$_SESSION["name"].'</h1>
 

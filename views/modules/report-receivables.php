@@ -33,9 +33,9 @@ foreach ($invoices as $i) {
       <div class="col-md-3 col-sm-6"><div class="small-box bg-red"><div class="inner"><h3>$ <?php echo number_format($totalOverdue,2); ?></h3><p>Overdue</p></div><div class="icon"><i class="fa fa-exclamation-triangle"></i></div></div></div>
     </div>
 
-    <div class="box box-default">
-      <div class="box-header with-border"><h3 class="box-title">Invoices</h3></div>
-      <div class="box-body">
+    <div class="card">
+      <div class="card-header"><h3 class="card-title">Invoices</h3></div>
+      <div class="card-body">
         <table class="table table-bordered table-striped dt-responsive" width="100%">
           <thead><tr><th>Invoice #</th><th>Customer</th><th>Date</th><th>Due</th><th class="text-right">Total</th><th class="text-right">Paid</th><th class="text-right">Balance</th></tr></thead>
           <tbody>

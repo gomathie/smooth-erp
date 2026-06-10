@@ -17,15 +17,15 @@ $salesTotal = ControllerProducts::ctrShowAddingOfTheSales();
 products MÁS VENDIDOS
 ======================================-->
 <!--  -->
-<div class="box box-default">
+<div class="card">
 	
-	<div class="box-header with-bvalue">
+	<div class="card-header with-bvalue">
   
-      <h3 class="box-title">Bestseller Products</h3>
+      <h3 class="card-title">Bestseller Products</h3>
 
     </div>
 
-	<div class="box-body">
+	<div class="card-body">
     
       	<div class="row">
 
@@ -63,7 +63,7 @@ products MÁS VENDIDOS
 
     </div>
 	<!--  -->
-    <div class="box-footer no-padding">
+    <div class="card-footer no-padding">
     	
 		<ul class="nav nav-pills nav-stacked">
 			

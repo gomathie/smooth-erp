@@ -38,9 +38,9 @@ foreach (ControllerAccounting::ctrTrialBalance() as $a) {
       <div class="col-md-3 col-sm-6"><div class="small-box bg-red"><div class="inner"><h3>$ <?php echo number_format($taxPayable,2); ?></h3><p>Tax Payable <small>(current)</small></p></div><div class="icon"><i class="fa fa-balance-scale"></i></div></div></div>
     </div>
 
-    <div class="box box-default">
-      <div class="box-header with-border"><h3 class="box-title">Tax basis (period)</h3></div>
-      <div class="box-body">
+    <div class="card">
+      <div class="card-header"><h3 class="card-title">Tax basis (period)</h3></div>
+      <div class="card-body">
         <table class="table table-bordered">
           <thead><tr><th>Source</th><th class="text-right">Net (taxable)</th><th class="text-right">Tax</th></tr></thead>
           <tbody>
@@ -52,9 +52,9 @@ foreach (ControllerAccounting::ctrTrialBalance() as $a) {
       </div>
     </div>
 
-    <div class="box box-default">
-      <div class="box-header with-border"><h3 class="box-title">Taxed Invoices</h3></div>
-      <div class="box-body">
+    <div class="card">
+      <div class="card-header"><h3 class="card-title">Taxed Invoices</h3></div>
+      <div class="card-body">
         <table class="table table-bordered table-striped dt-responsive" width="100%">
           <thead><tr><th>Invoice #</th><th>Date</th><th class="text-right">Net</th><th class="text-right">Tax</th><th class="text-right">Total</th></tr></thead>
           <tbody>

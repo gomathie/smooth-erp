@@ -1,31 +1,13 @@
 /* =============================================================================
-   AdminLTE 2 "box" -> AdminLTE 3 "card" compatibility layer
+   Legacy AdminLTE 2 / Bootstrap 3-4 class compatibility layer
    -----------------------------------------------------------------------------
-   AdminLTE 3 renamed the content panel from `.box` to `.card`. This layer styles
-   the legacy `.box*` class names to look like an AdminLTE 3 card, so the ~54
-   content view files keep rendering correctly WITHOUT being edited during the
-   shell migration. The box -> card markup sweep happens as a later, separate
-   step; once complete this file can be removed.
+   Restores legacy utility/colour classes that AdminLTE 4 / Bootstrap 5 renamed
+   or removed but which the content views still use (AdminLTE 2 bg-* colours,
+   col-xs-*, .label-*, .btn-default, input-group-addon, sizing helpers). The
+   former box->card bridge has been retired (markup now uses native .card).
 
-   Load AFTER adminlte.min.css (AdminLTE 3).
+   Load AFTER adminlte.min.css (AdminLTE 4).
    ============================================================================= */
-
-.box {
-  position: relative;
-  width: 100%;
-  margin-bottom: 1rem;
-  background: #fff;
-  border-top: 3px solid #d2d6de;
-  border-radius: .25rem;
-  box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
-}
-.box.box-primary { border-top-color: var(--pos-primary, #007bff); }
-.box.box-info    { border-top-color: #17a2b8; }
-.box.box-success { border-top-color: #28a745; }
-.box.box-warning { border-top-color: #ffc107; }
-.box.box-danger  { border-top-color: #dc3545; }
-.box.box-default { border-top-color: #d2d6de; }
-.box.box-solid   { border-top: 0; }
 
 /* ---------------------------------------------------------------------------
    AdminLTE 2 colour utilities that AdminLTE 3 renamed/removed. Restored so the
@@ -70,23 +52,6 @@
 /* small-box / info-box keep readable text on the coloured background */
 .small-box > .inner, .small-box h3, .small-box p { color: #fff; }
 .small-box .icon { color: rgba(0,0,0,.15); }
-
-.box-header {
-  position: relative;
-  padding: .75rem 1.25rem;
-  color: #444;
-}
-.box-header.with-border { border-bottom: 1px solid rgba(0,0,0,.125); }
-.box-header .box-title {
-  display: inline-block;
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 400;
-  line-height: 1.5;
-}
-.box-body   { padding: 1.25rem; }
-.box-footer { padding: .75rem 1.25rem; border-top: 1px solid rgba(0,0,0,.125); background: #fff; }
-.box-tools  { position: absolute; right: 1rem; top: .5rem; }
 
 /* Legacy BS3/AdminLTE2 helpers still used in a few content files */
 .pull-right-container { float: right; }

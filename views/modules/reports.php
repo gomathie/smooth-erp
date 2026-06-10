@@ -35,9 +35,9 @@ if(!Permission::has("reports")){
 
   <section class="content">
 
-    <div class="box">
+    <div class="card">
 
-      <div class="box-header with-border">
+      <div class="card-header">
 
         <div class="input-group">
 
@@ -53,7 +53,7 @@ if(!Permission::has("reports")){
 
         </div>
 		<!--  -->
-        <div class="box-tools pull-right">
+        <div class="card-tools pull-right">
 
         <?php
 
@@ -77,7 +77,7 @@ if(!Permission::has("reports")){
          
       </div>
 
-      <div class="box-body">
+      <div class="card-body">
         
         <div class="row">
 

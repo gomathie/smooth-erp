@@ -15,12 +15,12 @@
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
-        <div class="box-header with-border">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addCategories">Add Categories</button>
+      <div class="card">
+        <div class="card-header">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategories">Add Categories</button>
 
         </div>
-        <div class="box-body">
+        <div class="card-body">
           <table class="table table-bordered table-hover table-striped dt-responsive tables" width="100%">
          
             <thead>
@@ -113,11 +113,11 @@
     <div class="modal-content">
       <form role="form" method="POST">
         <div class="modal-header" style="background: #3c8dbc; color: #fff">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Categories</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
 
             <!--Input name -->
             <div class="form-group">
@@ -130,7 +130,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Category</button>
         </div>
       </form>

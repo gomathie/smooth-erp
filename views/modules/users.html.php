@@ -20,11 +20,11 @@
 
   <section class="content">
 
-    <div class="box">
+    <div class="card">
 
-      <div class="box-header with-border">
+      <div class="card-header">
 
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addUser">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUser">
 
           Add user
 
@@ -32,7 +32,7 @@
 
       </div>
 
-      <div class="box-body">
+      <div class="card-body">
 
         <table class="table table-bordered table-hover table-striped dt-responsive tables" width="100%">
        
@@ -158,7 +158,7 @@
 
         <div class="modal-header" style="background: #DD4B39; color: #fff">
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Add User</h4>
 
@@ -170,7 +170,7 @@
 
         <div class="modal-body">
 
-          <div class="box-body">
+          <div class="card-body">
 
             <!--Input name -->
 
@@ -259,7 +259,7 @@
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save</button>
 

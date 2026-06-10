@@ -35,9 +35,9 @@ if (!Permission::has("sales")) {
 
   <section class="content">
 
-    <div class="box">
+    <div class="card">
 
-      <div class="box-header with-border">
+      <div class="card-header">
 
         <a href="create-invoice">
           <button class="btn btn-success">
@@ -47,7 +47,7 @@ if (!Permission::has("sales")) {
 
       </div>
 
-      <div class="box-body">
+      <div class="card-body">
 
         <table class="table table-bordered table-hover table-striped dt-responsive invoicesTable" width="100%">
 

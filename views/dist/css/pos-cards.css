@@ -1,0 +1,75 @@
+/* =============================================================================
+   Modern stat cards (AdminLTE small-box) for the dashboards & reports.
+   -----------------------------------------------------------------------------
+   Gradient fills, soft elevation, hover lift, faded icon, and a "glass" footer.
+   Generalised across every bg-* colour the dashboards use. Loaded AFTER
+   adminlte.min.css / alte2-box-compat.css / pos-themes-alte4.css so it wins.
+   Note: the dashboard markup uses .small-card-footer (AdminLTE 4's own class is
+   .small-box-footer) — both are styled here.
+   ============================================================================= */
+
+.small-box {
+  position: relative;
+  margin-bottom: 20px;
+  color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .10);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.small-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, .15);
+}
+
+.small-box > .inner { position: relative; z-index: 1; padding: 16px; }
+.small-box > .inner h3 { margin: 0 0 .25rem; font-size: 2.1rem; font-weight: 700; color: #fff; }
+.small-box > .inner p  { margin: 0; opacity: .9; }
+
+.small-box .icon {
+  position: absolute;
+  top: 12px; right: 16px;
+  z-index: 0;
+  font-size: 64px;
+  color: #fff;
+  opacity: .20;
+  transition: transform .3s ease;
+}
+.small-box .icon > i { color: #fff; }
+.small-box:hover .icon { transform: scale(1.12) rotate(-4deg); }
+
+/* Footer link (glass effect) — both the markup class and AdminLTE 4's class */
+.small-box .small-card-footer,
+.small-box .small-box-footer {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: 9px 0;
+  text-align: center;
+  color: rgba(255, 255, 255, .9);
+  text-decoration: none;
+  background: rgba(255, 255, 255, .15);
+  transition: background .3s ease, color .3s ease;
+}
+.small-box .small-card-footer:hover,
+.small-box .small-box-footer:hover,
+.small-box:hover .small-card-footer,
+.small-box:hover .small-box-footer {
+  background: rgba(255, 255, 255, .25);
+  color: #fff;
+}
+
+/* ── Per-colour gradients (135deg). Override the flat compat fills. ───────── */
+.small-box.bg-green      { background: linear-gradient(135deg, #00a65a 0%, #20c997 100%) !important; }
+.small-box.bg-aqua       { background: linear-gradient(135deg, #00c0ef 0%, #36d1dc 100%) !important; }
+.small-box.bg-blue       { background: linear-gradient(135deg, #0073b7 0%, #2196f3 100%) !important; }
+.small-box.bg-light-blue { background: linear-gradient(135deg, #3c8dbc 0%, #5bc0de 100%) !important; }
+.small-box.bg-yellow     { background: linear-gradient(135deg, #f39c12 0%, #ffca28 100%) !important; }
+.small-box.bg-red        { background: linear-gradient(135deg, #dd4b39 0%, #ff6b5a 100%) !important; }
+.small-box.bg-maroon     { background: linear-gradient(135deg, #d81b60 0%, #f06292 100%) !important; }
+.small-box.bg-purple     { background: linear-gradient(135deg, #605ca8 0%, #8e7cc3 100%) !important; }
+.small-box.bg-navy       { background: linear-gradient(135deg, #001f3f 0%, #16335b 100%) !important; }
+.small-box.bg-teal       { background: linear-gradient(135deg, #39cccc 0%, #5fe0d8 100%) !important; }
+.small-box.bg-olive      { background: linear-gradient(135deg, #3d9970 0%, #57c596 100%) !important; }
+.small-box.bg-orange     { background: linear-gradient(135deg, #ff851b 0%, #ffa94d 100%) !important; }
+.small-box.bg-primary    { background: linear-gradient(135deg, var(--pos-primary, #0d6efd) 0%, var(--pos-primary-dark, #0b5ed7) 100%) !important; }

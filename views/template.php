@@ -75,6 +75,9 @@
   <!-- POS custom theme engine for AdminLTE 4 (CSS variables — edit themes.config.js) -->
   <link rel="stylesheet" href="views/dist/css/pos-themes-alte4.css">
 
+  <!-- Modern stat cards (small-box gradients/elevation) -->
+  <link rel="stylesheet" href="views/dist/css/pos-cards.css">
+
   <!-- themes.config.js must run in <head> to set CSS vars before first paint -->
   <script src="views/js/themes.config.js"></script>
 

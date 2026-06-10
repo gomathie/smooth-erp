@@ -1,0 +1,14 @@
+---
+deployment:
+  tasks:
+    # Target folder is your subdomain document root
+    - export DEPLOYPATH=/home/dubbialw/public_html/erp
+
+    # Copy all files
+    - /bin/cp -r * $DEPLOYPATH
+
+    # Copy hidden files like .htaccess
+    - /bin/cp -r .* $DEPLOYPATH 2>/dev/null
+
+    # Remove Git metadata to prevent exposure
+    - rm -rf $DEPLOYPATH/.git

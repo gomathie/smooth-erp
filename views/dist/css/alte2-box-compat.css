@@ -1,0 +1,101 @@
+/* =============================================================================
+   AdminLTE 2 "box" -> AdminLTE 3 "card" compatibility layer
+   -----------------------------------------------------------------------------
+   AdminLTE 3 renamed the content panel from `.box` to `.card`. This layer styles
+   the legacy `.box*` class names to look like an AdminLTE 3 card, so the ~54
+   content view files keep rendering correctly WITHOUT being edited during the
+   shell migration. The box -> card markup sweep happens as a later, separate
+   step; once complete this file can be removed.
+
+   Load AFTER adminlte.min.css (AdminLTE 3).
+   ============================================================================= */
+
+.box {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+  background: #fff;
+  border-top: 3px solid #d2d6de;
+  border-radius: .25rem;
+  box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+}
+.box.box-primary { border-top-color: var(--pos-primary, #007bff); }
+.box.box-info    { border-top-color: #17a2b8; }
+.box.box-success { border-top-color: #28a745; }
+.box.box-warning { border-top-color: #ffc107; }
+.box.box-danger  { border-top-color: #dc3545; }
+.box.box-solid   { border-top: 0; }
+
+.box-header {
+  position: relative;
+  padding: .75rem 1.25rem;
+  color: #444;
+}
+.box-header.with-border { border-bottom: 1px solid rgba(0,0,0,.125); }
+.box-header .box-title {
+  display: inline-block;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.box-body   { padding: 1.25rem; }
+.box-footer { padding: .75rem 1.25rem; border-top: 1px solid rgba(0,0,0,.125); background: #fff; }
+.box-tools  { position: absolute; right: 1rem; top: .5rem; }
+
+/* Legacy BS3/AdminLTE2 helpers still used in a few content files */
+.pull-right-container { float: right; }
+.pull-left  { float: left  !important; }
+.pull-right { float: right !important; }
+
+/* ---------------------------------------------------------------------------
+   Grid: Bootstrap 4 removed the .col-xs-* infix. Alias it to flex column
+   behaviour (matches BS4 .col-*) so legacy col-xs-* markup renders in columns
+   until the col-xs-* -> col-* sweep. .row is already flex in BS4.
+   --------------------------------------------------------------------------- */
+.col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,
+.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-10,.col-xs-11,.col-xs-12 {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.col-xs-1  { flex: 0 0 8.333333%;  max-width: 8.333333%;  }
+.col-xs-2  { flex: 0 0 16.666667%; max-width: 16.666667%; }
+.col-xs-3  { flex: 0 0 25%;        max-width: 25%;        }
+.col-xs-4  { flex: 0 0 33.333333%; max-width: 33.333333%; }
+.col-xs-5  { flex: 0 0 41.666667%; max-width: 41.666667%; }
+.col-xs-6  { flex: 0 0 50%;        max-width: 50%;        }
+.col-xs-7  { flex: 0 0 58.333333%; max-width: 58.333333%; }
+.col-xs-8  { flex: 0 0 66.666667%; max-width: 66.666667%; }
+.col-xs-9  { flex: 0 0 75%;        max-width: 75%;        }
+.col-xs-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+.col-xs-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+.col-xs-12 { flex: 0 0 100%;       max-width: 100%;       }
+.col-xs-offset-1 { margin-left: 8.333333%;  }
+.col-xs-offset-2 { margin-left: 16.666667%; }
+.col-xs-offset-3 { margin-left: 25%;        }
+.col-xs-offset-4 { margin-left: 33.333333%; }
+.col-xs-offset-6 { margin-left: 50%;        }
+
+/* BS3 contextual label -> BS4 badge look (used for status pills) */
+.label { display: inline-block; padding: .25em .4em; font-size: 75%; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: .25rem; }
+.label-default { background-color: #6c757d; }
+.label-primary { background-color: #007bff; }
+.label-success { background-color: #28a745; }
+.label-info    { background-color: #17a2b8; }
+.label-warning { background-color: #ffc107; color: #1f2d3d; }
+.label-danger  { background-color: #dc3545; }
+
+/* BS3 .btn-default -> BS4 has no default; map to light/secondary look */
+.btn-default { color: #1f2d3d; background-color: #f4f6f9; border-color: #ced4da; }
+.btn-default:hover { background-color: #e2e6ea; }
+
+/* BS3 input-group-addon -> BS4 uses input-group-text inside prepend/append */
+.input-group-addon { display: flex; align-items: center; padding: .375rem .75rem; background-color: #e9ecef; border: 1px solid #ced4da; }
+
+/* BS3 sizing helpers BS4 moved off the control */
+.input-sm { height: calc(1.5em + .5rem + 2px); padding: .25rem .5rem; font-size: .875rem; }
+.input-lg { height: calc(1.5em + 1rem + 2px); padding: .5rem 1rem; font-size: 1.25rem; }
+.help-block { display: block; margin-top: .25rem; font-size: .875em; color: #6c757d; }
+.img-responsive { display: block; max-width: 100%; height: auto; }

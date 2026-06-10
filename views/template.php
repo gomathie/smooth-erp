@@ -56,8 +56,8 @@
   <!--=================================
   =            Plugins CSS            =
   ==================================-->
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="views/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Bootstrap 4.6 (migrated from Bootstrap 3.3.7) -->
+  <link rel="stylesheet" href="views/vendor/bootstrap4/css/bootstrap.min.css">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css">
@@ -65,11 +65,13 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="views/bower_components/Ionicons/css/ionicons.min.css">
   
-  <!-- Theme style -->
-  <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
+  <!-- AdminLTE 3 theme (migrated from AdminLTE 2.4) -->
+  <link rel="stylesheet" href="views/vendor/adminlte3/css/adminlte.min.css">
+  <!-- AdminLTE 2 box -> AdminLTE 3 card compatibility (until the box->card sweep) -->
+  <link rel="stylesheet" href="views/dist/css/alte2-box-compat.css">
 
-  <!-- POS custom theme engine (CSS variables — edit themes.config.js, not this) -->
-  <link rel="stylesheet" href="views/dist/css/pos-themes.css">
+  <!-- POS custom theme engine for AdminLTE 3 (CSS variables — edit themes.config.js) -->
+  <link rel="stylesheet" href="views/dist/css/pos-themes-alte3.css">
 
   <!-- themes.config.js must run in <head> to set CSS vars before first paint -->
   <script src="views/js/themes.config.js"></script>
@@ -98,14 +100,14 @@
   <!-- jQuery 3 -->
   <script src="views/bower_components/jquery/dist/jquery.min.js"></script>
 
-  <!-- Bootstrap 3.3.7 -->
-  <script src="views/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Bootstrap 4.6 bundle (includes Popper) -->
+  <script src="views/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
 
   <!-- FastClick -->
   <script src="views/bower_components/fastclick/lib/fastclick.js"></script>
 
-  <!-- AdminLTE App -->
-  <script src="views/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE 3 App -->
+  <script src="views/vendor/adminlte3/js/adminlte.min.js"></script>
 
    <!-- DataTables -->
   <script src="views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -144,7 +146,7 @@
 
 <?php
   $bodyClass = (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == "ok")
-    ? 'hold-transition fixed sidebar-collapse sidebar-mini'
+    ? 'hold-transition sidebar-mini layout-fixed sidebar-collapse'
     : 'hold-transition login-page';
 ?>
 

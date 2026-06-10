@@ -1,186 +1,149 @@
-<aside class="main-sidebar">
+<!-- AdminLTE 3 sidebar -->
+<aside class="main-sidebar elevation-4">
 
-	<section class="sidebar">
+  <!-- Brand / logo -->
+  <a href="<?php echo Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0 ? 'organizations' : 'home'; ?>" class="brand-link">
+    <img src="views/img/template/icono-blanco.png" class="brand-image" style="opacity:.9; max-height:33px; margin-left:.5rem;">
+    <span class="brand-text font-weight-light">Smooth ERP</span>
+  </a>
 
-		<ul class="sidebar-menu">
+  <div class="sidebar">
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
 
-			<?php
+        <?php
+        /*=============================================
+        SUPER ADMIN (not inside an org) — platform menu only
+        =============================================*/
+        if (Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0) {
 
-			/*=============================================
-			SUPER ADMIN (not inside an org) — platform menu only
-			=============================================*/
-			if (Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0) {
+          echo '
+            <li class="nav-header">SUPER ADMIN</li>
+            <li class="nav-item">
+              <a href="organizations" class="nav-link active"><i class="nav-icon fa fa-building"></i><p>' . t('Organizations') . '</p></a>
+            </li>
+            <li class="nav-item">
+              <a href="sa-profile" class="nav-link"><i class="nav-icon fa fa-user-circle"></i><p>' . t('My Profile') . '</p></a>
+            </li>
+            <li class="nav-item">
+              <a href="logout" class="nav-link"><i class="nav-icon fa fa-sign-out"></i><p>' . t('Log out') . '</p></a>
+            </li>
+          ';
 
-				echo '
-					<li class="header">SUPER ADMIN</li>
-					<li class="active">
-						<a href="organizations"><i class="fa fa-building"></i> <span>'.t('Organizations').'</span></a>
-					</li>
-					<li>
-						<a href="sa-profile"><i class="fa fa-user-circle"></i> <span>'.t('My Profile').'</span></a>
-					</li>
-					<li>
-						<a href="logout"><i class="fa fa-sign-out"></i> <span>'.t('Log out').'</span></a>
-					</li>
-				';
+        } else {
 
-			} else {
+          if (Permission::has("dashboard")) {
+            echo '
+              <li class="nav-item">
+                <a href="home" class="nav-link active"><i class="nav-icon fa fa-home"></i><p>' . t('Home') . '</p></a>
+              </li>';
+          }
 
-			if (Permission::has("dashboard")) {
+          if (Permission::has("products")) {
+            echo '
+              <li class="nav-item">
+                <a href="categories" class="nav-link"><i class="nav-icon fa fa-th"></i><p>' . t('Categories') . '</p></a>
+              </li>
+              <li class="nav-item">
+                <a href="products" class="nav-link"><i class="nav-icon fa fa-product-hunt"></i><p>' . t('Products') . '</p></a>
+              </li>';
+          }
 
-				echo '
-					<li class="active">
-						<a href="home">
-							<i class="fa fa-home"></i>
-							<span>'.t('Home').'</span>
-						</a>
-					</li>
-				';
-			}
+          if (Permission::has("customers")) {
+            echo '
+              <li class="nav-item">
+                <a href="customers" class="nav-link"><i class="nav-icon fa fa-users"></i><p>' . t('Customers') . '</p></a>
+              </li>';
+          }
 
-			if (Permission::has("products")) {
+          /* SALES (treeview) */
+          if (Permission::has("sales")) {
+            echo '
+              <li class="nav-item">
+                <a href="#" class="nav-link"><i class="nav-icon fa fa-usd"></i><p>' . t('Sales') . ' <i class="right fa fa-angle-left"></i></p></a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item"><a href="sales" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Manage Sales') . '</p></a></li>
+                  <li class="nav-item"><a href="create-sale" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Create Sale') . '</p></a></li>
+                  <li class="nav-item"><a href="quotations" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Quotations') . '</p></a></li>
+                  <li class="nav-item"><a href="invoices" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Invoices') . '</p></a></li>';
+            if (Permission::has("reports")) {
+              echo '<li class="nav-item"><a href="reports" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Overview') . '</p></a></li>';
+            }
+            echo '
+                </ul>
+              </li>';
+          }
 
-				echo '
-					<li>
-						<a href="categories">
-							<i class="fa fa-th"></i>
-							<span>'.t('Categories').'</span>
-						</a>
-					</li>
-					<li>
-						<a href="products">
-							<i class="fa fa-product-hunt"></i>
-							<span>'.t('Products').'</span>
-						</a>
-					</li>
-				';
-			}
+          /* REPORTS (treeview) */
+          if (Permission::has("reports")) {
+            $acct = ControllerSettings::ctrAccountingEnabled();
+            $reportItems  = "";
+            if ($acct) { $reportItems .= '<li class="nav-item"><a href="report-overview" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Business Overview') . '</p></a></li>'; }
+            $reportItems .= '<li class="nav-item"><a href="report-sales" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Sales') . '</p></a></li>';
+            $reportItems .= '<li class="nav-item"><a href="report-inventory" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Inventory') . '</p></a></li>';
+            if ($acct) {
+              $reportItems .= '<li class="nav-item"><a href="report-payables" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Payables') . '</p></a></li>';
+              $reportItems .= '<li class="nav-item"><a href="report-receivables" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Receivables') . '</p></a></li>';
+              $reportItems .= '<li class="nav-item"><a href="report-payments" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Payments Received') . '</p></a></li>';
+            }
+            $reportItems .= '<li class="nav-item"><a href="report-activity" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Activity') . '</p></a></li>';
+            if ($acct) { $reportItems .= '<li class="nav-item"><a href="report-tax" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Tax Summary') . '</p></a></li>'; }
 
-			if (Permission::has("customers")) {
-				echo '
-					<li>
-						<a href="customers">
-							<i class="fa fa-users"></i>
-							<span>'.t('Customers').'</span>
-						</a>
-					</li>
-				';
-			}
+            echo '
+              <li class="nav-item">
+                <a href="#" class="nav-link"><i class="nav-icon fa fa-bar-chart"></i><p>' . t('Reports') . ' <i class="right fa fa-angle-left"></i></p></a>
+                <ul class="nav nav-treeview">' . $reportItems . '</ul>
+              </li>';
+          }
 
-			/*=============================================
-			SALES
-			=============================================*/
-			if (Permission::has("sales")) {
+          /* EXPENSES */
+          if (Permission::has("expenses")) {
+            echo '
+              <li class="nav-item">
+                <a href="expenses" class="nav-link"><i class="nav-icon fa fa-credit-card"></i><p>' . t('Expenses') . '</p></a>
+              </li>';
+          }
 
-				echo '
-					<li class="treeview">
-						<a href="#">
-							<i class="fa fa-usd"></i>
-							<span>'.t('Sales').'</span>
-							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-						</a>
-						<ul class="treeview-menu">
-							<li><a href="sales"><i class="fa fa-circle"></i> <span>'.t('Manage Sales').'</span></a></li>
-							<li><a href="create-sale"><i class="fa fa-circle"></i> <span>'.t('Create Sale').'</span></a></li>
-							<li><a href="quotations"><i class="fa fa-circle"></i> <span>'.t('Quotations').'</span></a></li>
-							<li><a href="invoices"><i class="fa fa-circle"></i> <span>'.t('Invoices').'</span></a></li>';
+          /* ACCOUNTING (treeview) */
+          if (Permission::has("accounting") && ControllerSettings::ctrAccountingEnabled()) {
+            echo '
+              <li class="nav-item">
+                <a href="#" class="nav-link"><i class="nav-icon fa fa-balance-scale"></i><p>' . t('Accounting') . ' <i class="right fa fa-angle-left"></i></p></a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item"><a href="accounting" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Overview') . '</p></a></li>
+                  <li class="nav-item"><a href="chart-of-accounts" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Chart of Accounts') . '</p></a></li>
+                </ul>
+              </li>';
+          }
 
-				if (Permission::has("reports")) {
-					echo '<li><a href="reports"><i class="fa fa-circle"></i> <span>'.t('Overview').'</span></a></li>';
-				}
+          /* CURRENCIES */
+          if (Permission::has("currencies") && Currency::isEnabled()) {
+            echo '
+              <li class="nav-item">
+                <a href="currencies" class="nav-link"><i class="nav-icon fa fa-money"></i><p>' . t('Currencies') . '</p></a>
+              </li>';
+          }
 
-				echo '
-						</ul>
-					</li>';
-			}
+          /* USERS */
+          if (Permission::has("users")) {
+            echo '
+              <li class="nav-item">
+                <a href="users" class="nav-link"><i class="nav-icon fa fa-user"></i><p>' . t('User Management') . '</p></a>
+              </li>';
+          }
 
-			/*=============================================
-			REPORTS, ACCOUNTING, EXPENSES, CURRENCIES, USERS, SETTINGS
-			(each gated by its own permission)
-			=============================================*/
-			if (Permission::has("reports")) {
+          /* SETTINGS */
+          if (Permission::has("settings")) {
+            echo '
+              <li class="nav-item">
+                <a href="settings" class="nav-link"><i class="nav-icon fa fa-cog"></i><p>' . t('Settings') . '</p></a>
+              </li>';
+          }
 
-				// Financial reports are hidden when the accounting module is off.
-				$acct = ControllerSettings::ctrAccountingEnabled();
-				$reportItems  = "";
-				if ($acct) { $reportItems .= '<li><a href="report-overview"><i class="fa fa-circle"></i> <span>'.t('Business Overview').'</span></a></li>'; }
-				$reportItems .= '<li><a href="report-sales"><i class="fa fa-circle"></i> <span>'.t('Sales').'</span></a></li>';
-				$reportItems .= '<li><a href="report-inventory"><i class="fa fa-circle"></i> <span>'.t('Inventory').'</span></a></li>';
-				if ($acct) {
-					$reportItems .= '<li><a href="report-payables"><i class="fa fa-circle"></i> <span>'.t('Payables').'</span></a></li>';
-					$reportItems .= '<li><a href="report-receivables"><i class="fa fa-circle"></i> <span>'.t('Receivables').'</span></a></li>';
-					$reportItems .= '<li><a href="report-payments"><i class="fa fa-circle"></i> <span>'.t('Payments Received').'</span></a></li>';
-				}
-				$reportItems .= '<li><a href="report-activity"><i class="fa fa-circle"></i> <span>'.t('Activity').'</span></a></li>';
-				if ($acct) { $reportItems .= '<li><a href="report-tax"><i class="fa fa-circle"></i> <span>'.t('Tax Summary').'</span></a></li>'; }
+        } // end else
+        ?>
 
-				echo '
-					<li class="treeview">
-						<a href="#">
-							<i class="fa fa-bar-chart"></i>
-							<span>'.t('Reports').'</span>
-							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-						</a>
-						<ul class="treeview-menu">' . $reportItems . '</ul>
-					</li>';
-			}
-
-			// Expenses (standalone, independent of the accounting toggle)
-			if (Permission::has("expenses")) {
-				echo '
-					<li>
-						<a href="expenses">
-							<i class="fa fa-credit-card"></i>
-							<span>'.t('Expenses').'</span>
-						</a>
-					</li>';
-			}
-
-			if (Permission::has("accounting") && ControllerSettings::ctrAccountingEnabled()) {
-				echo '
-					<li class="treeview">
-						<a href="#">
-							<i class="fa fa-balance-scale"></i>
-							<span>'.t('Accounting').'</span>
-							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-						</a>
-						<ul class="treeview-menu">
-							<li><a href="accounting"><i class="fa fa-circle"></i> <span>'.t('Overview').'</span></a></li>
-							<li><a href="chart-of-accounts"><i class="fa fa-circle"></i> <span>'.t('Chart of Accounts').'</span></a></li>
-						</ul>
-					</li>';
-			}
-
-			if (Permission::has("currencies") && Currency::isEnabled()) {
-				echo '<li><a href="currencies"><i class="fa fa-money"></i> <span>'.t('Currencies').'</span></a></li>';
-			}
-
-			if (Permission::has("users")) {
-				echo '
-					<li>
-						<a href="users">
-							<i class="fa fa-user"></i>
-							<span>'.t('User Management').'</span>
-						</a>
-					</li>';
-			}
-
-			if (Permission::has("settings")) {
-				echo '
-					<li>
-						<a href="settings">
-							<i class="fa fa-cog"></i>
-							<span>'.t('Settings').'</span>
-						</a>
-					</li>';
-			}
-
-			} // end else (org user / entered super admin)
-
-			?>
-
-		</ul>
-
-	</section>
-
+      </ul>
+    </nav>
+  </div>
 </aside>

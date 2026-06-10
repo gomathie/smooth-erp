@@ -24,7 +24,7 @@
 
         <input type="text" class="form-control" placeholder="Username or email" name="resetIdentifier" required>
 
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class="fa fa-envelope form-control-feedback"></span>
 
       </div>
 
@@ -57,7 +57,7 @@
 
         <input type="password" class="form-control" placeholder="New password" name="newPassword" minlength="6" maxlength="72" required>
 
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class="fa fa-lock form-control-feedback"></span>
 
       </div>
 
@@ -65,7 +65,7 @@
 
         <input type="password" class="form-control" placeholder="Confirm password" name="confirmPassword" minlength="6" maxlength="72" required>
 
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class="fa fa-lock form-control-feedback"></span>
 
       </div>
 
@@ -97,7 +97,7 @@
 
         <input type="text" class="form-control" placeholder="<?php echo htmlspecialchars(t('Username')); ?>" name="loginUser" required>
 
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <span class="fa fa-user form-control-feedback"></span>
 
       </div>
 
@@ -105,7 +105,7 @@
 
         <input type="password" class="form-control" placeholder="<?php echo htmlspecialchars(t('Password')); ?>" name="loginPass" required>
 
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class="fa fa-lock form-control-feedback"></span>
 
       </div>
 

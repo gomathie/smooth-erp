@@ -45,7 +45,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Category One','2022-12-07 18:04:16',1),(2,'Category Two','2022-12-07 18:04:20',1),(3,'Category Three','2022-12-07 18:04:24',1),(4,'Category Four','2022-12-07 18:04:27',1),(5,'Category Five','2022-12-07 18:04:31',1),(6,'Category Six','2022-12-07 18:04:36',1),(7,'Category Seven','2022-12-07 18:04:41',1);
+INSERT INTO `categories` VALUES (1,'GPS TRACKERS','2026-06-10 10:32:35',1),(2,'DASHCAMS','2026-06-10 10:32:48',1),(3,'MDVR','2026-06-10 10:32:59',1),(4,'Category Four','2022-12-07 18:04:27',1),(5,'Category Five','2022-12-07 18:04:31',1),(6,'Category Six','2022-12-07 18:04:36',1),(7,'Category Seven','2022-12-07 18:04:41',1);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `currencies`;
@@ -63,7 +63,7 @@ CREATE TABLE `currencies` (
 
 LOCK TABLES `currencies` WRITE;
 /*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
-INSERT INTO `currencies` VALUES (1,'AED','UAE Dirham','د.إ'),(2,'CAD','Canadian Dollar','C$'),(3,'CNY','Chinese Yuan','¥'),(4,'EUR','Euro','€'),(5,'GBP','British Pound','£'),(6,'GHS','Ghanaian Cedi','₵'),(7,'INR','Indian Rupee','₹'),(8,'KES','Kenyan Shilling','KSh'),(9,'NGN','Nigerian Naira','₦'),(10,'USD','US Dollar','$'),(11,'XOF','West African CFA','CFA'),(12,'ZAR','South African Rand','R');
+INSERT INTO `currencies` VALUES (1,'AED','UAE Dirham','د.إ'),(3,'CNY','Chinese Yuan','¥'),(4,'EUR','Euro','€'),(5,'GBP','British Pound','£'),(6,'GHS','Ghanaian Cedi','₵'),(7,'INR','Indian Rupee','₹'),(8,'KES','Kenyan Shilling','KSh'),(9,'NGN','Nigerian Naira','₦'),(10,'USD','US Dollar','$'),(11,'XOF','West African CFA','CFA'),(12,'ZAR','South African Rand','R');
 /*!40000 ALTER TABLE `currencies` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `customers`;
@@ -111,7 +111,7 @@ CREATE TABLE `expenses` (
   PRIMARY KEY (`id`),
   KEY `idx_expense_account` (`idExpenseAccount`),
   KEY `idx_expense_paid` (`idPaidThrough`),
-  KEY `idx_exp_org` (`idOrganization`)
+  KEY `idx_exp_org_date` (`idOrganization`,`expenseDate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -133,7 +133,7 @@ CREATE TABLE `invoice_activity_log` (
   `idOrganization` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `idx_activity_invoice` (`idInvoice`),
-  KEY `idx_act_org` (`idOrganization`)
+  KEY `idx_act_org_date` (`idOrganization`,`createdDate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -175,7 +175,7 @@ CREATE TABLE `invoices` (
   `idOrganization` int NOT NULL DEFAULT '1',
   `currency` varchar(3) NOT NULL DEFAULT 'USD',
   PRIMARY KEY (`id`),
-  KEY `idx_inv_org` (`idOrganization`)
+  KEY `idx_inv_org_cust` (`idOrganization`,`idCustomer`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -199,7 +199,7 @@ CREATE TABLE `journal_entries` (
   `idOrganization` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `idx_journal_source` (`sourceType`,`sourceId`),
-  KEY `idx_je_org` (`idOrganization`)
+  KEY `idx_je_org_date` (`idOrganization`,`entryDate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -240,12 +240,12 @@ CREATE TABLE `organization_currencies` (
   `isBase` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_org_currency` (`idOrganization`,`currencyCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `organization_currencies` WRITE;
 /*!40000 ALTER TABLE `organization_currencies` DISABLE KEYS */;
-INSERT INTO `organization_currencies` VALUES (1,1,'USD',1),(4,6,'USD',1),(5,1,'AED',0),(6,1,'GHS',0);
+INSERT INTO `organization_currencies` VALUES (1,1,'USD',1),(4,6,'USD',1),(5,1,'AED',0),(6,1,'GHS',0),(7,6,'AED',0),(8,6,'GHS',0),(9,6,'NGN',0);
 /*!40000 ALTER TABLE `organization_currencies` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `organizations`;
@@ -278,7 +278,7 @@ CREATE TABLE `organizations` (
 
 LOCK TABLES `organizations` WRITE;
 /*!40000 ALTER TABLE `organizations` DISABLE KEYS */;
-INSERT INTO `organizations` VALUES (1,'Default Organization','DEFAULT',NULL,NULL,NULL,'USD',1,3,'2026-06-09 07:31:51',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'#1e3a5f'),(6,'TRACE365','TRACE365','info@trace365.net','0','Accra, Ghana','USD',1,3,'2026-06-09 23:04:01','','','','','','','',NULL,'#df2559');
+INSERT INTO `organizations` VALUES (1,'TRACE365','T365','info@trace365.net','0','Kasoa','USD',1,3,'2026-06-09 07:31:51',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'#1e3a5f'),(6,'HITRACE','HT','info@hitracesolutions.com','0','Accra, Ghana','USD',1,3,'2026-06-09 23:04:01','','','','','','','',NULL,'#df2559');
 /*!40000 ALTER TABLE `organizations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `payments_received`;
@@ -301,7 +301,7 @@ CREATE TABLE `payments_received` (
   PRIMARY KEY (`id`),
   KEY `idx_payments_invoice` (`idInvoice`),
   KEY `idx_payments_customer` (`idCustomer`),
-  KEY `idx_pay_org` (`idOrganization`)
+  KEY `idx_pay_org_date` (`idOrganization`,`paymentDate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -393,7 +393,7 @@ CREATE TABLE `sales` (
   `idOrganization` int NOT NULL DEFAULT '1',
   `currency` varchar(3) COLLATE utf8mb3_spanish_ci NOT NULL DEFAULT 'USD',
   PRIMARY KEY (`id`),
-  KEY `idx_sale_org` (`idOrganization`)
+  KEY `idx_sale_org_date` (`idOrganization`,`saledate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -415,7 +415,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES ('accounting_enabled','1',1),('multicurrency_enabled','1',1),('accounting_enabled','1',6),('multicurrency_enabled','0',6);
+INSERT INTO `settings` VALUES ('accounting_enabled','1',1),('multicurrency_enabled','1',1),('accounting_enabled','1',6),('multicurrency_enabled','1',6);
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `stock_movements`;
@@ -435,7 +435,7 @@ CREATE TABLE `stock_movements` (
   PRIMARY KEY (`id`),
   KEY `idx_movement_product` (`idProduct`),
   KEY `idx_movement_source` (`sourceType`,`sourceId`),
-  KEY `idx_sm_org` (`idOrganization`)
+  KEY `idx_sm_org_date` (`idOrganization`,`movementDate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -471,7 +471,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Administrator','admin','$2y$10$XgUq9IwiWF5NHW4QXD696euIePVHpFxI59x9RgTj20Xr6IajzJD7W','Administrator','administrator',NULL,'views/img/users/admin/admin-icn.png','admon@yahoo.com','',1,'2026-06-09 09:07:44',NULL,NULL,'2026-06-10 03:12:33',1),(2,'Kwasi Sarpong','seller','','Seller','staff',NULL,'views/img/users/jonathan/239.jpg','','',1,'2022-12-10 12:39:15',NULL,NULL,'2026-06-10 03:20:28',1),(3,'Nana Banyin','carmen','','Seller','staff',NULL,'views/img/users/carmen/215.jpg','','',1,'2022-12-10 12:17:55',NULL,NULL,'2026-06-10 03:20:28',1),(4,'Super Admin','superadmin','$2y$10$YhTeDW2wQ6PaktkzHhFVLul/FX1OsVK1qqpASf937aa7fLy97WAFa','SuperAdmin','administrator',NULL,'','','',1,'2026-06-09 18:01:23',NULL,NULL,'2026-06-10 03:12:33',NULL),(6,'Yaw Koree','yaw','$2y$10$T55SOvVg6PZ13sxe9SOnnO6UBqhIPmPE37g/h2w4xi1eBU4viUR2W','Administrator','administrator',NULL,'','yaw@trace365.net','',1,'2026-06-10 02:04:01',NULL,NULL,'2026-06-10 03:12:33',6);
+INSERT INTO `users` VALUES (1,'Administrator','admin','$2y$10$XgUq9IwiWF5NHW4QXD696euIePVHpFxI59x9RgTj20Xr6IajzJD7W','Administrator','administrator',NULL,'views/img/users/admin/admin-icn.png','admon@yahoo.com','',1,'2026-06-09 09:07:44',NULL,NULL,'2026-06-10 03:12:33',1),(2,'Kwasi Sarpong','seller','','Seller','staff',NULL,'views/img/users/jonathan/239.jpg','','',1,'2022-12-10 12:39:15',NULL,NULL,'2026-06-10 03:20:28',1),(3,'Nana Banyin','carmen','','Seller','staff',NULL,'views/img/users/carmen/215.jpg','','',1,'2022-12-10 12:17:55',NULL,NULL,'2026-06-10 03:20:28',1),(4,'Super Admin','superadmin','$2y$10$YhTeDW2wQ6PaktkzHhFVLul/FX1OsVK1qqpASf937aa7fLy97WAFa','SuperAdmin','administrator',NULL,'views/img/users/superadmin/707.png','smooth@gomathie.com','',1,'2026-06-09 18:01:23',NULL,NULL,'2026-06-10 15:43:17',NULL),(6,'Yaw Koree','yaw','$2y$10$T55SOvVg6PZ13sxe9SOnnO6UBqhIPmPE37g/h2w4xi1eBU4viUR2W','Administrator','administrator',NULL,'','yaw@trace365.net','',1,'2026-06-10 02:04:01',NULL,NULL,'2026-06-10 03:12:33',6);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

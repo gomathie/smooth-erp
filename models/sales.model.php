@@ -172,17 +172,13 @@ class ModelSales{
 			$finalDate2 ->add(new DateInterval("P1D"));
 			$finalDatePlusOne = $finalDate2->format("Y-m-d");
 
-			if($finalDatePlusOne == $actualDatePlusOne){
+			// Use the +1-day end bound when the range ends today (to include today's sales).
+			$endDate = ($finalDatePlusOne == $actualDatePlusOne) ? $finalDatePlusOne : $finalDate;
 
-				$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate BETWEEN '$initialDate' AND '$finalDatePlusOne' AND idOrganization = :__org");
-
-			}else{
-
-
-				$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate BETWEEN '$initialDate' AND '$finalDate' AND idOrganization = :__org");
-
-			}
-
+			// Dates come from user input ($_GET) — bind as parameters (no string interpolation).
+			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE saledate BETWEEN :d1 AND :d2 AND idOrganization = :__org");
+			$stmt -> bindValue(":d1", $initialDate, PDO::PARAM_STR);
+			$stmt -> bindValue(":d2", $endDate, PDO::PARAM_STR);
 			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 
 			$stmt -> execute();

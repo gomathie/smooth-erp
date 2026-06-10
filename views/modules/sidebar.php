@@ -58,23 +58,36 @@
               </li>';
           }
 
-          /* SALES (treeview) */
-          if (Permission::has("sales")) {
-            echo '
-              <li class="nav-item">
-                <a href="#" class="nav-link"><i class="nav-icon fa fa-usd"></i><p>' . t('Sales') . '<i class="nav-arrow fa fa-angle-right"></i></p></a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item"><a href="sales" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Manage Sales') . '</p></a></li>
-                  <li class="nav-item"><a href="create-sale" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Create Sale') . '</p></a></li>
-                  <li class="nav-item"><a href="quotations" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Quotations') . '</p></a></li>
-                  <li class="nav-item"><a href="invoices" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Invoices') . '</p></a></li>';
-            if (Permission::has("reports")) {
-              echo '<li class="nav-item"><a href="reports" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Overview') . '</p></a></li>';
-            }
-            echo '
-                </ul>
-              </li>';
-          }
+         /* SALES (treeview) */
+if (Permission::has("sales")) {
+
+  echo '
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-usd"></i>
+        <p>' . t('Sales') . '<i class="nav-arrow fa fa-angle-right"></i></p>
+      </a>
+      <ul class="nav nav-treeview">';
+
+  // Overview first
+  if (Permission::has("reports")) {
+    echo '
+      <li class="nav-item">
+        <a href="reports" class="nav-link">
+          <i class="nav-icon fa fa-circle-o"></i>
+          <p>' . t('Overview') . '</p>
+        </a>
+      </li>';
+  }
+
+  echo '
+      <li class="nav-item"><a href="sales" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Manage Sales') . '</p></a></li>
+      <li class="nav-item"><a href="create-sale" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Create Sale') . '</p></a></li>
+      <li class="nav-item"><a href="quotations" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Quotations') . '</p></a></li>
+      <li class="nav-item"><a href="invoices" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Invoices') . '</p></a></li>
+      </ul>
+    </li>';
+}
 
           /* REPORTS (treeview) */
           if (Permission::has("reports")) {

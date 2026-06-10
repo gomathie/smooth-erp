@@ -100,11 +100,13 @@ class ModelOrganizations {
 	public static function mdlUpdateOwnProfile(int $id, array $d): string {
 		$sql = "UPDATE users SET name = :name, email = :email";
 		if (!empty($d["password"])) { $sql .= ", password = :password"; }
+		if (isset($d["photo"]))     { $sql .= ", photo = :photo"; }
 		$sql .= " WHERE id = :id";
 		$stmt = Connection::connect()->prepare($sql);
 		$stmt->bindValue(":name",  $d["name"],  PDO::PARAM_STR);
 		$stmt->bindValue(":email", $d["email"], PDO::PARAM_STR);
 		if (!empty($d["password"])) { $stmt->bindValue(":password", $d["password"], PDO::PARAM_STR); }
+		if (isset($d["photo"]))     { $stmt->bindValue(":photo", $d["photo"], PDO::PARAM_STR); }
 		$stmt->bindValue(":id", $id, PDO::PARAM_INT);
 		return $stmt->execute() ? "ok" : "error";
 	}

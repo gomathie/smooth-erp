@@ -34,8 +34,20 @@ if (!is_array($me)) {
             <h3 class="card-title"><i class="fa fa-user-circle"></i> Super Admin Account</h3>
           </div>
 
-          <form method="post" role="form">
+          <form method="post" role="form" enctype="multipart/form-data">
             <div class="card-body">
+
+              <div class="form-group text-center">
+                <?php
+                  $saPhoto = !empty($me["photo"]) ? $me["photo"] : "views/img/users/default/anonymous.png";
+                ?>
+                <img class="preview img-thumbnail" src="<?php echo htmlspecialchars($saPhoto); ?>"
+                     style="width:120px; height:120px; object-fit:cover; border-radius:50%;">
+                <div class="mt-2">
+                  <input class="newPics" type="file" name="saPhoto" accept="image/jpeg,image/png">
+                  <p class="help-block">JPEG or PNG, max 2MB. Leave empty to keep your current photo.</p>
+                </div>
+              </div>
 
               <div class="form-group">
                 <label>Username</label>

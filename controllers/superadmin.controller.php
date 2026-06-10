@@ -290,11 +290,36 @@ class ControllerSuperAdmin {
 			return;
 		}
 
-		$data = ["name" => $name, "email" => $email];
+		// Profile photo: keep the current one unless a new JPEG/PNG is uploaded.
+		$photo = $_SESSION["photo"] ?? "";
+		if (isset($_FILES["saPhoto"]["tmp_name"]) && !empty($_FILES["saPhoto"]["tmp_name"])) {
+			$type = $_FILES["saPhoto"]["type"] ?? "";
+			if ($type === "image/jpeg" || $type === "image/png") {
+				list($width, $height) = getimagesize($_FILES["saPhoto"]["tmp_name"]);
+				$newWidth = 500; $newHeight = 500;
+				$safeUser = preg_replace('/[^a-zA-Z0-9]/', '', $_SESSION["user"] ?? ("sa" . $id));
+				$folder   = "views/img/users/" . $safeUser;
+				if (!is_dir($folder)) { mkdir($folder, 0755, true); }
+				$rand = mt_rand(100, 999);
+				$destination = imagecreatetruecolor($newWidth, $newHeight);
+				if ($type === "image/jpeg") {
+					$photo = $folder . "/" . $rand . ".jpg";
+					imagecopyresized($destination, imagecreatefromjpeg($_FILES["saPhoto"]["tmp_name"]), 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+					imagejpeg($destination, $photo);
+				} else {
+					$photo = $folder . "/" . $rand . ".png";
+					imagecopyresized($destination, imagecreatefrompng($_FILES["saPhoto"]["tmp_name"]), 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+					imagepng($destination, $photo);
+				}
+			}
+		}
+
+		$data = ["name" => $name, "email" => $email, "photo" => $photo];
 		if ($pass !== "") { $data["password"] = password_hash($pass, PASSWORD_DEFAULT); }
 
 		if (ModelOrganizations::mdlUpdateOwnProfile($id, $data) === "ok") {
-			$_SESSION["name"] = $name;
+			$_SESSION["name"]  = $name;
+			$_SESSION["photo"] = $photo;
 			self::alertStay("success", "Your profile has been updated.");
 		} else {
 			self::alertStay("error", "Could not update your profile.");

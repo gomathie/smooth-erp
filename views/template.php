@@ -79,9 +79,9 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> 
 
-   <!-- DataTables -->
-  <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-  <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+   <!-- DataTables (Bootstrap 4 integration) -->
+  <link rel="stylesheet" href="views/vendor/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="views/vendor/datatables-bs4/css/responsive.bootstrap4.min.css">
 
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="views/plugins/iCheck/all.css">
@@ -111,9 +111,9 @@
 
    <!-- DataTables -->
   <script src="views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script src="views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="views/vendor/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="views/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
-  <script src="views/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
+  <script src="views/vendor/datatables-bs4/js/responsive.bootstrap4.min.js"></script>
 
   <!-- sweet alert -->
   <script src="views/plugins/sweetalert2/sweetalert2.all.js"></script>

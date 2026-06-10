@@ -1,5 +1,7 @@
 <?php
 ob_start();
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+
 
 require_once "../../../controllers/sales.controller.php";
 require_once "../../../models/sales.model.php";

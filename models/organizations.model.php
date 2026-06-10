@@ -76,6 +76,41 @@ class ModelOrganizations {
 	}
 
 	/*=============================================
+	UPDATE COMPANY PROFILE / BRANDING (org admin, under Settings)
+	=============================================*/
+
+	public static function mdlUpdateProfile(int $idOrg, array $d): string {
+		$stmt = Connection::connect()->prepare(
+			"UPDATE organizations SET
+			   name = :name, industry = :industry, email = :email, phone = :phone, fax = :fax,
+			   website = :website, address = :address, city = :city, region = :region,
+			   postalCode = :postalCode, country = :country, themeColor = :themeColor
+			 WHERE id = :id"
+		);
+		$stmt->bindValue(":id",         $idOrg,            PDO::PARAM_INT);
+		$stmt->bindValue(":name",       $d["name"]);
+		$stmt->bindValue(":industry",   $d["industry"]);
+		$stmt->bindValue(":email",      $d["email"]);
+		$stmt->bindValue(":phone",      $d["phone"]);
+		$stmt->bindValue(":fax",        $d["fax"]);
+		$stmt->bindValue(":website",    $d["website"]);
+		$stmt->bindValue(":address",    $d["address"]);
+		$stmt->bindValue(":city",       $d["city"]);
+		$stmt->bindValue(":region",     $d["region"]);
+		$stmt->bindValue(":postalCode", $d["postalCode"]);
+		$stmt->bindValue(":country",    $d["country"]);
+		$stmt->bindValue(":themeColor", $d["themeColor"]);
+		return $stmt->execute() ? "ok" : "error";
+	}
+
+	public static function mdlSetLogo(int $idOrg, string $path): string {
+		$stmt = Connection::connect()->prepare("UPDATE organizations SET logo = :logo WHERE id = :id");
+		$stmt->bindValue(":logo", $path, PDO::PARAM_STR);
+		$stmt->bindValue(":id",   $idOrg, PDO::PARAM_INT);
+		return $stmt->execute() ? "ok" : "error";
+	}
+
+	/*=============================================
 	SEED A NEW ORG'S CHART OF ACCOUNTS (clone the default org's chart)
 	=============================================*/
 

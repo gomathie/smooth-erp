@@ -26,6 +26,16 @@ $accountingEnabled = ControllerSettings::ctrAccountingEnabled();
     <div class="row">
       <div class="col-md-8">
 
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-id-card-o"></i> Company Profile &amp; Branding</h3>
+          </div>
+          <div class="box-body">
+            <p>Set your organization's logo, brand color, and company details (address, contact, website). This information appears on your printed documents — invoices, quotations, and receipts.</p>
+            <a href="company-profile" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit Company Profile</a>
+          </div>
+        </div>
+
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-balance-scale"></i> Accounting Module</h3>

@@ -32,7 +32,7 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_account_org_code` (`idOrganization`,`code`),
   KEY `idx_acc_org` (`idOrganization`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'1000','Cash','asset',1,1),(2,'1100','Accounts Receivable','asset',1,1),(3,'2200','Tax Payable','liability',1,1),(4,'4000','Sales Revenue','income',1,1),(5,'1200','Inventory Asset','asset',1,1),(6,'5000','Cost of Goods Sold','expense',1,1),(7,'2000','Accounts Payable','liability',1,1),(8,'5100','Rent','expense',0,1),(9,'5200','Utilities','expense',0,1),(10,'5300','Salaries & Wages','expense',0,1),(11,'5400','Office Supplies','expense',0,1),(12,'5900','Miscellaneous Expense','expense',0,1),(13,'1010','Bank','asset',0,1),(14,'1150','Payment Clearing','asset',0,1),(15,'1300','Prepaid Expenses','asset',0,1),(16,'1400','Security Deposits','asset',0,1),(17,'1500','Fixed Asset','asset',0,1),(18,'1600','Other Current Assets','asset',0,1),(19,'1700','Other Assets','asset',0,1),(20,'1800','Deferred Tax Asset','asset',0,1),(21,'2100','Credit Card','liability',0,1),(22,'2150','Accrued Expenses','liability',0,1),(23,'2250','Payroll Liabilities','liability',0,1),(24,'2300','Customer Deposits','liability',0,1),(25,'2350','Overdraft','liability',0,1),(26,'2400','Loans Payable','liability',0,1),(27,'2500','Long Term Liability','liability',0,1),(28,'2600','Other Liability','liability',0,1),(29,'2700','Deferred Tax Liability','liability',0,1),(30,'3000','Owner\'s Equity / Capital','equity',0,1),(31,'3100','Retained Earnings','equity',0,1),(32,'3200','Share Capital / Stock','equity',0,1),(33,'3300','Additional Paid-In Capital','equity',0,1),(34,'3400','Owner Draw / Withdrawals','equity',0,1),(35,'3500','Reserves','equity',0,1),(36,'3600','Retained Profit','equity',0,1),(37,'4100','Service Revenue','income',0,1),(38,'4200','Other Income','income',0,1),(39,'4300','Interest Income','income',0,1),(40,'4400','Rental Income','income',0,1),(41,'4500','Gain on Sale of Assets','income',0,1),(42,'4600','Discounts Received','income',0,1),(43,'4700','Foreign Exchange Gain','income',0,1),(44,'5500','Insurance','expense',0,1),(45,'5600','Marketing / Advertising','expense',0,1),(46,'5700','Depreciation / Amortization','expense',0,1),(47,'5750','Bank Charges','expense',0,1),(48,'5800','Travel / Meals','expense',0,1),(49,'5850','Repairs & Maintenance','expense',0,1),(50,'5910','Interest Expense','expense',0,1),(51,'5920','Taxes','expense',0,1),(52,'5930','Discounts Given','expense',0,1),(53,'5940','Foreign Exchange Loss','expense',0,1);
+INSERT INTO `accounts` VALUES (1,'1000','Cash','asset',1,1),(2,'1100','Accounts Receivable','asset',1,1),(3,'2200','Tax Payable','liability',1,1),(4,'4000','Sales Revenue','income',1,1),(5,'1200','Inventory Asset','asset',1,1),(6,'5000','Cost of Goods Sold','expense',1,1),(7,'2000','Accounts Payable','liability',1,1),(8,'5100','Rent','expense',0,1),(9,'5200','Utilities','expense',0,1),(10,'5300','Salaries & Wages','expense',0,1),(11,'5400','Office Supplies','expense',0,1),(12,'5900','Miscellaneous Expense','expense',0,1),(13,'1010','Bank','asset',0,1),(14,'1150','Payment Clearing','asset',0,1),(15,'1300','Prepaid Expenses','asset',0,1),(16,'1400','Security Deposits','asset',0,1),(17,'1500','Fixed Asset','asset',0,1),(18,'1600','Other Current Assets','asset',0,1),(19,'1700','Other Assets','asset',0,1),(20,'1800','Deferred Tax Asset','asset',0,1),(21,'2100','Credit Card','liability',0,1),(22,'2150','Accrued Expenses','liability',0,1),(23,'2250','Payroll Liabilities','liability',0,1),(24,'2300','Customer Deposits','liability',0,1),(25,'2350','Overdraft','liability',0,1),(26,'2400','Loans Payable','liability',0,1),(27,'2500','Long Term Liability','liability',0,1),(28,'2600','Other Liability','liability',0,1),(29,'2700','Deferred Tax Liability','liability',0,1),(30,'3000','Owner\'s Equity / Capital','equity',0,1),(31,'3100','Retained Earnings','equity',0,1),(32,'3200','Share Capital / Stock','equity',0,1),(33,'3300','Additional Paid-In Capital','equity',0,1),(34,'3400','Owner Draw / Withdrawals','equity',0,1),(35,'3500','Reserves','equity',0,1),(36,'3600','Retained Profit','equity',0,1),(37,'4100','Service Revenue','income',0,1),(38,'4200','Other Income','income',0,1),(39,'4300','Interest Income','income',0,1),(40,'4400','Rental Income','income',0,1),(41,'4500','Gain on Sale of Assets','income',0,1),(42,'4600','Discounts Received','income',0,1),(43,'4700','Foreign Exchange Gain','income',0,1),(44,'5500','Insurance','expense',0,1),(45,'5600','Marketing / Advertising','expense',0,1),(46,'5700','Depreciation / Amortization','expense',0,1),(47,'5750','Bank Charges','expense',0,1),(48,'5800','Travel / Meals','expense',0,1),(49,'5850','Repairs & Maintenance','expense',0,1),(50,'5910','Interest Expense','expense',0,1),(51,'5920','Taxes','expense',0,1),(52,'5930','Discounts Given','expense',0,1),(53,'5940','Foreign Exchange Loss','expense',0,1),(109,'1000','Cash','asset',1,6),(110,'1100','Accounts Receivable','asset',1,6),(111,'2200','Tax Payable','liability',1,6),(112,'4000','Sales Revenue','income',1,6),(113,'1200','Inventory Asset','asset',1,6),(114,'5000','Cost of Goods Sold','expense',1,6),(115,'2000','Accounts Payable','liability',1,6),(116,'5100','Rent','expense',0,6),(117,'5200','Utilities','expense',0,6),(118,'5300','Salaries & Wages','expense',0,6),(119,'5400','Office Supplies','expense',0,6),(120,'5900','Miscellaneous Expense','expense',0,6),(121,'1010','Bank','asset',0,6),(122,'1150','Payment Clearing','asset',0,6),(123,'1300','Prepaid Expenses','asset',0,6),(124,'1400','Security Deposits','asset',0,6),(125,'1500','Fixed Asset','asset',0,6),(126,'1600','Other Current Assets','asset',0,6),(127,'1700','Other Assets','asset',0,6),(128,'1800','Deferred Tax Asset','asset',0,6),(129,'2100','Credit Card','liability',0,6),(130,'2150','Accrued Expenses','liability',0,6),(131,'2250','Payroll Liabilities','liability',0,6),(132,'2300','Customer Deposits','liability',0,6),(133,'2350','Overdraft','liability',0,6),(134,'2400','Loans Payable','liability',0,6),(135,'2500','Long Term Liability','liability',0,6),(136,'2600','Other Liability','liability',0,6),(137,'2700','Deferred Tax Liability','liability',0,6),(138,'3000','Owner\'s Equity / Capital','equity',0,6),(139,'3100','Retained Earnings','equity',0,6),(140,'3200','Share Capital / Stock','equity',0,6),(141,'3300','Additional Paid-In Capital','equity',0,6),(142,'3400','Owner Draw / Withdrawals','equity',0,6),(143,'3500','Reserves','equity',0,6),(144,'3600','Retained Profit','equity',0,6),(145,'4100','Service Revenue','income',0,6),(146,'4200','Other Income','income',0,6),(147,'4300','Interest Income','income',0,6),(148,'4400','Rental Income','income',0,6),(149,'4500','Gain on Sale of Assets','income',0,6),(150,'4600','Discounts Received','income',0,6),(151,'4700','Foreign Exchange Gain','income',0,6),(152,'5500','Insurance','expense',0,6),(153,'5600','Marketing / Advertising','expense',0,6),(154,'5700','Depreciation / Amortization','expense',0,6),(155,'5750','Bank Charges','expense',0,6),(156,'5800','Travel / Meals','expense',0,6),(157,'5850','Repairs & Maintenance','expense',0,6),(158,'5910','Interest Expense','expense',0,6),(159,'5920','Taxes','expense',0,6),(160,'5930','Discounts Given','expense',0,6),(161,'5940','Foreign Exchange Loss','expense',0,6);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +329,7 @@ CREATE TABLE `organization_currencies` (
   `isBase` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_org_currency` (`idOrganization`,`currencyCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +338,7 @@ CREATE TABLE `organization_currencies` (
 
 LOCK TABLES `organization_currencies` WRITE;
 /*!40000 ALTER TABLE `organization_currencies` DISABLE KEYS */;
-INSERT INTO `organization_currencies` VALUES (1,1,'USD',1);
+INSERT INTO `organization_currencies` VALUES (1,1,'USD',1),(4,6,'USD',1),(5,1,'AED',0),(6,1,'GHS',0);
 /*!40000 ALTER TABLE `organization_currencies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,9 +359,18 @@ CREATE TABLE `organizations` (
   `baseCurrency` varchar(3) NOT NULL DEFAULT 'USD',
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `createdDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `industry` varchar(100) DEFAULT NULL,
+  `website` varchar(150) DEFAULT NULL,
+  `fax` varchar(50) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `region` varchar(100) DEFAULT NULL,
+  `postalCode` varchar(20) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `themeColor` varchar(7) NOT NULL DEFAULT '#1e3a5f',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_org_code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +379,7 @@ CREATE TABLE `organizations` (
 
 LOCK TABLES `organizations` WRITE;
 /*!40000 ALTER TABLE `organizations` DISABLE KEYS */;
-INSERT INTO `organizations` VALUES (1,'Default Organization','DEFAULT',NULL,NULL,NULL,'USD',1,'2026-06-09 07:31:51');
+INSERT INTO `organizations` VALUES (1,'Default Organization','DEFAULT',NULL,NULL,NULL,'USD',1,'2026-06-09 07:31:51',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'#1e3a5f'),(6,'TRACE365','TRACE365','info@trace365.net','0','Accra, Ghana','USD',1,'2026-06-09 23:04:01','','','','','','','',NULL,'#df2559');
 /*!40000 ALTER TABLE `organizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -552,7 +561,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES ('accounting_enabled','0',1),('multicurrency_enabled','0',1);
+INSERT INTO `settings` VALUES ('accounting_enabled','1',1),('multicurrency_enabled','1',1),('accounting_enabled','1',6),('multicurrency_enabled','0',6);
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -615,7 +624,7 @@ CREATE TABLE `users` (
   `idOrganization` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_user_org` (`idOrganization`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -624,7 +633,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Administrator','admin','$2y$10$XgUq9IwiWF5NHW4QXD696euIePVHpFxI59x9RgTj20Xr6IajzJD7W','Administrator','views/img/users/admin/admin-icn.png','admon@yahoo.com','',1,'2026-06-09 09:07:44',NULL,NULL,'2026-06-09 14:07:44',1),(2,'Kwasi Sarpong','seller','','','views/img/users/jonathan/239.jpg','','',1,'2022-12-10 12:39:15',NULL,NULL,'2026-06-09 07:31:52',1),(3,'Nana Banyin','carmen','','','views/img/users/carmen/215.jpg','','',1,'2022-12-10 12:17:55',NULL,NULL,'2026-06-09 07:31:52',1),(4,'Super Admin','superadmin','$2y$10$YhTeDW2wQ6PaktkzHhFVLul/FX1OsVK1qqpASf937aa7fLy97WAFa','SuperAdmin','','','',1,'2026-06-09 10:32:15',NULL,NULL,'2026-06-09 07:32:15',NULL);
+INSERT INTO `users` VALUES (1,'Administrator','admin','$2y$10$XgUq9IwiWF5NHW4QXD696euIePVHpFxI59x9RgTj20Xr6IajzJD7W','Administrator','views/img/users/admin/admin-icn.png','admon@yahoo.com','',1,'2026-06-09 09:07:44',NULL,NULL,'2026-06-09 14:07:44',1),(2,'Kwasi Sarpong','seller','','','views/img/users/jonathan/239.jpg','','',1,'2022-12-10 12:39:15',NULL,NULL,'2026-06-09 07:31:52',1),(3,'Nana Banyin','carmen','','','views/img/users/carmen/215.jpg','','',1,'2022-12-10 12:17:55',NULL,NULL,'2026-06-09 07:31:52',1),(4,'Super Admin','superadmin','$2y$10$YhTeDW2wQ6PaktkzHhFVLul/FX1OsVK1qqpASf937aa7fLy97WAFa','SuperAdmin','','','',1,'2026-06-09 18:01:23',NULL,NULL,'2026-06-09 23:01:23',NULL),(6,'Yaw Koree','yaw','$2y$10$T55SOvVg6PZ13sxe9SOnnO6UBqhIPmPE37g/h2w4xi1eBU4viUR2W','Administrator','','yaw@trace365.net','',1,'2026-06-10 02:04:01',NULL,NULL,'2026-06-09 23:04:01',6);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -637,4 +646,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-10  1:22:49
+-- Dump completed on 2026-06-10  3:03:32

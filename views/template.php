@@ -160,8 +160,13 @@
       =============================================*/
       // The "Exit org" banner link can be triggered from any page.
       if (Tenant::isSuperAdmin()) { ControllerSuperAdmin::ctrExitOrg(); }
-      // A Super Admin who hasn't entered an org only sees the organizations panel.
-      if (Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0) { $_GET["route"] = "organizations"; }
+      // A Super Admin who hasn't entered an org is limited to the platform pages.
+      if (Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0) {
+        $saRoutes = ["organizations", "org-currencies", "logout"];
+        if (!isset($_GET["route"]) || !in_array($_GET["route"], $saRoutes, true)) {
+          $_GET["route"] = "organizations";
+        }
+      }
 
       /*=============================================
       =            header          =
@@ -223,6 +228,8 @@
             $_GET["route"] == 'report-activity' ||
             $_GET["route"] == 'report-tax' ||
             $_GET["route"] == 'organizations' ||
+            $_GET["route"] == 'org-currencies' ||
+            $_GET["route"] == 'company-profile' ||
             $_GET["route"] == 'currencies' ||
             $_GET["route"] == 'logout'){
 

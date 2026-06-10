@@ -79,6 +79,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
                 <td>
                   <div class="btn-group">
                     <a class="btn btn-primary btn-xs" href="index.php?route=organizations&enterOrg=<?php echo $id; ?>" title="Enter / operate"><i class="fa fa-sign-in"></i> Enter</a>
+                    <a class="btn btn-info btn-xs" href="index.php?route=org-currencies&org=<?php echo $id; ?>" title="Currencies"><i class="fa fa-money"></i></a>
                     <button class="btn btn-default btn-xs btnEditOrg"
                             data-id="<?php echo $id; ?>"
                             data-name="<?php echo htmlspecialchars($o["name"], ENT_QUOTES); ?>"

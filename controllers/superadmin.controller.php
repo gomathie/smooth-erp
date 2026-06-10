@@ -146,6 +146,45 @@ class ControllerSuperAdmin {
 	}
 
 	/*=============================================
+	PER-ORG CURRENCY CONTROL (Super Admin chooses an org's currencies)
+	=============================================*/
+
+	public static function ctrAllCurrencies(): array {
+		$stmt = Connection::connect()->query("SELECT code, name, symbol FROM currencies ORDER BY code ASC");
+		return $stmt ? $stmt->fetchAll() : [];
+	}
+
+	public static function ctrOrgCurrencyList(int $idOrg): array {
+		return ModelOrganizations::mdlOrgCurrencies($idOrg);
+	}
+
+	public static function ctrManageCurrencies(): void {
+
+		if (!self::guard() || !isset($_GET["org"])) {
+			return;
+		}
+
+		$idOrg = (int)$_GET["org"];
+
+		if (isset($_GET["activate"])) {
+			ModelOrganizations::mdlActivateCurrency($idOrg, strtoupper($_GET["activate"]));
+			self::redirectCur($idOrg);
+		}
+		if (isset($_GET["deactivate"])) {
+			ModelOrganizations::mdlDeactivateCurrency($idOrg, strtoupper($_GET["deactivate"]));
+			self::redirectCur($idOrg);
+		}
+		if (isset($_GET["setBase"])) {
+			ModelOrganizations::mdlSetBaseCurrency($idOrg, strtoupper($_GET["setBase"]));
+			self::redirectCur($idOrg);
+		}
+	}
+
+	private static function redirectCur(int $idOrg): void {
+		echo '<script>window.location = "index.php?route=org-currencies&org=' . $idOrg . '";</script>';
+	}
+
+	/*=============================================
 	ENTER / EXIT AN ORG (operate as its administrator)
 	=============================================*/
 

@@ -238,7 +238,7 @@ class ModelAccounting {
 
 		foreach ($entries as $row) {
 			$entryId = (int)$row["id"];
-			$delLines = $link->prepare("DELETE FROM journal_lines WHERE idJournalEntry = :id");
+			$delLines = $link->prepare("DELETE FROM journal_lines WHERE idJournalEntry = :id AND idOrganization = " . (int)Tenant::id() . "");
 			$delLines->bindParam(":id", $entryId, PDO::PARAM_INT);
 			$delLines->execute();
 		}
@@ -310,7 +310,7 @@ class ModelAccounting {
 			"SELECT l.debit, l.credit, a.code, a.name
 			   FROM journal_lines l
 			   JOIN accounts a ON a.id = l.idAccount
-			  WHERE l.idJournalEntry = :id
+			  WHERE l.idJournalEntry = :id AND l.idOrganization = " . (int)Tenant::id() . "
 			  ORDER BY l.debit DESC"
 		);
 

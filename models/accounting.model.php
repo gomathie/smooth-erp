@@ -37,10 +37,7 @@ class ModelAccounting {
 
 	public static function mdlShowAccounts(): array {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM accounts WHERE idOrganization = " . (int)Tenant::id() . " ORDER BY code ASC");
-		$stmt->execute();
-
-		return $stmt->fetchAll() ?: [];
+		return Scope::all('accounts', 'code ASC');
 
 	}
 
@@ -50,11 +47,7 @@ class ModelAccounting {
 	 */
 	public static function mdlGetAccount(int $id) {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM accounts WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
-		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetch();
+		return Scope::find('accounts', $id);
 
 	}
 
@@ -65,11 +58,7 @@ class ModelAccounting {
 	 */
 	public static function mdlAccountsByType(string $type): array {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM accounts WHERE type = :type AND idOrganization = " . (int)Tenant::id() . " ORDER BY code ASC");
-		$stmt->bindParam(":type", $type, PDO::PARAM_STR);
-		$stmt->execute();
-
-		return $stmt->fetchAll() ?: [];
+		return Scope::rowsBy('accounts', 'type', $type, 'code ASC');
 
 	}
 
@@ -102,10 +91,7 @@ class ModelAccounting {
 
 	public static function mdlDeleteAccount(int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM accounts WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
-		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-
-		return $stmt->execute() ? "ok" : "error";
+		return Scope::deleteById('accounts', $id) ? "ok" : "error";
 
 	}
 

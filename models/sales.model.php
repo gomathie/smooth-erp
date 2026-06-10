@@ -12,31 +12,10 @@ class ModelSales{
 	static public function mdlShowSales($table, $item, $value){
 
 		if($item != null){
-
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $item = :$item AND idOrganization = :__org ORDER BY id ASC");
-
-			$stmt -> bindParam(":".$item, $value, PDO::PARAM_STR);
-			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
-
-			$stmt -> execute();
-
-			return $stmt -> fetch();
-
-		}else{
-
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE idOrganization = :__org ORDER BY id ASC");
-
-			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
-
-			$stmt -> execute();
-
-			return $stmt -> fetchAll();
-
+			return Scope::firstBy($table, $item, $value, 'id ASC');
 		}
 
-		$stmt -> close();
-
-		$stmt = null;
+		return Scope::all($table, 'id ASC');
 
 	}
 
@@ -112,24 +91,7 @@ class ModelSales{
 
 	static public function mdlDeleteSale($table, $data){
 
-		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id AND idOrganization = :__org");
-
-		$stmt -> bindParam(":id", $data, PDO::PARAM_INT);
-		$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
-
-		if($stmt -> execute()){
-
-			return "ok";
-
-		}else{
-
-			return "error";
-
-		}
-
-		$stmt -> close();
-
-		$stmt = null;
+		return Scope::deleteById($table, (int)$data) ? "ok" : "error";
 
 	}
 	/*  */

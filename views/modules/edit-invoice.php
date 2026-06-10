@@ -1,3 +1,6 @@
+<?php
+if (!Permission::has("sales")) { echo '<script>window.location = "home";</script>'; return; }
+?>
 <div class="content-wrapper">
 
   <section class="content-header">

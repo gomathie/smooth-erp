@@ -83,11 +83,6 @@ return [
 	'Selling Price'     => 'Prix de vente',
 	'Date added'        => 'Date d\'ajout',
 	'Select Category'   => 'Sélectionner une catégorie',
-	'Add Product Code'  => 'Ajouter un code produit',
-	'Add Description/Product Name' => 'Ajouter une description / nom du produit',
-	'Add Stock'         => 'Ajouter le stock',
-	'Buying Price'      => "Prix d'achat",
-	'Selling Price'     => 'Prix de vente',
 	'Use Percentage'    => 'Utiliser un pourcentage',
 	'Upload image'      => 'Télécharger une image',
 	'Maximum size 2Mb'  => 'Taille maximale 2 Mo',
@@ -271,7 +266,6 @@ return [
 	// Reports - Overview
 	'Report'            => 'Rapport',
 	'POS Sales'         => 'Ventes au comptoir',
-	'Invoiced'          => 'Facturé',
 	'Payments Received' => 'Paiements reçus',
 	'Outstanding A/R'   => 'Créances clients',
 	'(current)'         => '(en cours)',
@@ -332,7 +326,6 @@ return [
 	'Balance Due'       => 'Solde dû',
 
 	// Customer statement
-	'Invoiced'          => 'Facturé',
 	'Paid'              => 'Payé',
 	'Closing Balance'   => 'Solde de clôture',
 
@@ -419,14 +412,12 @@ return [
 
 	// Breadcrumbs
 	'Home'              => 'Accueil',
-	'Dashboard'         => 'Tableau de bord',
 
 	// Super Admin
 	'SUPER ADMIN'       => 'SUPER ADMIN',
 	'Platform'          => 'Plateforme',
 
 	// Permission labels
-	'Dashboard'                     => 'Tableau de bord',
 	'Products & Categories'         => 'Produits et catégories',
 	'Customers'                     => 'Clients',
 	'Sales, Quotations & Invoices'  => 'Ventes, Devis et Factures',

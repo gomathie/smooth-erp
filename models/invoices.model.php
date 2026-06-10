@@ -18,24 +18,11 @@ class ModelInvoices {
 
 		if ($item != null) {
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM {$table} WHERE {$item} = :{$item} AND idOrganization = :__org ORDER BY id ASC");
-
-			$stmt->bindParam(":{$item}", $value, PDO::PARAM_STR);
-			$stmt->bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
-
-			$stmt->execute();
-
-			return $stmt->fetch();
+			return Scope::firstBy($table, $item, $value, 'id ASC');
 
 		} else {
 
-			$stmt = Connection::connect()->prepare("SELECT * FROM {$table} WHERE idOrganization = :__org ORDER BY id ASC");
-
-			$stmt->bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
-
-			$stmt->execute();
-
-			return $stmt->fetchAll();
+			return Scope::all($table, 'id ASC');
 
 		}
 

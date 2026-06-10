@@ -75,11 +75,7 @@ class ModelPayments {
 	 */
 	public static function mdlGetPayment(int $id) {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM payments_received WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
-		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetch();
+		return Scope::find('payments_received', $id);
 
 	}
 
@@ -182,10 +178,7 @@ class ModelPayments {
 	 */
 	public static function mdlDeletePayment(int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM payments_received WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
-		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-
-		return $stmt->execute() ? "ok" : "error";
+		return Scope::deleteById('payments_received', $id) ? "ok" : "error";
 
 	}
 

@@ -1,3 +1,6 @@
+<?php
+if (!Permission::has("sales")) { echo '<script>window.location = "home";</script>'; return; }
+?>
 <div class="content-wrapper">
 
   <section class="content-header">
@@ -54,7 +57,7 @@
 
                     $customers = ControllerCustomers::ctrShowCustomers($itemCustomers, $valueCustomers);
 
-                    $taxPercentage = round($sale["tax"] * 100 / $sale["netPrice"]);
+                    $taxPercentage = !empty($sale["netPrice"]) ? round($sale["tax"] * 100 / $sale["netPrice"]) : 0;
                 ?>
 
                     <!--=====================================

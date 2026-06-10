@@ -35,11 +35,7 @@ class ModelExpenses {
 
 	public static function mdlGetExpense(int $id) {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM expenses WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
-		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetch();
+		return Scope::find('expenses', $id);
 
 	}
 
@@ -113,10 +109,7 @@ class ModelExpenses {
 
 	public static function mdlDeleteExpense(int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM expenses WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
-		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-
-		return $stmt->execute() ? "ok" : "error";
+		return Scope::deleteById('expenses', $id) ? "ok" : "error";
 
 	}
 

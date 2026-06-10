@@ -11,31 +11,11 @@ class ProductsModel{
 	static public function mdlShowProducts($table, $item, $value, $order){
 
 		if($item != null){
-
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $item = :$item AND idOrganization = :__org ORDER BY id DESC");
-
-			$stmt -> bindParam(":".$item, $value, PDO::PARAM_STR);
-			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
-
-			$stmt -> execute();
-
-			return $stmt -> fetch();
-
-		}else{
-
-			$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE idOrganization = :__org ORDER BY $order DESC");
-
-			$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
-
-			$stmt -> execute();
-
-			return $stmt -> fetchAll();
-
+			return Scope::firstBy($table, $item, $value, 'id DESC');
 		}
 
-		$stmt -> close();
-
-		$stmt = null;
+		$order = $order ?: 'id';
+		return Scope::all($table, $order . ' DESC');
 
 	}
 	/*  */
@@ -109,24 +89,7 @@ class ProductsModel{
 
 	static public function mdlDeleteProduct($table, $data){
 
-		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id AND idOrganization = :__org");
-
-		$stmt -> bindParam(":id", $data, PDO::PARAM_INT);
-		$stmt -> bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
-
-		if($stmt -> execute()){
-
-			return "ok";
-		
-		}else{
-
-			return "error";	
-
-		}
-
-		$stmt -> close();
-
-		$stmt = null;
+		return Scope::deleteById($table, (int)$data) ? "ok" : "error";
 
 	}
 	/*  */

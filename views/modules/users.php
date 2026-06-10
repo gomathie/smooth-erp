@@ -33,15 +33,15 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
     <h1>
 
-      User Management
+      <?php echo t('User Management'); ?>
 
     </h1>
 
     <ol class="breadcrumb">
 
-      <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="home"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
 
-      <li class="active">Dashboard</li>
+      <li class="active"><?php echo t('Dashboard'); ?></li>
 
     </ol>
 
@@ -55,7 +55,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUser">
 
-         <i class="fa fa-plus"></i> Add User
+         <i class="fa fa-plus"></i> <?php echo t('Add User'); ?>
 
         </button>
 
@@ -70,15 +70,15 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
            <tr>
              
              <th style="width:10px">#</th>
-             <th>Name</th>
-             <th>Username</th>
-             <th>Email</th>
-             <th>Phone</th>
-             <th>Photo</th>
-             <th>Role</th>
-             <th>Status</th>
-             <th>Last Login</th>
-             <th>Actions</th>
+             <th><?php echo t('Name'); ?></th>
+             <th><?php echo t('Username'); ?></th>
+             <th><?php echo t('Email'); ?></th>
+             <th><?php echo t('Phone'); ?></th>
+             <th><?php echo t('Photo'); ?></th>
+             <th><?php echo t('Role'); ?></th>
+             <th><?php echo t('Status'); ?></th>
+             <th><?php echo t('Last Login'); ?></th>
+             <th><?php echo t('Actions'); ?></th>
 
            </tr> 
 

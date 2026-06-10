@@ -19,15 +19,15 @@ if(!Permission::has("products")){
 
     <h1>
 
-      Product Management
+      <?php echo t('Product Management'); ?>
 
     </h1>
 
     <ol class="breadcrumb">
 		<!--  -->
-      <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="home"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
 
-      <li class="active">Dashboard</li>
+      <li class="active"><?php echo t('Dashboard'); ?></li>
 
     </ol>
 
@@ -39,7 +39,7 @@ if(!Permission::has("products")){
 
       <div class="card-header">
 
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProduct"> <i class="fa fa-plus"></i> Add Product</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProduct"> <i class="fa fa-plus"></i> <?php echo t('Add Product'); ?></button>
 
       </div>
 
@@ -52,15 +52,15 @@ if(!Permission::has("products")){
            <tr>
              
              <th style="width:10px">#</th>
-             <th>Image</th>
-             <th>Code</th>
-             <th>Description</th>
-             <th>Category</th>
-             <th>Stock</th>
-             <th>Buying Price</th>
-             <th>Selling Price</th>
-             <th>Date added</th>
-             <th>Actions</th>
+             <th><?php echo t('Image'); ?></th>
+             <th><?php echo t('Code'); ?></th>
+             <th><?php echo t('Description'); ?></th>
+             <th><?php echo t('Category'); ?></th>
+             <th><?php echo t('Stock'); ?></th>
+             <th><?php echo t('Buying Price'); ?></th>
+             <th><?php echo t('Selling Price'); ?></th>
+             <th><?php echo t('Date added'); ?></th>
+             <th><?php echo t('Actions'); ?></th>
 
            </tr> 
 

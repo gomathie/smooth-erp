@@ -54,7 +54,7 @@ $discountLabel = $quote["discountType"] === "percent"
   <section class="content">
 
     <div class="row">
-      <div class="col-xs-12" style="margin-bottom:15px;">
+      <div class="col-12" style="margin-bottom:15px;">
         <a class="btn btn-warning" href="extensions/tcpdf/pdf/quotation-pdf.php?id=<?php echo $quote["id"]; ?>" target="_blank"><i class="fa fa-print"></i> Print PDF</a>
         <?php if ($quote["status"] !== "invoiced") { ?>
           <a class="btn btn-success" href="index.php?route=quotations&convertQuote=<?php echo $quote["id"]; ?>" onclick="return confirm('Convert this quotation to a draft invoice?');"><i class="fa fa-exchange"></i> Convert to Invoice</a>
@@ -72,13 +72,13 @@ $discountLabel = $quote["discountType"] === "percent"
           <div class="card-body">
 
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-6">
                 <strong style="color:#888;">Prepared For</strong>
                 <p style="font-size:15px; margin:4px 0;"><?php echo htmlspecialchars($customer["name"] ?? "—"); ?></p>
                 <?php if (!empty($customer["email"])) { echo '<p style="margin:0; color:#777;">'.htmlspecialchars($customer["email"]).'</p>'; } ?>
                 <?php if (!empty($customer["phone"])) { echo '<p style="margin:0; color:#777;">'.htmlspecialchars($customer["phone"]).'</p>'; } ?>
               </div>
-              <div class="col-xs-6 text-right">
+              <div class="col-6 text-right">
                 <p style="margin:2px 0;"><strong>Date:</strong> <?php echo substr((string)$quote["quoteDate"], 0, 10); ?></p>
                 <p style="margin:2px 0;"><strong>Valid Until:</strong> <?php echo $quote["expiryDate"] ?: "—"; ?></p>
                 <p style="margin:2px 0;"><strong>Prepared By:</strong> <?php echo htmlspecialchars($seller["name"] ?? "—"); ?></p>
@@ -105,7 +105,7 @@ $discountLabel = $quote["discountType"] === "percent"
                 ?>
                   <tr>
                     <td><?php echo $n++; ?></td>
-                    <td><?php echo htmlspecialchars($it["description"] ?? ""); ?><?php echo $isService ? ' <span class="label label-default">service</span>' : ''; ?></td>
+                    <td><?php echo htmlspecialchars($it["description"] ?? ""); ?><?php echo $isService ? ' <span class="badge text-bg-secondary">service</span>' : ''; ?></td>
                     <td class="text-center"><?php echo (int)($it["quantity"] ?? 0); ?></td>
                     <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)($it["price"] ?? 0), 2); ?></td>
                     <td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)($it["totalPrice"] ?? 0), 2); ?></td>
@@ -115,7 +115,7 @@ $discountLabel = $quote["discountType"] === "percent"
             </table>
 
             <div class="row">
-              <div class="col-xs-6 col-xs-offset-6">
+              <div class="col-6 offset-6">
                 <table class="table" style="margin-bottom:0;">
                   <tr><td style="color:#888;">Subtotal</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$quote["subtotal"], 2); ?></td></tr>
                   <?php if ((float)$quote["discount"] > 0) { ?><tr><td style="color:#888;">Discount (<?php echo $discountLabel; ?>)</td><td class="text-right" style="color:#e74c3c;">- <?php echo $sym; ?> <?php echo number_format((float)$quote["discount"], 2); ?></td></tr><?php } ?>

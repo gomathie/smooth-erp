@@ -41,7 +41,7 @@ if(!Permission::has("sales")){
       <!--=============================================
       THE FORM
       =============================================-->
-      <div class="col-lg-5 col-xs-12">
+      <div class="col-lg-5 col-12">
         
         <div class="card">
 
@@ -62,7 +62,7 @@ if(!Permission::has("sales")){
 
                       <div class="input-group">
                         
-                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
 
                         <input type="text" class="form-control" name="newSeller" id="newSeller" value="<?php echo $_SESSION["name"]; ?>" readonly>
 
@@ -82,7 +82,7 @@ if(!Permission::has("sales")){
 
                       <div class="input-group">
                         
-                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        <span class="input-group-text"><i class="fa fa-key"></i></span>
                         
 
                         <?php 
@@ -124,7 +124,7 @@ if(!Permission::has("sales")){
 
                       <div class="input-group">
                         
-                        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                        <span class="input-group-text"><i class="fa fa-users"></i></span>
                         <select class="form-control" name="selectCustomer" id="selectCustomer" required>
                           
                             <option value="">Select Customer</option>
@@ -145,7 +145,7 @@ if(!Permission::has("sales")){
 
                         </select>
 
-                        <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer" data-bs-dismiss="modal">Add Customer</button></span>
+                        <span class="input-group-text"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer" data-bs-dismiss="modal">Add Customer</button></span>
 
                       </div>
 
@@ -177,7 +177,7 @@ if(!Permission::has("sales")){
                         TAXES AND TOTAL INPUT
                       ======================================-->
 
-                      <div class="col-xs-8 pull-right">
+                      <div class="col-8 float-end">
 
                         <table class="table">
                           
@@ -203,7 +203,7 @@ if(!Permission::has("sales")){
 
                                   <input type="hidden" name="newNetPrice" id="newNetPrice" required>
                                   
-                                  <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                                  <span class="input-group-text"><i class="fa fa-percent"></i></span>
 
                                 </div>
                               </td>
@@ -212,7 +212,7 @@ if(!Permission::has("sales")){
 
                                 <div class="input-group">
                                   
-                                  <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                  <span class="input-group-text"><i class="ion ion-social-usd"></i></span>
                                   
                                   <input type="number" class="form-control" name="newSaleTotal" id="newSaleTotal" placeholder="00000" totalSale="" readonly required>
 
@@ -242,7 +242,7 @@ if(!Permission::has("sales")){
 
                     <div class="form-group row">
                       
-                      <div class="col-xs-6" style="padding-right: 0">
+                      <div class="col-6" style="padding-right: 0">
 
                         <div class="input-group">
                       
@@ -273,7 +273,7 @@ if(!Permission::has("sales")){
             </div>
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-success pull-right">Save Sale</button>
+              <button type="submit" class="btn btn-success float-end">Save Sale</button>
             </div>
           </form>
 
@@ -356,7 +356,7 @@ if(!Permission::has("sales")){
             <!--Input name -->
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required>
               </div>
             </div>
@@ -364,7 +364,7 @@ if(!Permission::has("sales")){
             <!--Input id document -->
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <span class="input-group-text"><i class="fa fa-key"></i></span>
                 <input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required>
               </div>
             </div>
@@ -372,7 +372,7 @@ if(!Permission::has("sales")){
             <!--Input email -->
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                 <input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required>
               </div>
             </div>
@@ -380,7 +380,7 @@ if(!Permission::has("sales")){
             <!--Input phone -->
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <span class="input-group-text"><i class="fa fa-phone"></i></span>
                 <input class="form-control input-lg" type="text" name="newPhone" placeholder="phone" data-inputmask="'mask':'(999) 999-9999'" data-mask required>
               </div>
             </div>
@@ -388,7 +388,7 @@ if(!Permission::has("sales")){
             <!--Input address -->
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
                 <input class="form-control input-lg" type="text" name="newAddress" placeholder="Address" required>
               </div>
             </div>
@@ -397,7 +397,7 @@ if(!Permission::has("sales")){
             <!--Input phone -->
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 <input class="form-control input-lg" type="text" name="newBirthdate" placeholder="Birth Date" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
               </div>
             </div>
@@ -405,7 +405,7 @@ if(!Permission::has("sales")){
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Customer</button>
         </div>
       </form>

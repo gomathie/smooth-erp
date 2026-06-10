@@ -27,11 +27,11 @@
 
       <div class="row">
 
-        <div class="col-xs-7">
+        <div class="col-7">
           <a href="login">Back to login</a>
         </div>
 
-        <div class="col-xs-5">
+        <div class="col-5">
           <button type="submit" class="btn btn-success btn-block btn-flat">Reset</button>
         </div>
 
@@ -62,11 +62,11 @@
 
       <div class="row">
 
-        <div class="col-xs-7">
+        <div class="col-7">
           <a href="login">Back to login</a>
         </div>
 
-        <div class="col-xs-5">
+        <div class="col-5">
           <button type="submit" class="btn btn-success btn-block btn-flat">Save</button>
         </div>
 
@@ -96,13 +96,13 @@
 
       <div class="row">
 
-        <div class="col-xs-8">
+        <div class="col-8">
 
           <a href="forgot-password"><?php echo htmlspecialchars(t('Forgot password?')); ?></a>
 
         </div>
 
-        <div class="col-xs-4">
+        <div class="col-4">
 
           <button type="submit" class="btn btn-success btn-block btn-flat"><?php echo htmlspecialchars(t('Log In')); ?></button>
 

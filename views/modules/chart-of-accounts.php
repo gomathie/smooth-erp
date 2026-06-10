@@ -60,7 +60,7 @@ $typeLabels = [
                 <td><?php echo htmlspecialchars($a["code"]); ?></td>
                 <td>
                   <?php echo htmlspecialchars($a["name"]); ?>
-                  <?php if ($isSystem) { echo ' <span class="label label-default">system</span>'; } ?>
+                  <?php if ($isSystem) { echo ' <span class="badge text-bg-secondary">system</span>'; } ?>
                 </td>
                 <td><?php echo $typeLabels[$a["type"]] ?? ucfirst($a["type"]); ?></td>
                 <td>
@@ -122,7 +122,7 @@ $typeLabels = [
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Save Account</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -163,7 +163,7 @@ $typeLabels = [
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Update Account</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

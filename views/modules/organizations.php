@@ -68,7 +68,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
         <?php } else { ?>
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddOrg"><i class="fa fa-plus"></i> Onboard Organization</button>
         <?php } ?>
-        <span class="pull-right" style="padding-top:6px;"><?php echo $orgsUsed; ?> organization(s)</span>
+        <span class="float-end" style="padding-top:6px;"><?php echo $orgsUsed; ?> organization(s)</span>
       </div>
       <div class="card-body">
         <table class="table table-bordered table-hover table-striped">
@@ -103,7 +103,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
                      <?php echo $mc ? 'On' : 'Off'; ?>
                   </a>
                 </td>
-                <td><?php echo ((int)$o["status"] === 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-default">Suspended</span>'; ?></td>
+                <td><?php echo ((int)$o["status"] === 1) ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-secondary">Suspended</span>'; ?></td>
                 <td>
                   <div class="btn-group">
                     <a class="btn btn-primary btn-xs" href="index.php?route=organizations&enterOrg=<?php echo $id; ?>" title="Enter / operate"><i class="fa fa-sign-in"></i> Enter</a>
@@ -145,28 +145,28 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
           <div class="form-group"><label>Name</label><input type="text" class="form-control" name="newOrgName" required></div>
           <div class="form-group"><label>Code (unique)</label><input type="text" class="form-control" name="newOrgCode" placeholder="e.g. ACME" required></div>
           <div class="row">
-            <div class="col-xs-6"><div class="form-group"><label>Base Currency</label><select class="form-control" name="newOrgBaseCurrency"><?php echo currencyOptions($currencies, "USD"); ?></select></div></div>
-            <div class="col-xs-6"><div class="form-group"><label>Max Users</label><input type="number" min="1" class="form-control" name="newOrgMaxUsers" value="3"></div></div>
+            <div class="col-6"><div class="form-group"><label>Base Currency</label><select class="form-control" name="newOrgBaseCurrency"><?php echo currencyOptions($currencies, "USD"); ?></select></div></div>
+            <div class="col-6"><div class="form-group"><label>Max Users</label><input type="number" min="1" class="form-control" name="newOrgMaxUsers" value="3"></div></div>
           </div>
           <div class="row">
-            <div class="col-xs-6"><div class="form-group"><label>Phone</label><input type="text" class="form-control" name="newOrgPhone"></div></div>
-            <div class="col-xs-6"><div class="form-group"><label>Email</label><input type="text" class="form-control" name="newOrgEmail"></div></div>
+            <div class="col-6"><div class="form-group"><label>Phone</label><input type="text" class="form-control" name="newOrgPhone"></div></div>
+            <div class="col-6"><div class="form-group"><label>Email</label><input type="text" class="form-control" name="newOrgEmail"></div></div>
           </div>
           <div class="form-group"><label>Address</label><input type="text" class="form-control" name="newOrgAddress"></div>
 
           <h5 style="font-weight:bold; color:#888; margin-top:15px;">FIRST ADMINISTRATOR</h5>
           <div class="row">
-            <div class="col-xs-6"><div class="form-group"><label>Full name</label><input type="text" class="form-control" name="adminName"></div></div>
-            <div class="col-xs-6"><div class="form-group"><label>Username</label><input type="text" class="form-control" name="adminUser" required></div></div>
+            <div class="col-6"><div class="form-group"><label>Full name</label><input type="text" class="form-control" name="adminName"></div></div>
+            <div class="col-6"><div class="form-group"><label>Username</label><input type="text" class="form-control" name="adminUser" required></div></div>
           </div>
           <div class="row">
-            <div class="col-xs-6"><div class="form-group"><label>Password</label><input type="text" class="form-control" name="adminPass" required></div></div>
-            <div class="col-xs-6"><div class="form-group"><label>Email</label><input type="text" class="form-control" name="adminEmail"></div></div>
+            <div class="col-6"><div class="form-group"><label>Password</label><input type="text" class="form-control" name="adminPass" required></div></div>
+            <div class="col-6"><div class="form-group"><label>Email</label><input type="text" class="form-control" name="adminEmail"></div></div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Create</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -186,8 +186,8 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
           <input type="hidden" name="editOrg" id="editOrgId">
           <div class="form-group"><label>Name</label><input type="text" class="form-control" name="editOrgName" id="editOrgName" required></div>
           <div class="row">
-            <div class="col-xs-6"><div class="form-group"><label>Base Currency</label><select class="form-control" name="editOrgBaseCurrency" id="editOrgBaseCurrency"><?php echo currencyOptions($currencies, "USD"); ?></select></div></div>
-            <div class="col-xs-6"><div class="form-group"><label>Status</label><select class="form-control" name="editOrgStatus" id="editOrgStatus"><option value="1">Active</option><option value="0">Suspended</option></select></div></div>
+            <div class="col-6"><div class="form-group"><label>Base Currency</label><select class="form-control" name="editOrgBaseCurrency" id="editOrgBaseCurrency"><?php echo currencyOptions($currencies, "USD"); ?></select></div></div>
+            <div class="col-6"><div class="form-group"><label>Status</label><select class="form-control" name="editOrgStatus" id="editOrgStatus"><option value="1">Active</option><option value="0">Suspended</option></select></div></div>
           </div>
           <div class="form-group"><label>Max Users</label><input type="number" min="1" class="form-control" name="editOrgMaxUsers" id="editOrgMaxUsers" value="3"></div>
           <div class="form-group"><label>Email</label><input type="text" class="form-control" name="editOrgEmail" id="editOrgEmail"></div>
@@ -196,7 +196,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

@@ -118,7 +118,7 @@ if(!Permission::has("products")){
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <span class="input-group-text"><i class="fa fa-th"></i></span>
 
                 <select class="form-control input-lg" id="newCategory" name="newCategory">
 
@@ -149,7 +149,7 @@ if(!Permission::has("products")){
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+                <span class="input-group-text"><i class="fa fa-cube"></i></span>
 
                 <select class="form-control input-lg" id="newProductType" name="newProductType">
                   <option value="good">Goods (stock-tracked)</option>
@@ -165,7 +165,7 @@ if(!Permission::has("products")){
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                <span class="input-group-text"><i class="fa fa-code"></i></span>
 
                 <input class="form-control input-lg" type="text" id="newCode" name="newCode" placeholder="Add Product Code" required>
 
@@ -178,7 +178,7 @@ if(!Permission::has("products")){
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
+                <span class="input-group-text"><i class="fa fa-product-hunt"></i></span>
 
                 <input class="form-control input-lg" type="text" id="newDescription" name="newDescription" placeholder="Add Description/Product Name" required>
 
@@ -191,7 +191,7 @@ if(!Permission::has("products")){
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                <span class="input-group-text"><i class="fa fa-check"></i></span>
 
                 <input class="form-control input-lg" type="number" id="newStock" name="newStock" placeholder="Add Stock" min="0" required>
 
@@ -202,11 +202,11 @@ if(!Permission::has("products")){
             <!-- INPUT BUYING PRICE -->
             <div class="form-group row">
 
-              <div class="col-xs-12 col-sm-6">
+              <div class="col-12 col-sm-6">
 
                 <div class="input-group"> 
 
-                  <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span> 
+                  <span class="input-group-text"><i class="fa fa-arrow-up"></i></span> 
 
                   <input type="number" class="form-control input-lg" id="newBuyingPrice" name="newBuyingPrice" step="any" min="0" placeholder="Buying Price" required>
 
@@ -216,11 +216,11 @@ if(!Permission::has("products")){
 			  <!--  -->
 
               <!-- INPUT SELLING PRICE -->
-              <div class="col-xs-12 col-sm-6">  
+              <div class="col-12 col-sm-6">  
 
                 <div class="input-group"> 
 
-                  <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span> 
+                  <span class="input-group-text"><i class="fa fa-arrow-down"></i></span> 
 
                   <input type="number" class="form-control input-lg" id="newSellingPrice" name="newSellingPrice" step="any" min="0" placeholder="Selling Price" required>
 
@@ -229,7 +229,7 @@ if(!Permission::has("products")){
                 <br>
 
                 <!-- CHECKBOX PERCENTAGE -->
-                <div class="col-xs-6"> 
+                <div class="col-6"> 
 
                   <div class="form-group">   
 
@@ -246,13 +246,13 @@ if(!Permission::has("products")){
                 </div>
 
                 <!-- INPUT PERCENTAGE -->
-                <div class="col-xs-6" style="padding:0">
+                <div class="col-6" style="padding:0">
 
                   <div class="input-group"> 
 
                     <input type="number" class="form-control input-lg newPercentage" min="0" value="40" required>
 
-                    <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                    <span class="input-group-text"><i class="fa fa-percent"></i></span>
 
                   </div>
 
@@ -285,7 +285,7 @@ if(!Permission::has("products")){
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save Product</button>
 
@@ -347,7 +347,7 @@ EDIT PRODUCT
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
+                <span class="input-group-text"><i class="fa fa-th"></i></span> 
 
                 <select class="form-control input-lg" name="editCategory" readonly required>
 
@@ -364,7 +364,7 @@ EDIT PRODUCT
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+                <span class="input-group-text"><i class="fa fa-cube"></i></span>
 
                 <select class="form-control input-lg" id="editProductType" name="editProductType">
                   <option value="good">Goods (stock-tracked)</option>
@@ -380,7 +380,7 @@ EDIT PRODUCT
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-code"></i></span> 
+                <span class="input-group-text"><i class="fa fa-code"></i></span> 
 
                 <input type="text" class="form-control input-lg" id="editCode" name="editCode" readonly required>
 
@@ -393,7 +393,7 @@ EDIT PRODUCT
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span> 
+                <span class="input-group-text"><i class="fa fa-product-hunt"></i></span> 
 
                 <input type="text" class="form-control input-lg" id="editDescription" name="editDescription" required>
 
@@ -406,7 +406,7 @@ EDIT PRODUCT
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-check"></i></span> 
+                <span class="input-group-text"><i class="fa fa-check"></i></span> 
 
                 <input type="number" class="form-control input-lg" id="editStock" name="editStock" min="0" required>
 
@@ -417,11 +417,11 @@ EDIT PRODUCT
              <!-- INPUT FOR BUYING PRICE -->
              <div class="form-group row">
 
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-12 col-sm-6">
                 
                   <div class="input-group">
                   
-                    <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span> 
+                    <span class="input-group-text"><i class="fa fa-arrow-up"></i></span> 
 
                     <input type="number" class="form-control input-lg" id="editBuyingPrice" name="editBuyingPrice" step="any" min="0" required>
 
@@ -430,11 +430,11 @@ EDIT PRODUCT
                 </div><!--  -->
 
                 <!-- INPUT FOR SELLING PRICE -->
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-12 col-sm-6">
                 
                   <div class="input-group">
                   
-                    <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span> 
+                    <span class="input-group-text"><i class="fa fa-arrow-down"></i></span> 
 
                     <input type="number" class="form-control input-lg" id="editSellingPrice" name="editSellingPrice" step="any" min="0" readonly required>
 
@@ -443,7 +443,7 @@ EDIT PRODUCT
                   <br>
 
                   <!-- PERCENTAGE CHECKBOX -->
-                  <div class="col-xs-6">
+                  <div class="col-6">
                     
                     <div class="form-group">
                       
@@ -460,13 +460,13 @@ EDIT PRODUCT
                   </div>
 
                   <!-- INPUT FOR PORCENTAJE -->
-                  <div class="col-xs-6" style="padding:0">
+                  <div class="col-6" style="padding:0">
                     
                     <div class="input-group">
                       
                       <input type="number" class="form-control input-lg newPercentage" min="0" value="40" required>
 
-                      <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                      <span class="input-group-text"><i class="fa fa-percent"></i></span>
 
                     </div>
 
@@ -501,7 +501,7 @@ EDIT PRODUCT
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save Changes</button>
 

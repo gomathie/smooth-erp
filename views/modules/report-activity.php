@@ -18,7 +18,7 @@ $actionLabels = [
     <?php include "reports/filter.php"; ?>
 
     <div class="card">
-      <div class="card-header"><h3 class="card-title">Invoice &amp; Payment Activity <span class="label label-default"><?php echo count($activity); ?></span></h3></div>
+      <div class="card-header"><h3 class="card-title">Invoice &amp; Payment Activity <span class="badge text-bg-secondary"><?php echo count($activity); ?></span></h3></div>
       <div class="card-body">
         <table class="table table-bordered table-striped dt-responsive" width="100%">
           <thead><tr><th>Date / Time</th><th>User</th><th>Invoice</th><th>Action</th><th>Detail</th></tr></thead>
@@ -30,7 +30,7 @@ $actionLabels = [
                 <td><?php echo $a["createdDate"]; ?></td>
                 <td><?php echo htmlspecialchars(is_array($user) ? $user["name"] : "System"); ?></td>
                 <td><?php echo $a["invoiceNumber"] ? '<a href="index.php?route=invoice-detail&idInvoice='.$a["idInvoice"].'">#'.htmlspecialchars($a["invoiceNumber"]).'</a>' : '-'; ?></td>
-                <td><span class="label label-info"><?php echo $actionLabels[$a["action"]] ?? htmlspecialchars($a["action"]); ?></span></td>
+                <td><span class="badge text-bg-info"><?php echo $actionLabels[$a["action"]] ?? htmlspecialchars($a["action"]); ?></span></td>
                 <td><?php echo htmlspecialchars($a["description"] ?? ""); ?></td>
               </tr>
             <?php } if (!$activity) { echo '<tr><td colspan="5" class="text-muted">No activity in range</td></tr>'; } ?>

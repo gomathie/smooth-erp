@@ -15,7 +15,7 @@ $products = ControllerProducts::ctrShowProducts($item, $value, $order);
 
     <h3 class="card-title">Recently Added Products</h3>
 
-    <div class="card-tools pull-right">
+    <div class="card-tools float-end">
 
       <button type="button" class="btn btn-box-tool" data-widget="collapse">
 
@@ -55,7 +55,7 @@ $products = ControllerProducts::ctrShowProducts($item, $value, $order);
 
             '.$products[$i]["description"].'
 
-            <span class="label label-warning pull-right">$'.$products[$i]["sellingPrice"].'</span>
+            <span class="badge text-bg-warning float-end">$'.$products[$i]["sellingPrice"].'</span>
 
           </a>
     

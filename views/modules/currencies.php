@@ -41,7 +41,7 @@ $active = ControllerCurrencies::ctrOrgCurrencies();
                 <td><strong><?php echo htmlspecialchars($a["code"]); ?></strong></td>
                 <td><?php echo htmlspecialchars($a["name"]); ?></td>
                 <td><?php echo htmlspecialchars($a["symbol"]); ?></td>
-                <td><?php echo (int)$a["isBase"] === 1 ? '<span class="label label-primary">Base</span>' : ''; ?></td>
+                <td><?php echo (int)$a["isBase"] === 1 ? '<span class="badge text-bg-primary">Base</span>' : ''; ?></td>
               </tr>
             <?php } if (!$active) { echo '<tr><td colspan="4" class="text-muted">No currencies enabled yet.</td></tr>'; } ?>
           </tbody>

@@ -122,7 +122,7 @@
             <!--Input name -->
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <span class="input-group-text"><i class="fa fa-th"></i></span>
                 <input class="form-control input-lg" type="text" name="newCategory" placeholder="Add Category" required>
               </div>
             </div>
@@ -130,7 +130,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Category</button>
         </div>
       </form>

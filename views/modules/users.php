@@ -12,7 +12,7 @@ function permissionCheckboxes(string $prefix): void {
   echo '<div class="row perm-grid" data-prefix="' . $prefix . '">';
   foreach (Permission::KEYS as $key) {
     $label = Permission::LABELS[$key] ?? $key;
-    echo '<div class="col-xs-6" style="margin-bottom:6px;">
+    echo '<div class="col-6" style="margin-bottom:6px;">
             <label style="font-weight:normal; cursor:pointer;">
               <input type="checkbox" name="' . $prefix . 'Perms[]" value="' . $key . '" class="perm-check"> ' . htmlspecialchars($label) . '
             </label>
@@ -199,7 +199,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
 
                 <input class="form-control input-lg" type="text" name="newName" placeholder="Enter fullname" required>
 
@@ -212,7 +212,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <span class="input-group-text"><i class="fa fa-key"></i></span>
 
                 <input class="form-control input-lg" type="text" id="newUser" name="newUser" placeholder="Enter username" required>
 
@@ -225,7 +225,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
 
                 <input class="form-control input-lg" type="email" name="newEmail" placeholder="Email (optional)">
 
@@ -238,7 +238,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <span class="input-group-text"><i class="fa fa-phone"></i></span>
 
                 <input class="form-control input-lg" type="text" name="newPhone" placeholder="Phone (optional)">
 
@@ -251,7 +251,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <span class="input-group-text"><i class="fa fa-lock"></i></span>
 
                 <input class="form-control input-lg" type="password" name="newPasswd" placeholder="Enter password" required>
 
@@ -263,7 +263,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
             <div class="form-group">
               <label>Role</label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
+                <span class="input-group-text"><i class="fa fa-id-badge"></i></span>
                 <select class="form-control input-lg roleSelect" name="newRole" data-prefix="new">
                   <option value="administrator">Administrator</option>
                   <option value="manager">Manager</option>
@@ -303,7 +303,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save</button>
           
@@ -364,7 +364,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
 
                 <input class="form-control input-lg" type="text" id="EditName" name="EditName" placeholder="Edit name" required>
 
@@ -377,7 +377,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <span class="input-group-text"><i class="fa fa-key"></i></span>
 
                 <input class="form-control input-lg" type="text" id="EditUser" name="EditUser" placeholder="Edit username" readonly>
 
@@ -390,7 +390,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
 
                 <input class="form-control input-lg" type="email" id="EditEmail" name="EditEmail" placeholder="Email (optional)">
 
@@ -403,7 +403,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <span class="input-group-text"><i class="fa fa-phone"></i></span>
 
                 <input class="form-control input-lg" type="text" id="EditPhone" name="EditPhone" placeholder="Phone (optional)">
 
@@ -416,7 +416,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <span class="input-group-text"><i class="fa fa-lock"></i></span>
 
                 <input class="form-control input-lg" type="password" name="EditPasswd" placeholder="Enter new password">
 
@@ -430,7 +430,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
             <div class="form-group">
               <label>Role</label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
+                <span class="input-group-text"><i class="fa fa-id-badge"></i></span>
                 <select class="form-control input-lg roleSelect" id="EditRole" name="EditRole" data-prefix="Edit">
                   <option value="administrator">Administrator</option>
                   <option value="manager">Manager</option>
@@ -472,7 +472,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Edit User</button>
           

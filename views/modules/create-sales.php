@@ -26,7 +26,7 @@
 
         <h3 class="card-title">Title</h3>
 
-        <div class="card-tools pull-right">
+        <div class="card-tools float-end">
 
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-bs-toggle="tooltip" title="Collapse">
 

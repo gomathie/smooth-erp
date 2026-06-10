@@ -21,7 +21,7 @@ if (!Permission::has("sales")) {
     <div class="row">
 
       <!-- THE FORM -->
-      <div class="col-lg-5 col-xs-12">
+      <div class="col-lg-5 col-12">
         <div class="card">
           <div class="card-header"></div>
 
@@ -32,7 +32,7 @@ if (!Permission::has("sales")) {
                 <!-- SELLER -->
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
                     <input type="text" class="form-control" value="<?php echo $_SESSION["name"]; ?>" readonly>
                     <input type="hidden" name="idSeller" value="<?php echo $_SESSION["id"]; ?>">
                   </div>
@@ -41,7 +41,7 @@ if (!Permission::has("sales")) {
                 <!-- NUMBER -->
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                    <span class="input-group-text"><i class="fa fa-key"></i></span>
                     <?php
                       $next = ModelQuotations::mdlNextQuoteNumber();
                       echo '<input type="text" class="form-control" name="newQuotation" id="newQuotation" value="'.$next.'" readonly>';
@@ -52,7 +52,7 @@ if (!Permission::has("sales")) {
                 <!-- ORDER REFERENCE -->
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                    <span class="input-group-text"><i class="fa fa-tag"></i></span>
                     <input type="text" class="form-control" name="orderReference" id="orderReference" placeholder="Reference (optional)">
                   </div>
                 </div>
@@ -61,7 +61,7 @@ if (!Permission::has("sales")) {
                 <?php if (Currency::isEnabled()) { ?>
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                    <span class="input-group-text"><i class="fa fa-money"></i></span>
                     <select class="form-control" name="currency">
                       <?php foreach (Currency::activeForOrg() as $c) { echo '<option value="'.$c["code"].'">'.htmlspecialchars($c["code"]." — ".$c["name"]." (".$c["symbol"].")").'</option>'; } ?>
                     </select>
@@ -74,7 +74,7 @@ if (!Permission::has("sales")) {
                 <!-- CUSTOMER -->
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                    <span class="input-group-text"><i class="fa fa-users"></i></span>
                     <select class="form-control" name="selectCustomer" id="selectCustomer" required>
                       <option value="">Select Customer</option>
                       <?php
@@ -82,7 +82,7 @@ if (!Permission::has("sales")) {
                         foreach ($customers as $c) { echo '<option value="'.$c["id"].'">'.htmlspecialchars($c["name"]).'</option>'; }
                       ?>
                     </select>
-                    <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer">Add</button></span>
+                    <span class="input-group-text"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer">Add</button></span>
                   </div>
                 </div>
 
@@ -98,7 +98,7 @@ if (!Permission::has("sales")) {
 
                 <!-- TOTALS -->
                 <div class="row">
-                  <div class="col-xs-12 col-sm-8 col-sm-offset-4">
+                  <div class="col-12 col-sm-8 col-sm-offset-4">
                     <table class="table table-condensed" style="font-size:13px;">
                       <tbody>
                         <tr>
@@ -136,7 +136,7 @@ if (!Permission::has("sales")) {
                           <td>
                             <div class="input-group input-group-sm">
                               <input type="number" class="form-control" name="newTaxSale" id="newTaxSale" placeholder="0" min="0">
-                              <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                              <span class="input-group-text"><i class="fa fa-percent"></i></span>
                             </div>
                             <input type="hidden" name="newTaxPrice" id="newTaxPrice" value="0">
                             <input type="hidden" name="newNetPrice" id="newNetPrice" value="0">
@@ -159,7 +159,7 @@ if (!Permission::has("sales")) {
                 <!-- EXPIRY -->
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                     <input type="date" class="form-control" name="expiryDate" id="expiryDate" placeholder="Expiry date">
                   </div>
                 </div>
@@ -167,7 +167,7 @@ if (!Permission::has("sales")) {
                 <!-- STATUS -->
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                    <span class="input-group-text"><i class="fa fa-info"></i></span>
                     <select class="form-control" name="quoteStatus" id="quoteStatus" required>
                       <option value="draft">Draft</option>
                       <option value="sent">Sent</option>
@@ -180,7 +180,7 @@ if (!Permission::has("sales")) {
                 <!-- NOTES -->
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-file-text-o"></i></span>
+                    <span class="input-group-text"><i class="fa fa-file-text-o"></i></span>
                     <textarea class="form-control" name="notes" id="notes" placeholder="Notes"></textarea>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ if (!Permission::has("sales")) {
                 <!-- TERMS -->
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-legal"></i></span>
+                    <span class="input-group-text"><i class="fa fa-legal"></i></span>
                     <textarea class="form-control" name="termsConditions" id="termsConditions" placeholder="Terms &amp; Conditions" rows="3"></textarea>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ if (!Permission::has("sales")) {
             </div>
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-success pull-right">Save Quotation</button>
+              <button type="submit" class="btn btn-success float-end">Save Quotation</button>
             </div>
           </form>
 
@@ -247,17 +247,17 @@ if (!Permission::has("sales")) {
         </div>
         <div class="modal-body">
           <div class="card-body">
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-envelope"></i></span><input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-phone"></i></span><input class="form-control input-lg" type="text" name="newPhone" placeholder="phone" data-inputmask="'mask':'(999) 999-9999'" data-mask required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-map-marker"></i></span><input class="form-control input-lg" type="text" name="newAddress" placeholder="Address" required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span><input class="form-control input-lg" type="text" name="newBirthdate" placeholder="Birthdate" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-user"></i></span><input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-key"></i></span><input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-envelope"></i></span><input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-phone"></i></span><input class="form-control input-lg" type="text" name="newPhone" placeholder="phone" data-inputmask="'mask':'(999) 999-9999'" data-mask required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-map-marker"></i></span><input class="form-control input-lg" type="text" name="newAddress" placeholder="Address" required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-calendar"></i></span><input class="form-control input-lg" type="text" name="newBirthdate" placeholder="Birthdate" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required></div></div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save Customer</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
         <?php
           $createCustomer = new ControllerCustomers();

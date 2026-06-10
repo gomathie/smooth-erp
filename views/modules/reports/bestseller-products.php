@@ -78,7 +78,7 @@ products MÁS VENDIDOS
 						 <img src="'.$products[$i]["image"].'" class="img-thumbnail" width="60px" style="margin-right:10px"> 
 						 '.$products[$i]["description"].'
 
-						 <span class="pull-right text-'.$colours[$i].'">   
+						 <span class="float-end text-'.$colours[$i].'">   
 						 '.ceil($products[$i]["sales"]*100/$salesTotal["total"]).'%
 						 </span>
 							

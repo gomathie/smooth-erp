@@ -178,7 +178,7 @@
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
 
                 <input class="form-control input-lg" type="text" name="newName" placeholder="Add name" required>
 
@@ -192,7 +192,7 @@
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <span class="input-group-text"><i class="fa fa-key"></i></span>
 
                 <input class="form-control input-lg" type="text" name="newUser" placeholder="Add username" required>
 
@@ -206,7 +206,7 @@
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <span class="input-group-text"><i class="fa fa-lock"></i></span>
 
                 <input class="form-control input-lg" type="text" name="newPasswd" placeholder="Add password" required>
 
@@ -220,7 +220,7 @@
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <span class="input-group-text"><i class="fa fa-key"></i></span>
 
                 <select class="form-control input-lg" name="newProfile">
 
@@ -259,7 +259,7 @@
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save</button>
 

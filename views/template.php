@@ -195,7 +195,7 @@
       if (Tenant::isSuperAdmin() && Tenant::enteredOrg() > 0) {
         echo '<div style="background:#dd4b39; color:#fff; padding:8px 15px; margin-left:0;" class="content-wrapper-banner">
                 <i class="fa fa-eye"></i> Operating as admin of <strong>' . htmlspecialchars($_SESSION["enteredOrgName"] ?? "") . '</strong>
-                <a href="index.php?route=organizations&exitOrg=1" class="btn btn-xs btn-default pull-right"><i class="fa fa-sign-out"></i> Exit to Super Admin</a>
+                <a href="index.php?route=organizations&exitOrg=1" class="btn btn-xs btn-default float-end"><i class="fa fa-sign-out"></i> Exit to Super Admin</a>
               </div>';
       }
 

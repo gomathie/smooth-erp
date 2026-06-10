@@ -63,9 +63,9 @@ $accountingEnabled = ControllerSettings::ctrAccountingEnabled();
             <p>
               Status:
               <?php if ($accountingEnabled) { ?>
-                <span class="label label-success">Enabled</span>
+                <span class="badge text-bg-success">Enabled</span>
               <?php } else { ?>
-                <span class="label label-default">Disabled</span>
+                <span class="badge text-bg-secondary">Disabled</span>
               <?php } ?>
             </p>
 

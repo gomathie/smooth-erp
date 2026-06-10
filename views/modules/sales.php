@@ -19,7 +19,7 @@ if($xml){
 
   rename($_GET["xml"].".xml", "xml/".$_GET["xml"].".xml");
 
-  echo '<a class="btn btn-block btn-success openXML" file="xml/'.$_GET["xml"].'.xml" href="sales">The XML file has been created succesfully<span class="fa fa-times pull-right"></span></a>';
+  echo '<a class="btn btn-block btn-success openXML" file="xml/'.$_GET["xml"].'.xml" href="sales">The XML file has been created succesfully<span class="fa fa-times float-end"></span></a>';
 
 }
 
@@ -58,7 +58,7 @@ if($xml){
           </button>
         </a>
 
-        <button type="button" class="btn btn-primary pull-right" id="daterange-btn">
+        <button type="button" class="btn btn-primary float-end" id="daterange-btn">
            
             <span>
               <i class="fa fa-calendar"></i> Date Range

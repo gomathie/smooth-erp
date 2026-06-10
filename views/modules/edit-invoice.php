@@ -25,7 +25,7 @@
       <!--=============================================
       THE FORM
       =============================================-->
-      <div class="col-lg-5 col-xs-12">
+      <div class="col-lg-5 col-12">
 
         <div class="card">
 
@@ -65,7 +65,7 @@
 
                       <div class="input-group">
 
-                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
 
                         <input type="text" class="form-control" name="newSeller" id="newSeller" value="<?php echo $seller["name"]; ?>" readonly>
 
@@ -85,7 +85,7 @@
 
                       <div class="input-group">
 
-                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        <span class="input-group-text"><i class="fa fa-key"></i></span>
 
                         <input type="text" class="form-control" value="<?php echo $invoice["invoiceNumber"]; ?>" readonly>
                         <input type="hidden" name="editInvoice" value="<?php echo $invoice["id"]; ?>">
@@ -98,7 +98,7 @@
                     <!-- ORDER REFERENCE -->
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                        <span class="input-group-text"><i class="fa fa-tag"></i></span>
                         <input type="text" class="form-control" name="orderReference" id="orderReference" placeholder="Order reference (optional)" value="<?php echo htmlspecialchars($invoice['orderReference'] ?? ''); ?>">
                       </div>
                     </div>
@@ -107,7 +107,7 @@
                     <?php $invCur = $invoice['currency'] ?? Currency::base(); if (Currency::isEnabled()) { ?>
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                        <span class="input-group-text"><i class="fa fa-money"></i></span>
                         <select class="form-control" name="currency">
                           <?php foreach (Currency::activeForOrg() as $c) { $sel = $c["code"]===$invCur?' selected':''; echo '<option value="'.$c["code"].'"'.$sel.'>'.htmlspecialchars($c["code"]." — ".$c["name"]." (".$c["symbol"].")").'</option>'; } ?>
                         </select>
@@ -127,7 +127,7 @@
 
                       <div class="input-group">
 
-                        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                        <span class="input-group-text"><i class="fa fa-users"></i></span>
 
                         <select class="form-control" name="selectCustomer" id="selectCustomer" required>
 
@@ -149,7 +149,7 @@
 
                         </select>
 
-                        <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer" data-bs-dismiss="modal">Add Customer</button></span>
+                        <span class="input-group-text"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer" data-bs-dismiss="modal">Add Customer</button></span>
 
                       </div>
 
@@ -179,13 +179,13 @@
                               $line = (float)($value["totalPrice"] ?? 0);
 
                               echo '<div class="row" style="padding:5px 15px">'
-                                .'<div class="col-xs-6" style="padding-right:0px"><div class="input-group">'
-                                  .'<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs removeProduct" idProduct=""><i class="fa fa-trash"></i></button></span>'
+                                .'<div class="col-6" style="padding-right:0px"><div class="input-group">'
+                                  .'<span class="input-group-text"><button type="button" class="btn btn-danger btn-xs removeProduct" idProduct=""><i class="fa fa-trash"></i></button></span>'
                                   .'<input type="text" class="form-control newProductDescription" idProduct="" name="addServiceLine" value="'.$desc.'" required>'
                                 .'</div></div>'
-                                .'<div class="col-xs-3"><input type="number" class="form-control newProductQuantity" name="newProductQuantity" min="1" value="'.$qty.'" stock="999999" newStock="999999" required></div>'
-                                .'<div class="col-xs-3 enterPrice" style="padding-left:0px"><div class="input-group">'
-                                  .'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'
+                                .'<div class="col-3"><input type="number" class="form-control newProductQuantity" name="newProductQuantity" min="1" value="'.$qty.'" stock="999999" newStock="999999" required></div>'
+                                .'<div class="col-3 enterPrice" style="padding-left:0px"><div class="input-group">'
+                                  .'<span class="input-group-text"><i class="ion ion-social-usd"></i></span>'
                                   .'<input type="number" step="0.01" min="0" class="form-control newProductPrice serviceRate" realPrice="'.$unit.'" name="newProductPrice" value="'.$line.'" required>'
                                 .'</div></div>'
                               .'</div>';
@@ -201,13 +201,13 @@
                               $lastStock = isset($answer["stock"]) ? $answer["stock"] + $value["quantity"] : $value["quantity"];
 
                               echo '<div class="row" style="padding:5px 15px">'
-                                .'<div class="col-xs-6" style="padding-right:0px"><div class="input-group">'
-                                  .'<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs removeProduct" idProduct="'.$value["id"].'"><i class="fa fa-trash"></i></button></span>'
+                                .'<div class="col-6" style="padding-right:0px"><div class="input-group">'
+                                  .'<span class="input-group-text"><button type="button" class="btn btn-danger btn-xs removeProduct" idProduct="'.$value["id"].'"><i class="fa fa-trash"></i></button></span>'
                                   .'<input type="text" class="form-control newProductDescription" idProduct="'.$value["id"].'" name="addProduct" value="'.htmlspecialchars($value["description"], ENT_QUOTES).'" readonly required>'
                                 .'</div></div>'
-                                .'<div class="col-xs-3"><input type="number" class="form-control newProductQuantity" name="newProductQuantity" min="1" value="'.$value["quantity"].'" stock="'.$lastStock.'" newStock="'.$value["stock"].'" required></div>'
-                                .'<div class="col-xs-3 enterPrice" style="padding-left:0px"><div class="input-group">'
-                                  .'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'
+                                .'<div class="col-3"><input type="number" class="form-control newProductQuantity" name="newProductQuantity" min="1" value="'.$value["quantity"].'" stock="'.$lastStock.'" newStock="'.$value["stock"].'" required></div>'
+                                .'<div class="col-3 enterPrice" style="padding-left:0px"><div class="input-group">'
+                                  .'<span class="input-group-text"><i class="ion ion-social-usd"></i></span>'
                                   .'<input type="text" class="form-control newProductPrice" realPrice="'.($answer["sellingPrice"] ?? 0).'" name="newProductPrice" value="'.$value["totalPrice"].'" readonly required>'
                                 .'</div></div>'
                               .'</div>';
@@ -237,7 +237,7 @@
                         TAXES AND TOTAL INPUT
                       ======================================-->
 
-                      <div class="col-xs-12 col-sm-8 col-sm-offset-4">
+                      <div class="col-12 col-sm-8 col-sm-offset-4">
                         <table class="table table-condensed" style="font-size:13px;">
                           <tbody>
                             <tr>
@@ -276,7 +276,7 @@
                               <td>
                                 <div class="input-group input-group-sm">
                                   <input type="number" class="form-control" name="newTaxSale" id="newTaxSale" value="<?php echo $taxPercentage; ?>" min="0">
-                                  <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                                  <span class="input-group-text"><i class="fa fa-percent"></i></span>
                                 </div>
                                 <input type="hidden" name="newTaxPrice" id="newTaxPrice" value="<?php echo $invoice['tax']; ?>">
                                 <input type="hidden" name="newNetPrice" id="newNetPrice" value="<?php echo $invoice['netPrice']; ?>">
@@ -301,7 +301,7 @@
                     <!-- DUE DATE -->
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                         <input type="date" class="form-control" name="dueDate" id="dueDate" value="<?php echo $invoice["dueDate"]; ?>">
                       </div>
                     </div>
@@ -309,7 +309,7 @@
                     <!-- PAYMENT TERMS -->
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                        <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
                         <select class="form-control" name="paymentTerms" id="paymentTerms">
                           <?php $pt = $invoice['paymentTerms'] ?? 'due_on_receipt'; ?>
                           <option value="due_on_receipt" <?php echo $pt==='due_on_receipt'?'selected':''; ?>>Due on Receipt</option>
@@ -325,7 +325,7 @@
                     <!-- STATUS -->
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                        <span class="input-group-text"><i class="fa fa-info"></i></span>
                         <?php $baseStatus = in_array($invoice["status"], ["draft","sent"], true) ? $invoice["status"] : "sent"; ?>
                         <select class="form-control" name="invoiceStatus" id="invoiceStatus" required>
                           <option value="draft" <?php echo ($baseStatus=="draft")?"selected":""; ?>>Draft</option>
@@ -338,7 +338,7 @@
                     <!-- NOTES -->
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-file-text-o"></i></span>
+                        <span class="input-group-text"><i class="fa fa-file-text-o"></i></span>
                         <textarea class="form-control" name="notes" id="notes" placeholder="Notes"><?php echo htmlspecialchars($invoice["notes"]); ?></textarea>
                       </div>
                     </div>
@@ -346,7 +346,7 @@
                     <!-- TERMS & CONDITIONS -->
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-legal"></i></span>
+                        <span class="input-group-text"><i class="fa fa-legal"></i></span>
                         <textarea class="form-control" name="termsConditions" id="termsConditions" placeholder="Terms &amp; Conditions" rows="3"><?php echo htmlspecialchars($invoice['termsConditions'] ?? ''); ?></textarea>
                       </div>
                     </div>
@@ -356,7 +356,7 @@
             </div>
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-success pull-right">Save Changes</button>
+              <button type="submit" class="btn btn-success float-end">Save Changes</button>
             </div>
           </form>
 
@@ -433,42 +433,42 @@
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required>
               </div>
             </div>
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <span class="input-group-text"><i class="fa fa-key"></i></span>
                 <input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required>
               </div>
             </div>
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                 <input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required>
               </div>
             </div>
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <span class="input-group-text"><i class="fa fa-phone"></i></span>
                 <input class="form-control input-lg" type="text" name="newPhone" placeholder="phone" data-inputmask="'mask':'(999) 999-9999'" data-mask required>
               </div>
             </div>
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
                 <input class="form-control input-lg" type="text" name="newAddress" placeholder="Address" required>
               </div>
             </div>
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 <input class="form-control input-lg" type="text" name="newBirthdate" placeholder="Birthdate" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
               </div>
             </div>
@@ -477,7 +477,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save Customer</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
 
         <?php

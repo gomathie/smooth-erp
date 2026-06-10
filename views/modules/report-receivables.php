@@ -44,7 +44,7 @@ foreach ($invoices as $i) {
               $style = $i["overdue"] ? ' style="color:#dd4b39;"' : '';
             ?>
               <tr<?php echo $style; ?>>
-                <td><a href="index.php?route=invoice-detail&idInvoice=<?php echo $i["id"]; ?>">#<?php echo htmlspecialchars($i["invoiceNumber"]); ?></a><?php echo $i["overdue"] ? ' <span class="label label-danger">Overdue</span>' : ''; ?></td>
+                <td><a href="index.php?route=invoice-detail&idInvoice=<?php echo $i["id"]; ?>">#<?php echo htmlspecialchars($i["invoiceNumber"]); ?></a><?php echo $i["overdue"] ? ' <span class="badge text-bg-danger">Overdue</span>' : ''; ?></td>
                 <td><?php echo htmlspecialchars($cust["name"] ?? "-"); ?></td>
                 <td><?php echo substr($i["invoiceDate"],0,10); ?></td>
                 <td><?php echo $i["dueDate"] ?: "-"; ?></td>

@@ -91,7 +91,7 @@ $paymentModeMap = [
 
     <!-- ACTION BAR -->
     <div class="row">
-      <div class="col-xs-12" style="margin-bottom:15px;">
+      <div class="col-12" style="margin-bottom:15px;">
         <?php if ($balance > 0) { ?>
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRecordPayment">
             <i class="fa fa-money"></i> Record Payment
@@ -117,13 +117,13 @@ $paymentModeMap = [
           <div class="card-body">
 
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-6">
                 <strong style="color:#888;">Bill To</strong>
                 <p style="font-size:15px; margin:4px 0;"><?php echo htmlspecialchars($customer["name"] ?? "—"); ?></p>
                 <?php if (!empty($customer["email"])) { echo '<p style="margin:0; color:#777;">'.htmlspecialchars($customer["email"]).'</p>'; } ?>
                 <?php if (!empty($customer["phone"])) { echo '<p style="margin:0; color:#777;">'.htmlspecialchars($customer["phone"]).'</p>'; } ?>
               </div>
-              <div class="col-xs-6 text-right">
+              <div class="col-6 text-right">
                 <p style="margin:2px 0;"><strong>Invoice Date:</strong> <?php echo substr((string)$invoice["invoiceDate"], 0, 10); ?></p>
                 <p style="margin:2px 0;"><strong>Due Date:</strong> <?php echo $invoice["dueDate"] ?: "—"; ?></p>
                 <p style="margin:2px 0;"><strong>Terms:</strong> <?php echo $paymentTermsLabel; ?></p>
@@ -159,7 +159,7 @@ $paymentModeMap = [
             </table>
 
             <div class="row">
-              <div class="col-xs-6 col-xs-offset-6">
+              <div class="col-6 offset-6">
                 <table class="table" style="margin-bottom:0;">
                   <tr><td style="color:#888;">Subtotal</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format((float)$invoice["subtotal"], 2); ?></td></tr>
                   <?php if ((float)$invoice["discount"] > 0) { ?><tr><td style="color:#888;">Discount</td><td class="text-right" style="color:#e74c3c;">- <?php echo $sym; ?> <?php echo number_format((float)$invoice["discount"], 2); ?></td></tr><?php } ?>
@@ -293,7 +293,7 @@ $paymentModeMap = [
           <div class="form-group">
             <label>Amount</label>
             <div class="input-group">
-              <span class="input-group-addon">$</span>
+              <span class="input-group-text">$</span>
               <input type="number" step="0.01" min="0.01" class="form-control" name="paymentAmount" value="<?php echo number_format($balance, 2, '.', ''); ?>" required>
             </div>
           </div>
@@ -326,7 +326,7 @@ $paymentModeMap = [
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Save Payment</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -348,7 +348,7 @@ $paymentModeMap = [
           <div class="form-group">
             <label>Amount</label>
             <div class="input-group">
-              <span class="input-group-addon">$</span>
+              <span class="input-group-text">$</span>
               <input type="number" step="0.01" min="0.01" class="form-control" name="paymentAmount" id="editPaymentAmount" required>
             </div>
           </div>
@@ -381,7 +381,7 @@ $paymentModeMap = [
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Update Payment</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

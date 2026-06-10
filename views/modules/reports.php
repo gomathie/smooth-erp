@@ -53,7 +53,7 @@ if(!Permission::has("reports")){
 
         </div>
 		<!--  -->
-        <div class="card-tools pull-right">
+        <div class="card-tools float-end">
 
         <?php
 
@@ -81,7 +81,7 @@ if(!Permission::has("reports")){
         
         <div class="row">
 
-          <div class="col-xs-12">
+          <div class="col-12">
             
             <?php
 
@@ -91,7 +91,7 @@ if(!Permission::has("reports")){
 
           </div>
 
-           <div class="col-md-6 col-xs-12">
+           <div class="col-md-6 col-12">
              
             <?php
 
@@ -101,7 +101,7 @@ if(!Permission::has("reports")){
 
           </div>
 
-          <div class="col-md-6 col-xs-12">
+          <div class="col-md-6 col-12">
            
             <?php
 
@@ -111,7 +111,7 @@ if(!Permission::has("reports")){
 
          </div>
 
-         <div class="col-md-6 col-xs-12">
+         <div class="col-md-6 col-12">
            
             <?php
 

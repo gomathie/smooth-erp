@@ -53,7 +53,7 @@ if (!function_exists('expenseAccountOptions')) {
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddExpense">
           <i class="fa fa-plus"></i> Record Expense
         </button>
-        <span class="pull-right" style="font-size:16px; padding-top:6px;">
+        <span class="float-end" style="font-size:16px; padding-top:6px;">
           Total recorded: <strong>$ <?php echo number_format($totalExpenses, 2); ?></strong>
         </span>
       </div>
@@ -139,7 +139,7 @@ if (!function_exists('expenseAccountOptions')) {
           <div class="form-group">
             <label>Amount</label>
             <div class="input-group">
-              <span class="input-group-addon">$</span>
+              <span class="input-group-text">$</span>
               <input type="number" step="0.01" min="0.01" class="form-control" name="expenseAmount" required>
             </div>
           </div>
@@ -166,7 +166,7 @@ if (!function_exists('expenseAccountOptions')) {
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Save Expense</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -202,7 +202,7 @@ if (!function_exists('expenseAccountOptions')) {
           <div class="form-group">
             <label>Amount</label>
             <div class="input-group">
-              <span class="input-group-addon">$</span>
+              <span class="input-group-text">$</span>
               <input type="number" step="0.01" min="0.01" class="form-control" name="expenseAmount" id="editExpenseAmount" required>
             </div>
           </div>
@@ -229,7 +229,7 @@ if (!function_exists('expenseAccountOptions')) {
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Update Expense</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

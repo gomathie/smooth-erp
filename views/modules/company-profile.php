@@ -94,7 +94,7 @@ function v($a, $k) { return htmlspecialchars($a[$k] ?? "", ENT_QUOTES); }
               </div>
             </div>
             <div class="card-footer">
-              <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Save Profile</button>
+              <button type="submit" class="btn btn-success float-end"><i class="fa fa-save"></i> Save Profile</button>
             </div>
           </div>
         </div>

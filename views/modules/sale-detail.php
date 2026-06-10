@@ -35,7 +35,7 @@ $sym   = Currency::symbol($sale["currency"] ?? Currency::base());
   <section class="content">
 
     <div class="row">
-      <div class="col-xs-12" style="margin-bottom:15px;">
+      <div class="col-12" style="margin-bottom:15px;">
         <a class="btn btn-warning" href="extensions/tcpdf/pdf/bill.php?code=<?php echo urlencode($sale["code"]); ?>" target="_blank"><i class="fa fa-print"></i> Print Bill</a>
         <?php if ($_SESSION["profile"] == "Administrator") { ?>
           <a class="btn btn-primary" href="index.php?route=edit-sale&idSale=<?php echo $sale["id"]; ?>"><i class="fa fa-pencil"></i> Edit</a>
@@ -50,13 +50,13 @@ $sym   = Currency::symbol($sale["currency"] ?? Currency::base());
           <div class="card-body">
 
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-6">
                 <strong style="color:#888;">Customer</strong>
                 <p style="font-size:15px; margin:4px 0;"><?php echo htmlspecialchars($customer["name"] ?? "—"); ?></p>
                 <?php if (!empty($customer["email"])) { echo '<p style="margin:0; color:#777;">'.htmlspecialchars($customer["email"]).'</p>'; } ?>
                 <?php if (!empty($customer["phone"])) { echo '<p style="margin:0; color:#777;">'.htmlspecialchars($customer["phone"]).'</p>'; } ?>
               </div>
-              <div class="col-xs-6 text-right">
+              <div class="col-6 text-right">
                 <p style="margin:2px 0;"><strong>Date:</strong> <?php echo substr((string)$sale["saledate"], 0, 10); ?></p>
                 <p style="margin:2px 0;"><strong>Seller:</strong> <?php echo htmlspecialchars($seller["name"] ?? "—"); ?></p>
                 <p style="margin:2px 0;"><strong>Payment:</strong> <?php echo htmlspecialchars($sale["paymentMethod"]); ?></p>
@@ -89,7 +89,7 @@ $sym   = Currency::symbol($sale["currency"] ?? Currency::base());
             </table>
 
             <div class="row">
-              <div class="col-xs-6 col-xs-offset-6">
+              <div class="col-6 offset-6">
                 <table class="table" style="margin-bottom:0;">
                   <tr><td style="color:#888;">Net</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format($net, 2); ?></td></tr>
                   <tr><td style="color:#888;">Tax</td><td class="text-right"><?php echo $sym; ?> <?php echo number_format($tax, 2); ?></td></tr>

@@ -157,7 +157,7 @@
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                <span class="input-group-text"><i class="fa fa-code"></i></span>
 
                 <input class="form-control input-lg" type="text" name="newCode" placeholder="Add Code" required>
 
@@ -170,7 +170,7 @@
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
+                <span class="input-group-text"><i class="fa fa-product-hunt"></i></span>
 
                 <input class="form-control input-lg" type="text" name="newDescription" placeholder="Add Description" required>
 
@@ -183,7 +183,7 @@
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <span class="input-group-text"><i class="fa fa-th"></i></span>
 
                 <select class="form-control input-lg" name="newCategory">
 
@@ -203,7 +203,7 @@
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                <span class="input-group-text"><i class="fa fa-check"></i></span>
 
                 <input class="form-control input-lg" type="number" name="newStock" placeholder="Add Stock" min="0" required>
 
@@ -214,11 +214,11 @@
              <!-- INPUT BUYING PRICE -->
              <div class="form-group row">
 
-                <div class="col-xs-6">
+                <div class="col-6">
                 
                   <div class="input-group">
                   
-                    <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span> 
+                    <span class="input-group-text"><i class="fa fa-arrow-up"></i></span> 
 
                     <input type="number" class="form-control input-lg" id="newBuyingPrice" name="newBuyingPrice" step="any" min="0" placeholder="Buying price" required>
 
@@ -227,11 +227,11 @@
                 </div>
 
                 <!-- INPUT SELLING PRICE -->
-                <div class="col-xs-6">
+                <div class="col-6">
                 
                   <div class="input-group">
                   
-                    <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span> 
+                    <span class="input-group-text"><i class="fa fa-arrow-down"></i></span> 
 
                     <input type="number" class="form-control input-lg" id="newSellingPrice" name="newSellingPrice" step="any" min="0" placeholder="Selling price" required>
 
@@ -240,7 +240,7 @@
                   <br>
 
                   <!-- CHECKBOX PERCENTAGE -->
-                  <div class="col-xs-6">
+                  <div class="col-6">
                     
                     <div class="form-group">
                       
@@ -257,13 +257,13 @@
                   </div>
 
                   <!-- INPUT PERCENTAGE -->
-                  <div class="col-xs-6" style="padding:0">
+                  <div class="col-6" style="padding:0">
                     
                     <div class="input-group">
                       
                       <input type="number" class="form-control input-lg newPercentage" min="0" value="40" required>
 
-                      <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                      <span class="input-group-text"><i class="fa fa-percent"></i></span>
 
                     </div>
 
@@ -296,7 +296,7 @@
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save Product</button>
 

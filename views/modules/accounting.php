@@ -70,7 +70,7 @@ $accountTypeLabels = [
 
     <!-- ACTION BAR -->
     <div class="row">
-      <div class="col-xs-12" style="margin-bottom:12px;">
+      <div class="col-12" style="margin-bottom:12px;">
         <a class="btn btn-success" href="expenses"><i class="fa fa-credit-card"></i> Expenses</a>
         <a class="btn btn-primary" href="chart-of-accounts"><i class="fa fa-list-alt"></i> Chart of Accounts</a>
       </div>
@@ -192,7 +192,7 @@ $accountTypeLabels = [
                   ?>
                     <tr<?php echo $rowStyle; ?>>
                       <td><a href="index.php?route=invoice-detail&idInvoice=<?php echo $inv["id"]; ?>">#<?php echo htmlspecialchars($inv["invoiceNumber"]); ?></a>
-                          <?php echo $inv["overdue"] ? ' <span class="label label-danger">Overdue</span>' : ''; ?>
+                          <?php echo $inv["overdue"] ? ' <span class="badge text-bg-danger">Overdue</span>' : ''; ?>
                       </td>
                       <td><?php echo $inv["dueDate"] ?: "—"; ?></td>
                       <td class="text-right">$ <?php echo number_format((float)$inv["balanceDue"], 2); ?></td>

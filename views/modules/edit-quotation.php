@@ -37,7 +37,7 @@ $items         = json_decode($quote["items"], true) ?: [];
   <section class="content">
     <div class="row">
 
-      <div class="col-lg-5 col-xs-12">
+      <div class="col-lg-5 col-12">
         <div class="card">
           <div class="card-header"></div>
 
@@ -47,7 +47,7 @@ $items         = json_decode($quote["items"], true) ?: [];
 
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($seller["name"]); ?>" readonly>
                     <input type="hidden" name="idSeller" value="<?php echo $seller["id"]; ?>">
                   </div>
@@ -55,7 +55,7 @@ $items         = json_decode($quote["items"], true) ?: [];
 
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                    <span class="input-group-text"><i class="fa fa-key"></i></span>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($quote["quoteNumber"]); ?>" readonly>
                     <input type="hidden" name="editQuotation" value="<?php echo $quote["id"]; ?>">
                   </div>
@@ -63,7 +63,7 @@ $items         = json_decode($quote["items"], true) ?: [];
 
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                    <span class="input-group-text"><i class="fa fa-tag"></i></span>
                     <input type="text" class="form-control" name="orderReference" value="<?php echo htmlspecialchars($quote["orderReference"] ?? ""); ?>" placeholder="Reference (optional)">
                   </div>
                 </div>
@@ -72,7 +72,7 @@ $items         = json_decode($quote["items"], true) ?: [];
                 <?php $qCur = $quote["currency"] ?? Currency::base(); if (Currency::isEnabled()) { ?>
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                    <span class="input-group-text"><i class="fa fa-money"></i></span>
                     <select class="form-control" name="currency">
                       <?php foreach (Currency::activeForOrg() as $c) { $sel = $c["code"]===$qCur?' selected':''; echo '<option value="'.$c["code"].'"'.$sel.'>'.htmlspecialchars($c["code"]." — ".$c["name"]." (".$c["symbol"].")").'</option>'; } ?>
                     </select>
@@ -84,12 +84,12 @@ $items         = json_decode($quote["items"], true) ?: [];
 
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                    <span class="input-group-text"><i class="fa fa-users"></i></span>
                     <select class="form-control" name="selectCustomer" id="selectCustomer" required>
                       <option value="<?php echo $thisCustomer["id"]; ?>"><?php echo htmlspecialchars($thisCustomer["name"]); ?></option>
                       <?php foreach ($allCustomers as $c) { echo '<option value="'.$c["id"].'">'.htmlspecialchars($c["name"]).'</option>'; } ?>
                     </select>
-                    <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer">Add</button></span>
+                    <span class="input-group-text"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer">Add</button></span>
                   </div>
                 </div>
 
@@ -104,8 +104,8 @@ $items         = json_decode($quote["items"], true) ?: [];
                     $line = (float)($it["totalPrice"] ?? 0);
 
                     echo '<div class="row" style="padding:5px 15px">'
-                      . '<div class="col-xs-6" style="padding-right:0px"><div class="input-group">'
-                        . '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs removeProduct" idProduct="'.htmlspecialchars($it["id"] ?? "", ENT_QUOTES).'"><i class="fa fa-times"></i></button></span>';
+                      . '<div class="col-6" style="padding-right:0px"><div class="input-group">'
+                        . '<span class="input-group-text"><button type="button" class="btn btn-danger btn-xs removeProduct" idProduct="'.htmlspecialchars($it["id"] ?? "", ENT_QUOTES).'"><i class="fa fa-times"></i></button></span>';
 
                     if ($isService) {
                       echo '<input type="text" class="form-control newProductDescription" idProduct="" name="addServiceLine" value="'.$desc.'" required>';
@@ -114,9 +114,9 @@ $items         = json_decode($quote["items"], true) ?: [];
                     }
 
                     echo '</div></div>'
-                      . '<div class="col-xs-3"><input type="number" class="form-control newProductQuantity" name="newProductQuantity" min="1" value="'.$qty.'" stock="999999" newStock="'.$qty.'" required></div>'
-                      . '<div class="col-xs-3 enterPrice" style="padding-left:0px"><div class="input-group">'
-                        . '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'
+                      . '<div class="col-3"><input type="number" class="form-control newProductQuantity" name="newProductQuantity" min="1" value="'.$qty.'" stock="999999" newStock="'.$qty.'" required></div>'
+                      . '<div class="col-3 enterPrice" style="padding-left:0px"><div class="input-group">'
+                        . '<span class="input-group-text"><i class="ion ion-social-usd"></i></span>'
                         . '<input type="'.($isService ? 'number' : 'text').'" class="form-control newProductPrice'.($isService ? ' serviceRate' : '').'" realPrice="'.$unit.'" name="newProductPrice" value="'.$line.'" '.($isService ? '' : 'readonly').' required>'
                       . '</div></div>'
                     . '</div>';
@@ -132,7 +132,7 @@ $items         = json_decode($quote["items"], true) ?: [];
                 <hr>
 
                 <div class="row">
-                  <div class="col-xs-12 col-sm-8 col-sm-offset-4">
+                  <div class="col-12 col-sm-8 col-sm-offset-4">
                     <table class="table table-condensed" style="font-size:13px;">
                       <tbody>
                         <tr>
@@ -170,7 +170,7 @@ $items         = json_decode($quote["items"], true) ?: [];
                           <td>
                             <div class="input-group input-group-sm">
                               <input type="number" class="form-control" name="newTaxSale" id="newTaxSale" value="<?php echo $taxPercentage; ?>" min="0">
-                              <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                              <span class="input-group-text"><i class="fa fa-percent"></i></span>
                             </div>
                             <input type="hidden" name="newTaxPrice" id="newTaxPrice" value="<?php echo $quote["tax"]; ?>">
                             <input type="hidden" name="newNetPrice" id="newNetPrice" value="<?php echo $quote["netPrice"]; ?>">
@@ -192,14 +192,14 @@ $items         = json_decode($quote["items"], true) ?: [];
 
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                     <input type="date" class="form-control" name="expiryDate" value="<?php echo $quote["expiryDate"]; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                    <span class="input-group-text"><i class="fa fa-info"></i></span>
                     <?php $st = $quote["status"]; ?>
                     <select class="form-control" name="quoteStatus" required>
                       <option value="draft"    <?php echo $st==="draft"?"selected":""; ?>>Draft</option>
@@ -212,14 +212,14 @@ $items         = json_decode($quote["items"], true) ?: [];
 
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-file-text-o"></i></span>
+                    <span class="input-group-text"><i class="fa fa-file-text-o"></i></span>
                     <textarea class="form-control" name="notes" placeholder="Notes"><?php echo htmlspecialchars($quote["notes"] ?? ""); ?></textarea>
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-legal"></i></span>
+                    <span class="input-group-text"><i class="fa fa-legal"></i></span>
                     <textarea class="form-control" name="termsConditions" rows="3" placeholder="Terms &amp; Conditions"><?php echo htmlspecialchars($quote["termsConditions"] ?? ""); ?></textarea>
                   </div>
                 </div>
@@ -228,7 +228,7 @@ $items         = json_decode($quote["items"], true) ?: [];
             </div>
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-success pull-right">Save Changes</button>
+              <button type="submit" class="btn btn-success float-end">Save Changes</button>
             </div>
           </form>
 
@@ -269,17 +269,17 @@ $items         = json_decode($quote["items"], true) ?: [];
         </div>
         <div class="modal-body">
           <div class="card-body">
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-envelope"></i></span><input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-phone"></i></span><input class="form-control input-lg" type="text" name="newPhone" placeholder="phone" data-inputmask="'mask':'(999) 999-9999'" data-mask required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-map-marker"></i></span><input class="form-control input-lg" type="text" name="newAddress" placeholder="Address" required></div></div>
-            <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span><input class="form-control input-lg" type="text" name="newBirthdate" placeholder="Birthdate" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-user"></i></span><input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-key"></i></span><input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-envelope"></i></span><input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-phone"></i></span><input class="form-control input-lg" type="text" name="newPhone" placeholder="phone" data-inputmask="'mask':'(999) 999-9999'" data-mask required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-map-marker"></i></span><input class="form-control input-lg" type="text" name="newAddress" placeholder="Address" required></div></div>
+            <div class="form-group"><div class="input-group"><span class="input-group-text"><i class="fa fa-calendar"></i></span><input class="form-control input-lg" type="text" name="newBirthdate" placeholder="Birthdate" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required></div></div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save Customer</button>
-          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default float-start" data-bs-dismiss="modal">Close</button>
         </div>
         <?php
           $createCustomer = new ControllerCustomers();

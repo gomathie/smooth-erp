@@ -174,7 +174,7 @@ MODAL ADD CUSTOMER
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required>
               </div>
             </div>
@@ -183,7 +183,7 @@ MODAL ADD CUSTOMER
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <span class="input-group-text"><i class="fa fa-key"></i></span>
                 <input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required>
               </div>
             </div>
@@ -192,7 +192,7 @@ MODAL ADD CUSTOMER
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                 <input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required>
               </div>
             </div>
@@ -201,7 +201,7 @@ MODAL ADD CUSTOMER
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <span class="input-group-text"><i class="fa fa-phone"></i></span>
                 <input class="form-control input-lg" type="text" name="newPhone" placeholder="phone" data-inputmask="'mask':'(999) 999-9999'" data-mask required>
               </div>
             </div>
@@ -210,7 +210,7 @@ MODAL ADD CUSTOMER
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
                 <input class="form-control input-lg" type="text" name="newAddress" placeholder="Address" required>
               </div>
             </div>
@@ -220,7 +220,7 @@ MODAL ADD CUSTOMER
 
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 <input class="form-control input-lg" type="text" name="newBirthdate" placeholder="Birth Date" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
               </div>
             </div>
@@ -234,7 +234,7 @@ MODAL ADD CUSTOMER
         ======================================-->
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Customer</button>
         </div>
       </form>
@@ -292,7 +292,7 @@ MODAL EDIT CUSTOMER
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+                <span class="input-group-text"><i class="fa fa-user"></i></span> 
 
                 <input type="text" class="form-control input-lg" name="editCustomer" id="editCustomer" required>
                 <input type="hidden" id="idCustomer" name="idCustomer">
@@ -306,7 +306,7 @@ MODAL EDIT CUSTOMER
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-key"></i></span> 
+                <span class="input-group-text"><i class="fa fa-key"></i></span> 
 
                 <input type="number" min="0" class="form-control input-lg" name="editIdDocument" id="editIdDocument" required>
 
@@ -320,7 +320,7 @@ MODAL EDIT CUSTOMER
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span> 
+                <span class="input-group-text"><i class="fa fa-envelope"></i></span> 
 
                 <input type="email" class="form-control input-lg" name="editEmail" id="editEmail" required>
 
@@ -334,7 +334,7 @@ MODAL EDIT CUSTOMER
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span> 
+                <span class="input-group-text"><i class="fa fa-phone"></i></span> 
 
                 <input type="text" class="form-control input-lg" name="editPhone" id="editPhone" data-inputmask="'mask':'(999) 999-9999'" data-mask required>
 
@@ -348,7 +348,7 @@ MODAL EDIT CUSTOMER
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span> 
+                <span class="input-group-text"><i class="fa fa-map-marker"></i></span> 
 
                 <input type="text" class="form-control input-lg" name="editAddress" id="editAddress"  required>
 
@@ -362,7 +362,7 @@ MODAL EDIT CUSTOMER
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span> 
 
                 <input type="text" class="form-control input-lg" name="editBirthdate" id="editBirthdate"  data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
 
@@ -380,7 +380,7 @@ MODAL EDIT CUSTOMER
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save Changes</button>
 

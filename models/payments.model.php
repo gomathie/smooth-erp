@@ -21,14 +21,7 @@ class ModelPayments {
 	 */
 	public static function mdlShowInvoicePayments(int $idInvoice): array {
 
-		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM payments_received WHERE idInvoice = :idInvoice AND idOrganization = " . (int)Tenant::id() . " ORDER BY paymentDate ASC, id ASC"
-		);
-
-		$stmt->bindParam(":idInvoice", $idInvoice, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetchAll() ?: [];
+		return Scope::rowsBy('payments_received', 'idInvoice', $idInvoice, 'paymentDate ASC, id ASC');
 
 	}
 
@@ -42,13 +35,7 @@ class ModelPayments {
 	 */
 	public static function mdlShowCustomerPayments(int $idCustomer): array {
 
-		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM payments_received WHERE idCustomer = :idCustomer AND idOrganization = " . (int)Tenant::id() . " ORDER BY paymentDate ASC, id ASC"
-		);
-		$stmt->bindParam(":idCustomer", $idCustomer, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetchAll() ?: [];
+		return Scope::rowsBy('payments_received', 'idCustomer', $idCustomer, 'paymentDate ASC, id ASC');
 
 	}
 
@@ -58,10 +45,7 @@ class ModelPayments {
 
 	public static function mdlShowAllPayments(): array {
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM payments_received WHERE idOrganization = " . (int)Tenant::id() . " ORDER BY paymentDate DESC, id DESC");
-		$stmt->execute();
-
-		return $stmt->fetchAll() ?: [];
+		return Scope::all('payments_received', 'paymentDate DESC, id DESC');
 
 	}
 

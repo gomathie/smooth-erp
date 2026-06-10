@@ -116,13 +116,7 @@ class ModelInventory {
 
 	public static function mdlProductMovements(int $idProduct): array {
 
-		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM stock_movements WHERE idProduct = :idProduct AND idOrganization = " . (int)Tenant::id() . " ORDER BY movementDate ASC, id ASC"
-		);
-		$stmt->bindValue(":idProduct", $idProduct, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetchAll() ?: [];
+		return Scope::rowsBy('stock_movements', 'idProduct', $idProduct, 'movementDate ASC, id ASC');
 
 	}
 

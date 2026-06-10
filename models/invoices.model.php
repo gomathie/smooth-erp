@@ -162,13 +162,7 @@ class ModelInvoices {
 	 */
 	public static function mdlInvoicesByCustomer(int $idCustomer): array {
 
-		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM invoices WHERE idCustomer = :idCustomer AND idOrganization = " . (int)Tenant::id() . " ORDER BY invoiceDate ASC, id ASC"
-		);
-		$stmt->bindParam(":idCustomer", $idCustomer, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetchAll() ?: [];
+		return Scope::rowsBy('invoices', 'idCustomer', $idCustomer, 'invoiceDate ASC, id ASC');
 
 	}
 
@@ -244,13 +238,7 @@ class ModelInvoices {
 	 */
 	public static function mdlShowActivity(int $idInvoice): array {
 
-		$stmt = Connection::connect()->prepare(
-			"SELECT * FROM invoice_activity_log WHERE idInvoice = :idInvoice AND idOrganization = " . (int)Tenant::id() . " ORDER BY createdDate DESC, id DESC"
-		);
-		$stmt->bindParam(":idInvoice", $idInvoice, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetchAll() ?: [];
+		return Scope::rowsBy('invoice_activity_log', 'idInvoice', $idInvoice, 'createdDate DESC, id DESC');
 
 	}
 

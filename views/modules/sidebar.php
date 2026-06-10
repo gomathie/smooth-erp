@@ -1,15 +1,17 @@
-<!-- AdminLTE 3 sidebar -->
-<aside class="main-sidebar elevation-4">
+<!-- AdminLTE 4 sidebar -->
+<aside class="app-sidebar shadow">
 
   <!-- Brand / logo -->
-  <a href="<?php echo Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0 ? 'organizations' : 'home'; ?>" class="brand-link">
-    <img src="views/img/template/icono-blanco.png" class="brand-image" style="opacity:.9; max-height:33px; margin-left:.5rem;">
-    <span class="brand-text font-weight-light">Smooth ERP</span>
-  </a>
+  <div class="sidebar-brand">
+    <a href="<?php echo Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0 ? 'organizations' : 'home'; ?>" class="brand-link">
+      <img src="views/img/template/icono-blanco.png" class="brand-image opacity-75 shadow" style="max-height:33px;">
+      <span class="brand-text fw-light">Smooth ERP</span>
+    </a>
+  </div>
 
-  <div class="sidebar">
+  <div class="sidebar-wrapper">
     <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
+      <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
 
         <?php
         /*=============================================
@@ -60,14 +62,14 @@
           if (Permission::has("sales")) {
             echo '
               <li class="nav-item">
-                <a href="#" class="nav-link"><i class="nav-icon fa fa-usd"></i><p>' . t('Sales') . ' <i class="right fa fa-angle-left"></i></p></a>
+                <a href="#" class="nav-link"><i class="nav-icon fa fa-usd"></i><p>' . t('Sales') . '<i class="nav-arrow fa fa-angle-right"></i></p></a>
                 <ul class="nav nav-treeview">
-                  <li class="nav-item"><a href="sales" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Manage Sales') . '</p></a></li>
-                  <li class="nav-item"><a href="create-sale" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Create Sale') . '</p></a></li>
-                  <li class="nav-item"><a href="quotations" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Quotations') . '</p></a></li>
-                  <li class="nav-item"><a href="invoices" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Invoices') . '</p></a></li>';
+                  <li class="nav-item"><a href="sales" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Manage Sales') . '</p></a></li>
+                  <li class="nav-item"><a href="create-sale" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Create Sale') . '</p></a></li>
+                  <li class="nav-item"><a href="quotations" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Quotations') . '</p></a></li>
+                  <li class="nav-item"><a href="invoices" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Invoices') . '</p></a></li>';
             if (Permission::has("reports")) {
-              echo '<li class="nav-item"><a href="reports" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Overview') . '</p></a></li>';
+              echo '<li class="nav-item"><a href="reports" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Overview') . '</p></a></li>';
             }
             echo '
                 </ul>
@@ -78,20 +80,20 @@
           if (Permission::has("reports")) {
             $acct = ControllerSettings::ctrAccountingEnabled();
             $reportItems  = "";
-            if ($acct) { $reportItems .= '<li class="nav-item"><a href="report-overview" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Business Overview') . '</p></a></li>'; }
-            $reportItems .= '<li class="nav-item"><a href="report-sales" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Sales') . '</p></a></li>';
-            $reportItems .= '<li class="nav-item"><a href="report-inventory" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Inventory') . '</p></a></li>';
+            if ($acct) { $reportItems .= '<li class="nav-item"><a href="report-overview" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Business Overview') . '</p></a></li>'; }
+            $reportItems .= '<li class="nav-item"><a href="report-sales" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Sales') . '</p></a></li>';
+            $reportItems .= '<li class="nav-item"><a href="report-inventory" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Inventory') . '</p></a></li>';
             if ($acct) {
-              $reportItems .= '<li class="nav-item"><a href="report-payables" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Payables') . '</p></a></li>';
-              $reportItems .= '<li class="nav-item"><a href="report-receivables" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Receivables') . '</p></a></li>';
-              $reportItems .= '<li class="nav-item"><a href="report-payments" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Payments Received') . '</p></a></li>';
+              $reportItems .= '<li class="nav-item"><a href="report-payables" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Payables') . '</p></a></li>';
+              $reportItems .= '<li class="nav-item"><a href="report-receivables" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Receivables') . '</p></a></li>';
+              $reportItems .= '<li class="nav-item"><a href="report-payments" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Payments Received') . '</p></a></li>';
             }
-            $reportItems .= '<li class="nav-item"><a href="report-activity" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Activity') . '</p></a></li>';
-            if ($acct) { $reportItems .= '<li class="nav-item"><a href="report-tax" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Tax Summary') . '</p></a></li>'; }
+            $reportItems .= '<li class="nav-item"><a href="report-activity" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Activity') . '</p></a></li>';
+            if ($acct) { $reportItems .= '<li class="nav-item"><a href="report-tax" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Tax Summary') . '</p></a></li>'; }
 
             echo '
               <li class="nav-item">
-                <a href="#" class="nav-link"><i class="nav-icon fa fa-bar-chart"></i><p>' . t('Reports') . ' <i class="right fa fa-angle-left"></i></p></a>
+                <a href="#" class="nav-link"><i class="nav-icon fa fa-bar-chart"></i><p>' . t('Reports') . '<i class="nav-arrow fa fa-angle-right"></i></p></a>
                 <ul class="nav nav-treeview">' . $reportItems . '</ul>
               </li>';
           }
@@ -108,10 +110,10 @@
           if (Permission::has("accounting") && ControllerSettings::ctrAccountingEnabled()) {
             echo '
               <li class="nav-item">
-                <a href="#" class="nav-link"><i class="nav-icon fa fa-balance-scale"></i><p>' . t('Accounting') . ' <i class="right fa fa-angle-left"></i></p></a>
+                <a href="#" class="nav-link"><i class="nav-icon fa fa-balance-scale"></i><p>' . t('Accounting') . '<i class="nav-arrow fa fa-angle-right"></i></p></a>
                 <ul class="nav nav-treeview">
-                  <li class="nav-item"><a href="accounting" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Overview') . '</p></a></li>
-                  <li class="nav-item"><a href="chart-of-accounts" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>' . t('Chart of Accounts') . '</p></a></li>
+                  <li class="nav-item"><a href="accounting" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Overview') . '</p></a></li>
+                  <li class="nav-item"><a href="chart-of-accounts" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Chart of Accounts') . '</p></a></li>
                 </ul>
               </li>';
           }

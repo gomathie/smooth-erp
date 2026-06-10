@@ -26,7 +26,7 @@ class Connection{
 		$env = self::loadEnv();
 
 		$host = $env['DB_HOST'] ?? 'localhost';
-		$db = $env['DB_NAME'] ?? 'posystem';
+		$db = $env['DB_NAME'] ?? 'smootherp';
 		$user = $env['DB_USER'] ?? 'root';
 		$pass = $env['DB_PASS'] ?? '';
 		$charset = $env['DB_CHARSET'] ?? 'utf8';

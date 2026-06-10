@@ -30,15 +30,15 @@ if($xml){
 
     <h1>
 	<!--  -->
-      Sales Management
+      <?php echo t('Sales Management'); ?>
 
     </h1>
 
     <ol class="breadcrumb">
 
-      <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="home"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
 
-      <li class="active">Dashboard</li>
+      <li class="active"><?php echo t('Dashboard'); ?></li>
 
     </ol>
 
@@ -53,15 +53,15 @@ if($xml){
         <a href="create-sale">
           <button class="btn btn-success" >
         
-          <i class="fa fa-plus"></i> Add Sale
-  
+          <i class="fa fa-plus"></i> <?php echo t('Add Sale'); ?>
+
           </button>
         </a>
 
         <button type="button" class="btn btn-primary float-end" id="daterange-btn">
-           
+
             <span>
-              <i class="fa fa-calendar"></i> Date Range
+              <i class="fa fa-calendar"></i> <?php echo t('Date Range'); ?>
             </span>
 
             <i class="fa fa-caret-down"></i>
@@ -79,14 +79,14 @@ if($xml){
            <tr>
              
              <th style="width:10px">#</th>
-             <th>Bill</th>
-             <th>Customer</th>
-             <th>Seller</th>
-             <th>Payment Method</th>
-             <th>Net Cost</th>
-             <th>Total Cost</th>
-             <th>Date</th>
-             <th>Actions</th>
+             <th><?php echo t('Bill'); ?></th>
+             <th><?php echo t('Customer'); ?></th>
+             <th><?php echo t('Seller'); ?></th>
+             <th><?php echo t('Payment Method'); ?></th>
+             <th><?php echo t('Net Cost'); ?></th>
+             <th><?php echo t('Total Cost'); ?></th>
+             <th><?php echo t('Date'); ?></th>
+             <th><?php echo t('Actions'); ?></th>
 
            </tr> 
 

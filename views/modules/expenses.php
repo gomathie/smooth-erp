@@ -39,10 +39,10 @@ if (!function_exists('expenseAccountOptions')) {
 <div class="content-wrapper">
 
   <section class="content-header">
-    <h1>Expenses</h1>
+    <h1><?php echo t('Expenses'); ?></h1>
     <ol class="breadcrumb">
-      <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Expenses</li>
+      <li><a href="home"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
+      <li class="active"><?php echo t('Expenses'); ?></li>
     </ol>
   </section>
 
@@ -51,10 +51,10 @@ if (!function_exists('expenseAccountOptions')) {
     <div class="card">
       <div class="card-header">
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddExpense">
-          <i class="fa fa-plus"></i> Record Expense
+          <i class="fa fa-plus"></i> <?php echo t('Record Expense'); ?>
         </button>
         <span class="float-end" style="font-size:16px; padding-top:6px;">
-          Total recorded: <strong>$ <?php echo number_format($totalExpenses, 2); ?></strong>
+          <?php echo t('Total recorded'); ?>: <strong>$ <?php echo number_format($totalExpenses, 2); ?></strong>
         </span>
       </div>
       <div class="card-body">
@@ -62,12 +62,12 @@ if (!function_exists('expenseAccountOptions')) {
           <thead>
             <tr>
               <th>#</th>
-              <th>Date</th>
-              <th>Expense Account</th>
-              <th>Paid Through</th>
-              <th>Payee</th>
-              <th class="text-right">Amount</th>
-              <th>Actions</th>
+              <th><?php echo t('Date'); ?></th>
+              <th><?php echo t('Expense Account'); ?></th>
+              <th><?php echo t('Paid Through'); ?></th>
+              <th><?php echo t('Payee'); ?></th>
+              <th class="text-right"><?php echo t('Amount'); ?></th>
+              <th><?php echo t('Actions'); ?></th>
             </tr>
           </thead>
           <tbody>

@@ -24,7 +24,52 @@
 .box.box-success { border-top-color: #28a745; }
 .box.box-warning { border-top-color: #ffc107; }
 .box.box-danger  { border-top-color: #dc3545; }
+.box.box-default { border-top-color: #d2d6de; }
 .box.box-solid   { border-top: 0; }
+
+/* ---------------------------------------------------------------------------
+   AdminLTE 2 colour utilities that AdminLTE 3 renamed/removed. Restored so the
+   dashboard / report small-boxes & info-boxes keep their background + white
+   text (otherwise: white text on an undefined background = "data not showing").
+   --------------------------------------------------------------------------- */
+.bg-aqua,
+.bg-light-blue,
+.bg-blue,
+.bg-navy,
+.bg-teal,
+.bg-green,
+.bg-olive,
+.bg-lime,
+.bg-yellow,
+.bg-orange,
+.bg-red,
+.bg-maroon,
+.bg-purple,
+.bg-fuchsia,
+.bg-black,
+.bg-gray-dark { color: #fff !important; }
+
+.bg-aqua       { background-color: #00c0ef !important; }
+.bg-light-blue { background-color: #3c8dbc !important; }
+.bg-blue       { background-color: #0073b7 !important; }
+.bg-navy       { background-color: #001f3f !important; }
+.bg-teal       { background-color: #39cccc !important; }
+.bg-green      { background-color: #00a65a !important; }
+.bg-olive      { background-color: #3d9970 !important; }
+.bg-lime       { background-color: #01ff70 !important; color: #1f2d3d !important; }
+.bg-yellow     { background-color: #f39c12 !important; }
+.bg-orange     { background-color: #ff851b !important; }
+.bg-red        { background-color: #dd4b39 !important; }
+.bg-maroon     { background-color: #d81b60 !important; }
+.bg-purple     { background-color: #605ca8 !important; }
+.bg-fuchsia    { background-color: #f012be !important; }
+.bg-black      { background-color: #111111 !important; }
+.bg-gray       { background-color: #d2d6de !important; color: #1f2d3d !important; }
+.bg-gray-dark  { background-color: #343a40 !important; }
+
+/* small-box / info-box keep readable text on the coloured background */
+.small-box > .inner, .small-box h3, .small-box p { color: #fff; }
+.small-box .icon { color: rgba(0,0,0,.15); }
 
 .box-header {
   position: relative;

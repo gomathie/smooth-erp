@@ -74,7 +74,9 @@ $(document).on('click', '[data-theme-key]', function (e) {
 =            sidebar menu            =
 ====================================*/
 
-$('.sidebar-menu').tree();
+// AdminLTE 4 handles the sidebar treeview itself via data-lte-toggle="treeview".
+// (The old AdminLTE 2 jQuery $('.sidebar-menu').tree() call no longer exists and
+//  would throw, halting the rest of this file.)
 
 /*=====  End of sidebar menu  ======*/
 

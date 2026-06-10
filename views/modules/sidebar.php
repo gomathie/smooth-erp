@@ -44,10 +44,11 @@
           if (Permission::has("products")) {
             echo '
               <li class="nav-item">
-                <a href="categories" class="nav-link"><i class="nav-icon fa fa-th"></i><p>' . t('Categories') . '</p></a>
-              </li>
-              <li class="nav-item">
-                <a href="products" class="nav-link"><i class="nav-icon fa fa-product-hunt"></i><p>' . t('Products') . '</p></a>
+                <a href="#" class="nav-link"><i class="nav-icon fa fa-product-hunt"></i><p>' . t('Products') . '<i class="nav-arrow fa fa-angle-right"></i></p></a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item"><a href="products" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Products') . '</p></a></li>
+                  <li class="nav-item"><a href="categories" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Categories') . '</p></a></li>
+                </ul>
               </li>';
           }
 
@@ -119,23 +120,25 @@ if (Permission::has("sales")) {
               </li>';
           }
 
-          /* ACCOUNTING (treeview) */
-          if (Permission::has("accounting") && ControllerSettings::ctrAccountingEnabled()) {
+          /* ACCOUNTING + CURRENCIES (treeview) — each item keeps its own gate */
+          $showAccounting = Permission::has("accounting") && ControllerSettings::ctrAccountingEnabled();
+          $showCurrencies = Permission::has("currencies") && Currency::isEnabled();
+          if ($showAccounting || $showCurrencies) {
             echo '
               <li class="nav-item">
                 <a href="#" class="nav-link"><i class="nav-icon fa fa-balance-scale"></i><p>' . t('Accounting') . '<i class="nav-arrow fa fa-angle-right"></i></p></a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview">';
+            if ($showAccounting) {
+              echo '
                   <li class="nav-item"><a href="accounting" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Overview') . '</p></a></li>
-                  <li class="nav-item"><a href="chart-of-accounts" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Chart of Accounts') . '</p></a></li>
-                </ul>
-              </li>';
-          }
-
-          /* CURRENCIES */
-          if (Permission::has("currencies") && Currency::isEnabled()) {
+                  <li class="nav-item"><a href="chart-of-accounts" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Chart of Accounts') . '</p></a></li>';
+            }
+            if ($showCurrencies) {
+              echo '
+                  <li class="nav-item"><a href="currencies" class="nav-link"><i class="nav-icon fa fa-money"></i><p>' . t('Currencies') . '</p></a></li>';
+            }
             echo '
-              <li class="nav-item">
-                <a href="currencies" class="nav-link"><i class="nav-icon fa fa-money"></i><p>' . t('Currencies') . '</p></a>
+                </ul>
               </li>';
           }
 

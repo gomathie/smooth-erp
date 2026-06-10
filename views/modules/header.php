@@ -33,18 +33,6 @@
         </div>
       </li>
 
-      <!-- Theme picker -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-bs-toggle="dropdown" href="#" title="Change Theme">
-          <i class="fa fa-paint-brush"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end" style="padding:15px; min-width:265px;">
-          <p style="margin:0 0 10px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#999;">Theme Color</p>
-          <!-- Swatches are built by JS from themes.config.js -->
-          <div id="theme-swatches" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
-        </div>
-      </li>
-
       <!-- User menu -->
       <li class="nav-item dropdown user-menu">
         <a class="nav-link" data-bs-toggle="dropdown" href="#">

@@ -36,6 +36,17 @@ $accountingEnabled = ControllerSettings::ctrAccountingEnabled();
           </div>
         </div>
 
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-paint-brush"></i> Appearance</h3>
+          </div>
+          <div class="box-body">
+            <p>Choose your interface theme color. The change applies immediately and is saved for your session.</p>
+            <!-- Swatches are built by JS (template.js) from themes.config.js -->
+            <div id="theme-swatches" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
+          </div>
+        </div>
+
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-balance-scale"></i> Accounting Module</h3>

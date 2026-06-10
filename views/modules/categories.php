@@ -19,11 +19,11 @@ if(!Permission::has("products")){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Category Management
+        <?php echo t('Category Management'); ?>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li><a href="home"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
+        <li class="active"><?php echo t('Dashboard'); ?></li>
       </ol>
     </section>
 
@@ -33,7 +33,7 @@ if(!Permission::has("products")){
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCategories"> <i class="fa fa-plus"></i> Add Categories</button>
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCategories"> <i class="fa fa-plus"></i> <?php echo t('Add Categories'); ?></button>
 
         </div>
         <div class="card-body">
@@ -44,8 +44,8 @@ if(!Permission::has("products")){
              <tr>
                
                <th style="width:10px">#</th>
-               <th>Category</th>
-               <th>Actions</th>
+               <th><?php echo t('Category'); ?></th>
+               <th><?php echo t('Actions'); ?></th>
 
              </tr> 
 
@@ -113,7 +113,7 @@ if(!Permission::has("products")){
         <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
           <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Categories</h4>
+          <h4 class="modal-title"><?php echo t('Add Categories'); ?></h4>
         </div>
         <div class="modal-body">
           <div class="card-body">
@@ -122,15 +122,15 @@ if(!Permission::has("products")){
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-th"></i></span>
-                <input class="form-control input-lg" type="text" name="newCategory" placeholder="Add Category" required>
+                <input class="form-control input-lg" type="text" name="newCategory" placeholder="<?php echo htmlspecialchars(t('Add Category')); ?>" required>
               </div>
             </div>
 
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Save Category</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal"><?php echo t('Close'); ?></button>
+          <button type="submit" class="btn btn-success"><?php echo t('Save Category'); ?></button>
         </div>
       </form>
     </div>
@@ -159,7 +159,7 @@ if(!Permission::has("products")){
         <input type="hidden" name="_csrf" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
           <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Edit Categories</h4>
+          <h4 class="modal-title"><?php echo t('Edit Categories'); ?></h4>
         </div>
         <div class="modal-body">
           <div class="card-body">
@@ -176,8 +176,8 @@ if(!Permission::has("products")){
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Save Changes</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal"><?php echo t('Close'); ?></button>
+          <button type="submit" class="btn btn-success"><?php echo t('Save Changes'); ?></button>
         </div>
 
         <?php

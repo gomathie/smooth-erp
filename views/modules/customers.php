@@ -20,15 +20,15 @@ if(!Permission::has("customers")){
 
     <h1>
 
-      Customer management
+      <?php echo t('Customer management'); ?>
 
     </h1>
 
     <ol class="breadcrumb">
 
-      <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="home"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
 
-      <li class="active">Dashboard</li>
+      <li class="active"><?php echo t('Dashboard'); ?></li>
 
     </ol>
 
@@ -42,7 +42,7 @@ if(!Permission::has("customers")){
 
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCustomer">
 
-        Add Customer
+        <?php echo t('Add Customer'); ?>
 
         </button>
 
@@ -55,16 +55,16 @@ if(!Permission::has("customers")){
            <tr>
              
              <th style="width:10px">#</th>
-             <th>Name</th>
-             <th>I.D Doc.</th>
-             <th>Email</th>
-             <th>Contact</th>
-             <th>Address</th>
-             <th>Birthday</th>
-             <th>Total Purchases</th>
-             <th>Last Purchase</th>
-             <th>Last login</th>
-             <th>Actions</th>
+             <th><?php echo t('Name'); ?></th>
+             <th><?php echo t('I.D Doc.'); ?></th>
+             <th><?php echo t('Email'); ?></th>
+             <th><?php echo t('Contact'); ?></th>
+             <th><?php echo t('Address'); ?></th>
+             <th><?php echo t('Birthday'); ?></th>
+             <th><?php echo t('Total Purchases'); ?></th>
+             <th><?php echo t('Last Purchase'); ?></th>
+             <th><?php echo t('Last login'); ?></th>
+             <th><?php echo t('Actions'); ?></th>
 
            </tr> 
 
@@ -158,7 +158,7 @@ MODAL ADD CUSTOMER
 
           <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
-          <h4 class="modal-title">Add Customer</h4>
+          <h4 class="modal-title"><?php echo t('Add Customer'); ?></h4>
 
         </div>
 
@@ -175,7 +175,7 @@ MODAL ADD CUSTOMER
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
-                <input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required>
+                <input class="form-control input-lg" type="text" name="newCustomer" placeholder="<?php echo htmlspecialchars(t('Write name')); ?>" required>
               </div>
             </div>
 
@@ -184,7 +184,7 @@ MODAL ADD CUSTOMER
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-key"></i></span>
-                <input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required>
+                <input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="<?php echo htmlspecialchars(t('Write your ID')); ?>" required>
               </div>
             </div>
 
@@ -193,7 +193,7 @@ MODAL ADD CUSTOMER
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                <input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required>
+                <input class="form-control input-lg" type="text" name="newEmail" placeholder="<?php echo htmlspecialchars(t('Email')); ?>" required>
               </div>
             </div>
 
@@ -202,7 +202,7 @@ MODAL ADD CUSTOMER
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                <input class="form-control input-lg" type="text" name="newPhone" placeholder="phone" data-inputmask="'mask':'(999) 999-9999'" data-mask required>
+                <input class="form-control input-lg" type="text" name="newPhone" placeholder="<?php echo htmlspecialchars(t('phone')); ?>" data-inputmask="'mask':'(999) 999-9999'" data-mask required>
               </div>
             </div>
 
@@ -211,7 +211,7 @@ MODAL ADD CUSTOMER
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
-                <input class="form-control input-lg" type="text" name="newAddress" placeholder="Address" required>
+                <input class="form-control input-lg" type="text" name="newAddress" placeholder="<?php echo htmlspecialchars(t('Address')); ?>" required>
               </div>
             </div>
 
@@ -221,7 +221,7 @@ MODAL ADD CUSTOMER
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                <input class="form-control input-lg" type="text" name="newBirthdate" placeholder="Birth Date" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
+                <input class="form-control input-lg" type="text" name="newBirthdate" placeholder="<?php echo htmlspecialchars(t('Birth Date')); ?>" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
               </div>
             </div>
 
@@ -234,8 +234,8 @@ MODAL ADD CUSTOMER
         ======================================-->
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Save Customer</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal"><?php echo t('Close'); ?></button>
+          <button type="submit" class="btn btn-success"><?php echo t('Save Customer'); ?></button>
         </div>
       </form>
 
@@ -274,7 +274,7 @@ MODAL EDIT CUSTOMER
 
           <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
-          <h4 class="modal-title">Edit Customer</h4>
+          <h4 class="modal-title"><?php echo t('Edit Customer'); ?></h4>
 
         </div>
 		<!--  -->
@@ -380,9 +380,9 @@ MODAL EDIT CUSTOMER
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal"><?php echo t('Close'); ?></button>
 
-          <button type="submit" class="btn btn-success">Save Changes</button>
+          <button type="submit" class="btn btn-success"><?php echo t('Save Changes'); ?></button>
 
         </div>
 

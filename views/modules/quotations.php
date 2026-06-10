@@ -13,30 +13,30 @@ $ctrl->ctrDeleteQuotation();
 <div class="content-wrapper">
 
   <section class="content-header">
-    <h1>Quotations</h1>
+    <h1><?php echo t('Quotations'); ?></h1>
     <ol class="breadcrumb">
-      <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Quotations</li>
+      <li><a href="home"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
+      <li class="active"><?php echo t('Quotations'); ?></li>
     </ol>
   </section>
 
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <a href="create-quotation"><button class="btn btn-success"><i class="fa fa-plus"></i> New Quotation</button></a>
+        <a href="create-quotation"><button class="btn btn-success"><i class="fa fa-plus"></i> <?php echo t('New Quotation'); ?></button></a>
       </div>
       <div class="card-body">
         <table class="table table-bordered table-hover table-striped dt-responsive quotationsTable" width="100%">
           <thead>
             <tr>
               <th style="width:10px">#</th>
-              <th>Quote #</th>
-              <th>Customer</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Expiry</th>
-              <th>Date</th>
-              <th>Actions</th>
+              <th><?php echo t('Quote #'); ?></th>
+              <th><?php echo t('Customer'); ?></th>
+              <th><?php echo t('Total'); ?></th>
+              <th><?php echo t('Status'); ?></th>
+              <th><?php echo t('Expiry'); ?></th>
+              <th><?php echo t('Date'); ?></th>
+              <th><?php echo t('Actions'); ?></th>
             </tr>
           </thead>
           <tbody>

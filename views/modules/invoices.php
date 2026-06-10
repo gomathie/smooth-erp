@@ -19,15 +19,15 @@ if (!Permission::has("sales")) {
 
     <h1>
 
-      Invoices
+      <?php echo t('Invoices'); ?>
 
     </h1>
 
     <ol class="breadcrumb">
 
-      <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="home"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
 
-      <li class="active">Invoices</li>
+      <li class="active"><?php echo t('Invoices'); ?></li>
 
     </ol>
 
@@ -41,7 +41,7 @@ if (!Permission::has("sales")) {
 
         <a href="create-invoice">
           <button class="btn btn-success">
-            <i class="fa fa-plus"></i> New Invoice
+            <i class="fa fa-plus"></i> <?php echo t('New Invoice'); ?>
           </button>
         </a>
 
@@ -55,15 +55,15 @@ if (!Permission::has("sales")) {
 
             <tr>
               <th style="width:10px">#</th>
-              <th>Invoice #</th>
-              <th>Customer</th>
-              <th>Total</th>
-              <th>Paid</th>
-              <th>Balance</th>
-              <th>Status</th>
-              <th>Due Date</th>
-              <th>Date</th>
-              <th>Actions</th>
+              <th><?php echo t('Invoice #'); ?></th>
+              <th><?php echo t('Customer'); ?></th>
+              <th><?php echo t('Total'); ?></th>
+              <th><?php echo t('Paid'); ?></th>
+              <th><?php echo t('Balance'); ?></th>
+              <th><?php echo t('Status'); ?></th>
+              <th><?php echo t('Due Date'); ?></th>
+              <th><?php echo t('Date'); ?></th>
+              <th><?php echo t('Actions'); ?></th>
             </tr>
 
           </thead>

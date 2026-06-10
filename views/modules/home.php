@@ -4,17 +4,17 @@
 
     <h1>
 
-      Dashboard
-      
-      <small>Control panel</small>
+      <?php echo t('Dashboard'); ?>
+
+      <small><?php echo t('Control panel'); ?></small>
 
     </h1>
 
     <ol class="breadcrumb">
 
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> <?php echo t('Home'); ?></a></li>
 
-      <li class="active">Dashboard</li>
+      <li class="active"><?php echo t('Dashboard'); ?></li>
 
     </ol>
 
@@ -80,6 +80,34 @@
 
       </div>
 
+      <div class="col-lg-6">
+
+        <?php
+
+          if($_SESSION["profile"] =="Administrator"){
+
+            include "home/top-stock.php";
+
+          }
+
+        ?>
+
+      </div>
+
+      <div class="col-lg-6">
+
+        <?php
+
+          if($_SESSION["profile"] =="Administrator"){
+
+            include "home/low-stock.php";
+
+          }
+
+        ?>
+
+      </div>
+
       <div class="col-lg-12">
            
         <?php
@@ -90,7 +118,7 @@
 
            <div class="card-header">
 
-           <h1>Welcome ' .$_SESSION["name"].'</h1>
+           <h1>' . t('Welcome') . ' ' .$_SESSION["name"].'</h1>
 
            </div>
 

@@ -434,4 +434,13 @@ return [
 	'Start creating your amazing application!' => 'Commencez à créer votre application géniale !',
 	'Collapse'          => 'Réduire',
 	'Remove'            => 'Supprimer',
+
+	// Invoices / Quotations list
+	'New Invoice'       => 'Nouvelle facture',
+	'Invoice #'         => 'Facture n°',
+	'Balance'           => 'Solde',
+	'Due Date'          => "Date d'échéance",
+	'New Quotation'     => 'Nouveau devis',
+	'Quote #'           => 'Devis n°',
+	'Expiry'            => 'Expiration',
 ];

@@ -72,7 +72,7 @@ $accountTypeLabels = [
     <div class="row">
       <div class="col-12" style="margin-bottom:12px;">
         <a class="btn btn-success" href="expenses"><i class="fa fa-credit-card"></i> Expenses</a>
-        <a class="btn btn-primary" href="chart-of-accounts"><i class="fa fa-list-alt"></i> Chart of Accounts</a>
+        <a class="btn btn-primary" href="chart-of-accounts"><i class="fa fa-list-alt"></i> <?php echo t('Chart of Accounts'); ?></a>
       </div>
     </div>
 
@@ -80,25 +80,25 @@ $accountTypeLabels = [
     <div class="row">
       <div class="col-md-3 col-sm-6">
         <div class="small-box bg-aqua">
-          <div class="inner"><h3>$ <?php echo number_format($totalInvoiced, 2); ?></h3><p>Total Invoiced</p></div>
+          <div class="inner"><h3>$ <?php echo number_format($totalInvoiced, 2); ?></h3><p><?php echo t('Total Invoiced'); ?></p></div>
           <div class="icon"><i class="fa fa-file-text"></i></div>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="small-box bg-green">
-          <div class="inner"><h3>$ <?php echo number_format($totalPaid, 2); ?></h3><p>Total Received</p></div>
+          <div class="inner"><h3>$ <?php echo number_format($totalPaid, 2); ?></h3><p><?php echo t('Total Received'); ?></p></div>
           <div class="icon"><i class="fa fa-money"></i></div>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="small-box bg-yellow">
-          <div class="inner"><h3>$ <?php echo number_format($totalOutstanding, 2); ?></h3><p>Outstanding (A/R)</p></div>
+          <div class="inner"><h3>$ <?php echo number_format($totalOutstanding, 2); ?></h3><p><?php echo t('Outstanding (A/R)'); ?></p></div>
           <div class="icon"><i class="fa fa-hourglass-half"></i></div>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="small-box bg-red">
-          <div class="inner"><h3>$ <?php echo number_format($totalOverdue, 2); ?></h3><p>Overdue</p></div>
+          <div class="inner"><h3>$ <?php echo number_format($totalOverdue, 2); ?></h3><p><?php echo t('Overdue'); ?></p></div>
           <div class="icon"><i class="fa fa-exclamation-triangle"></i></div>
         </div>
       </div>
@@ -108,25 +108,25 @@ $accountTypeLabels = [
     <div class="row">
       <div class="col-md-3 col-sm-6">
         <div class="small-box bg-light-blue">
-          <div class="inner"><h3>$ <?php echo number_format($incomeTotal, 2); ?></h3><p>Income (recognised)</p></div>
+          <div class="inner"><h3>$ <?php echo number_format($incomeTotal, 2); ?></h3><p><?php echo t('Income (recognised)'); ?></p></div>
           <div class="icon"><i class="fa fa-line-chart"></i></div>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="small-box bg-maroon">
-          <div class="inner"><h3>$ <?php echo number_format($totalExpenses, 2); ?></h3><p>Expenses Recorded</p></div>
+          <div class="inner"><h3>$ <?php echo number_format($totalExpenses, 2); ?></h3><p><?php echo t('Expenses Recorded'); ?></p></div>
           <div class="icon"><i class="fa fa-credit-card"></i></div>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="small-box bg-purple">
-          <div class="inner"><h3>$ <?php echo number_format($expenseTotal, 2); ?></h3><p>Total Costs (incl. COGS)</p></div>
+          <div class="inner"><h3>$ <?php echo number_format($expenseTotal, 2); ?></h3><p><?php echo t('Total Costs (incl. COGS)'); ?></p></div>
           <div class="icon"><i class="fa fa-cubes"></i></div>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="small-box <?php echo $netIncome >= 0 ? 'bg-green' : 'bg-red'; ?>">
-          <div class="inner"><h3>$ <?php echo number_format($netIncome, 2); ?></h3><p>Net Profit / Loss</p></div>
+          <div class="inner"><h3>$ <?php echo number_format($netIncome, 2); ?></h3><p><?php echo t('Net Profit / Loss'); ?></p></div>
           <div class="icon"><i class="fa fa-balance-scale"></i></div>
         </div>
       </div>
@@ -137,13 +137,13 @@ $accountTypeLabels = [
       <!-- TRIAL BALANCE -->
       <div class="col-md-6">
         <div class="card card-primary card-outline">
-          <div class="card-header"><h3 class="card-title"><i class="fa fa-balance-scale"></i> Trial Balance</h3></div>
+          <div class="card-header"><h3 class="card-title"><i class="fa fa-balance-scale"></i> <?php echo t('Trial Balance'); ?></h3></div>
           <div class="card-body">
             <table class="table table-bordered">
               <thead>
                 <tr style="background:#f5f5f5;">
-                  <th>Account</th><th>Type</th>
-                  <th class="text-right">Debit</th><th class="text-right">Credit</th>
+                  <th><?php echo t('Account'); ?></th><th><?php echo t('Type'); ?></th>
+                  <th class="text-right"><?php echo t('Debit'); ?></th><th class="text-right"><?php echo t('Credit'); ?></th>
                 </tr>
               </thead>
               <tbody>
@@ -163,7 +163,7 @@ $accountTypeLabels = [
               </tbody>
               <tfoot>
                 <tr style="font-weight:bold; background:#f9f9f9;">
-                  <td colspan="2" class="text-right">Totals</td>
+                  <td colspan="2" class="text-right"><?php echo t('Totals'); ?></td>
                   <td class="text-right">$ <?php echo number_format($sumDebit, 2); ?></td>
                   <td class="text-right">$ <?php echo number_format($sumCredit, 2); ?></td>
                 </tr>

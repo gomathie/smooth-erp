@@ -443,4 +443,10 @@ return [
 	'New Quotation'     => 'Nouveau devis',
 	'Quote #'           => 'Devis n°',
 	'Expiry'            => 'Expiration',
+
+	// Dashboard / accounting extras
+	'More info'         => "Plus d'infos",
+	'Account'           => 'Compte',
+	'Debit'             => 'Débit',
+	'Credit'            => 'Crédit',
 ];

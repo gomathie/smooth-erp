@@ -41,7 +41,7 @@ class ControllerSettings {
 		if (!isset($_POST["saveCompanyProfile"])) {
 			return;
 		}
-		if (($_SESSION["profile"] ?? "") !== "Administrator" || !Tenant::hasOrg()) {
+		if (!Permission::has("settings") || !Tenant::hasOrg()) {
 			return;
 		}
 
@@ -98,7 +98,7 @@ class ControllerSettings {
 			return;
 		}
 
-		if (($_SESSION["profile"] ?? "") !== "Administrator") {
+		if (!Permission::has("settings")) {
 			return;
 		}
 

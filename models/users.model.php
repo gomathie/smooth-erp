@@ -50,13 +50,15 @@ class UsersModel{
 	static public function mdlAddUser($table, $data){
 
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO `users`(name, user, password, profile, photo, email, phone, idOrganization) VALUES (:name, :user, :password, :profile, :photo, :email, :phone, " . (int)Tenant::id() . ")"
+			"INSERT INTO `users`(name, user, password, profile, role, permissions, photo, email, phone, idOrganization) VALUES (:name, :user, :password, :profile, :role, :permissions, :photo, :email, :phone, " . (int)Tenant::id() . ")"
 		);
 
 		$stmt->bindParam(":name",     $data["name"],     PDO::PARAM_STR);
 		$stmt->bindParam(":user",     $data["user"],     PDO::PARAM_STR);
 		$stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
 		$stmt->bindParam(":profile",  $data["profile"],  PDO::PARAM_STR);
+		$stmt->bindValue(":role",        $data["role"]        ?? 'staff', PDO::PARAM_STR);
+		$stmt->bindValue(":permissions", $data["permissions"] ?? null,    $data["permissions"] === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 		$stmt->bindParam(":photo",    $data["photo"],    PDO::PARAM_STR);
 		$stmt->bindParam(":email",    $data["email"],    PDO::PARAM_STR);
 		$stmt->bindParam(":phone",    $data["phone"],    PDO::PARAM_STR);
@@ -72,13 +74,15 @@ class UsersModel{
 	static public function mdlEditUser($table, $data){
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE `users` SET name = :name, password = :password, profile = :profile, photo = :photo, email = :email, phone = :phone WHERE user = :user AND idOrganization = " . (int)Tenant::id() . ""
+			"UPDATE `users` SET name = :name, password = :password, profile = :profile, role = :role, permissions = :permissions, photo = :photo, email = :email, phone = :phone WHERE user = :user AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		$stmt->bindParam(":name",     $data["name"],     PDO::PARAM_STR);
 		$stmt->bindParam(":user",     $data["user"],     PDO::PARAM_STR);
 		$stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
 		$stmt->bindParam(":profile",  $data["profile"],  PDO::PARAM_STR);
+		$stmt->bindValue(":role",        $data["role"]        ?? 'staff', PDO::PARAM_STR);
+		$stmt->bindValue(":permissions", $data["permissions"] ?? null,    $data["permissions"] === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 		$stmt->bindParam(":photo",    $data["photo"],    PDO::PARAM_STR);
 		$stmt->bindParam(":email",    $data["email"],    PDO::PARAM_STR);
 		$stmt->bindParam(":phone",    $data["phone"],    PDO::PARAM_STR);

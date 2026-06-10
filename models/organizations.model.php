@@ -43,8 +43,8 @@ class ModelOrganizations {
 	public static function mdlAddOrganization(array $data): string {
 		$link = Connection::connect();
 		$stmt = $link->prepare(
-			"INSERT INTO organizations (name, code, email, phone, address, baseCurrency, status)
-			 VALUES (:name, :code, :email, :phone, :address, :baseCurrency, 1)"
+			"INSERT INTO organizations (name, code, email, phone, address, baseCurrency, status, maxUsers)
+			 VALUES (:name, :code, :email, :phone, :address, :baseCurrency, 1, :maxUsers)"
 		);
 		$stmt->bindParam(":name",         $data["name"],         PDO::PARAM_STR);
 		$stmt->bindParam(":code",         $data["code"],         PDO::PARAM_STR);
@@ -52,6 +52,7 @@ class ModelOrganizations {
 		$stmt->bindParam(":phone",        $data["phone"],        PDO::PARAM_STR);
 		$stmt->bindParam(":address",      $data["address"],      PDO::PARAM_STR);
 		$stmt->bindParam(":baseCurrency", $data["baseCurrency"], PDO::PARAM_STR);
+		$stmt->bindValue(":maxUsers",     (int)($data["maxUsers"] ?? 3), PDO::PARAM_INT);
 
 		if ($stmt->execute()) {
 			return (string)$link->lastInsertId();
@@ -62,7 +63,8 @@ class ModelOrganizations {
 	public static function mdlEditOrganization(array $data): string {
 		$stmt = Connection::connect()->prepare(
 			"UPDATE organizations SET name = :name, email = :email, phone = :phone,
-			    address = :address, baseCurrency = :baseCurrency, status = :status
+			    address = :address, baseCurrency = :baseCurrency, status = :status,
+			    maxUsers = :maxUsers
 			  WHERE id = :id"
 		);
 		$stmt->bindParam(":id",           $data["id"],           PDO::PARAM_INT);
@@ -72,6 +74,38 @@ class ModelOrganizations {
 		$stmt->bindParam(":address",      $data["address"],      PDO::PARAM_STR);
 		$stmt->bindParam(":baseCurrency", $data["baseCurrency"], PDO::PARAM_STR);
 		$stmt->bindParam(":status",       $data["status"],       PDO::PARAM_INT);
+		$stmt->bindValue(":maxUsers",     (int)($data["maxUsers"] ?? 3), PDO::PARAM_INT);
+		return $stmt->execute() ? "ok" : "error";
+	}
+
+	/** Total number of organizations on the platform (for the global cap). */
+	public static function mdlOrgCount(): int {
+		$stmt = Connection::connect()->query("SELECT COUNT(*) n FROM organizations");
+		return (int)($stmt->fetch()["n"] ?? 0);
+	}
+
+	/*=============================================
+	SUPER ADMIN OWN PROFILE (a platform user not tied to an org)
+	=============================================*/
+
+	/** Fetch a user row by id, unscoped (Super Admin editing their own profile). */
+	public static function mdlGetUserById(int $id) {
+		$stmt = Connection::connect()->prepare("SELECT * FROM users WHERE id = :id");
+		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetch();
+	}
+
+	/** Update a user's own name/email (+ optional password), unscoped, by id. */
+	public static function mdlUpdateOwnProfile(int $id, array $d): string {
+		$sql = "UPDATE users SET name = :name, email = :email";
+		if (!empty($d["password"])) { $sql .= ", password = :password"; }
+		$sql .= " WHERE id = :id";
+		$stmt = Connection::connect()->prepare($sql);
+		$stmt->bindValue(":name",  $d["name"],  PDO::PARAM_STR);
+		$stmt->bindValue(":email", $d["email"], PDO::PARAM_STR);
+		if (!empty($d["password"])) { $stmt->bindValue(":password", $d["password"], PDO::PARAM_STR); }
+		$stmt->bindValue(":id", $id, PDO::PARAM_INT);
 		return $stmt->execute() ? "ok" : "error";
 	}
 

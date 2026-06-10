@@ -87,7 +87,7 @@
 
     <?php else: ?>
 
-    <p class="login-box-msg">Please log in to start your session</p>
+    <p class="login-box-msg"><?php echo htmlspecialchars(t('Please log in to start your session')); ?></p>
 
     <form method="post">
 
@@ -95,7 +95,7 @@
 
       <div class="form-group has-feedback">
 
-        <input type="text" class="form-control" placeholder="Username" name="loginUser" required>
+        <input type="text" class="form-control" placeholder="<?php echo htmlspecialchars(t('Username')); ?>" name="loginUser" required>
 
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
 
@@ -103,7 +103,7 @@
 
       <div class="form-group has-feedback">
 
-        <input type="password" class="form-control" placeholder="Password" name="loginPass" required>
+        <input type="password" class="form-control" placeholder="<?php echo htmlspecialchars(t('Password')); ?>" name="loginPass" required>
 
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 
@@ -113,13 +113,13 @@
 
         <div class="col-xs-8">
 
-          <a href="forgot-password">Forgot password?</a>
+          <a href="forgot-password"><?php echo htmlspecialchars(t('Forgot password?')); ?></a>
 
         </div>
 
         <div class="col-xs-4">
 
-          <button type="submit" class="btn btn-success btn-block btn-flat">Log In</button>
+          <button type="submit" class="btn btn-success btn-block btn-flat"><?php echo htmlspecialchars(t('Log In')); ?></button>
 
         </div>
        
@@ -135,6 +135,20 @@
     </form>
 
     <?php endif; ?>
+
+    <?php if (class_exists('I18n')) { ?>
+      <div class="text-center" style="margin-top:14px; font-size:12px;">
+        <?php
+          $curLang = I18n::current();
+          $parts = [];
+          foreach (I18n::available() as $code => $label) {
+            $style = $code === $curLang ? ' style="font-weight:700; text-decoration:none;"' : '';
+            $parts[] = '<a href="index.php?route=' . htmlspecialchars($authRoute) . '&setlang=' . htmlspecialchars($code) . '"' . $style . '>' . htmlspecialchars($label) . '</a>';
+          }
+          echo '<i class="fa fa-globe"></i> ' . implode(' &middot; ', $parts);
+        ?>
+      </div>
+    <?php } ?>
 
   </div>
 

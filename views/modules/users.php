@@ -1,3 +1,31 @@
+<?php
+if (!Permission::has("users")) {
+  echo '<script>window.location = "home";</script>';
+  return;
+}
+
+/**
+ * Render the permission checkboxes for a user form.
+ * $prefix is "new" or "Edit" so field names become newPerms[] / EditPerms[].
+ */
+function permissionCheckboxes(string $prefix): void {
+  echo '<div class="row perm-grid" data-prefix="' . $prefix . '">';
+  foreach (Permission::KEYS as $key) {
+    $label = Permission::LABELS[$key] ?? $key;
+    echo '<div class="col-xs-6" style="margin-bottom:6px;">
+            <label style="font-weight:normal; cursor:pointer;">
+              <input type="checkbox" name="' . $prefix . 'Perms[]" value="' . $key . '" class="perm-check"> ' . htmlspecialchars($label) . '
+            </label>
+          </div>';
+  }
+  echo '</div>';
+}
+?>
+<script>
+// RBAC role -> default permissions, exposed for the role/permission UI.
+window.ROLE_DEFAULTS = <?php echo json_encode(Permission::ROLE_DEFAULTS); ?>;
+window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
+</script>
 
 <div class="content-wrapper">
 	<!--  -->
@@ -47,7 +75,7 @@
              <th>Email</th>
              <th>Phone</th>
              <th>Photo</th>
-             <th>Profile</th>
+             <th>Role</th>
              <th>Status</th>
              <th>Last Login</th>
              <th>Actions</th>
@@ -88,7 +116,7 @@
                     
                     }
 
-                    echo '<td>'.$value["profile"].'</td>';
+                    echo '<td>'.ucfirst($value["role"] ?? Permission::roleFromProfile($value["profile"] ?? '')).'</td>';
 
                     if($value["status"] != 0){
 
@@ -231,24 +259,25 @@
 
             </div>
 
-            <!-- input profile -->
+            <!-- Role -->
             <div class="form-group">
-
+              <label>Role</label>
               <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
-
-                <select class="form-control input-lg" name="newProfile">
-
-                  <option value="">Select Level</option>
+                <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
+                <select class="form-control input-lg roleSelect" name="newRole" data-prefix="new">
                   <option value="administrator">Administrator</option>
-                  <option value="special">Special</option>
-                  <option value="seller">Seller</option>
-
+                  <option value="manager">Manager</option>
+                  <option value="accountant">Accountant</option>
+                  <option value="staff" selected>Staff</option>
+                  <option value="viewer">Viewer</option>
                 </select>
-
               </div>
+            </div>
 
+            <!-- Permissions (what this user can see) -->
+            <div class="form-group permWrap" data-prefix="new">
+              <label>Access permissions <small class="text-muted">(administrators get everything)</small></label>
+              <?php permissionCheckboxes("new"); ?>
             </div>
 
             <!-- Uploading image -->
@@ -397,24 +426,25 @@
 
             </div>
 
-            <!-- input profile -->
+            <!-- Role -->
             <div class="form-group">
-
+              <label>Role</label>
               <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
-
-                <select class="form-control input-lg" name="EditProfile">
-
-                  <option value="" id="EditProfile"></option>
+                <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
+                <select class="form-control input-lg roleSelect" id="EditRole" name="EditRole" data-prefix="Edit">
                   <option value="administrator">Administrator</option>
-                  <option value="special">Special</option>
-                  <option value="seller">Seller</option>
-
+                  <option value="manager">Manager</option>
+                  <option value="accountant">Accountant</option>
+                  <option value="staff">Staff</option>
+                  <option value="viewer">Viewer</option>
                 </select>
-
               </div>
+            </div>
 
+            <!-- Permissions (what this user can see) -->
+            <div class="form-group permWrap" data-prefix="Edit">
+              <label>Access permissions <small class="text-muted">(administrators get everything)</small></label>
+              <?php permissionCheckboxes("Edit"); ?>
             </div>
 
             <!-- Uploading image -->

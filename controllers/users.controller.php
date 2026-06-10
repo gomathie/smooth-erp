@@ -3,6 +3,33 @@
 class ControllerUsers{
 
 	/*=============================================
+	RBAC: derive role / permissions / legacy profile from a submitted form
+	=============================================*/
+
+	/**
+	 * @return array{role:string, permissions:?string, profile:string}
+	 */
+	private static function rbacFromPost(?string $rolePost, $permsPost): array {
+		$role = in_array($rolePost, Permission::ROLES, true) ? $rolePost : 'staff';
+
+		// Administrators implicitly hold every permission (stored as NULL).
+		if ($role === 'administrator') {
+			$permsJson = null;
+		} else {
+			$posted = is_array($permsPost) ? $permsPost : [];
+			$perms  = array_values(array_intersect($posted, Permission::KEYS));
+			if (empty($perms)) { $perms = ['dashboard']; }
+			$permsJson = json_encode($perms);
+		}
+
+		return [
+			'role'        => $role,
+			'permissions' => $permsJson,
+			'profile'     => Permission::profileForRole($role),
+		];
+	}
+
+	/*=============================================
 	USER LOGIN
 	=============================================*/
 
@@ -45,6 +72,11 @@ class ControllerUsers{
 							$_SESSION["user"]    = $answer["user"];
 							$_SESSION["photo"]   = $answer["photo"];
 							$_SESSION["profile"] = $answer["profile"];
+
+							// RBAC: role + effective permission set for this session.
+							$role = $answer["role"] ?? Permission::roleFromProfile($answer["profile"]);
+							$_SESSION["role"]        = $role;
+							$_SESSION["permissions"] = Permission::effective($role, $answer["permissions"] ?? null);
 
 							// Multi-tenant context: bind the session to the user's organization.
 							// Super Admin (idOrganization NULL) has no org until they "enter" one.
@@ -192,6 +224,27 @@ class ControllerUsers{
 
 			csrf_verify();
 
+			// Enforce the per-organization user cap (set by the Super Admin).
+			$idOrg = (int) Tenant::id();
+			if ($idOrg > 0) {
+				$org      = ModelOrganizations::mdlGetOrganization($idOrg);
+				$maxUsers = (int)($org["maxUsers"] ?? 3);
+				if (ModelOrganizations::mdlUserCount($idOrg) >= $maxUsers) {
+					echo '<script>
+						swal({
+							type: "error",
+							title: "User limit reached",
+							text: "This organization is limited to ' . $maxUsers . ' user(s). Contact your administrator to raise the limit.",
+							showConfirmButton: true,
+							confirmButtonText: "Close"
+						}).then(function(result){
+							if (result.value) { window.location = "users"; }
+						});
+					</script>';
+					return;
+				}
+			}
+
 			$newEmail = trim($_POST["newEmail"] ?? '');
 			$newPhone = trim($_POST["newPhone"] ?? '');
 
@@ -242,14 +295,18 @@ class ControllerUsers{
 				$table      = 'users';
 				$encryptpass = password_hash($_POST["newPasswd"], PASSWORD_DEFAULT);
 
+				$rbac = self::rbacFromPost($_POST["newRole"] ?? null, $_POST["newPerms"] ?? []);
+
 				$data = array(
-					'name'     => $_POST["newName"],
-					'user'     => $_POST["newUser"],
-					'password' => $encryptpass,
-					'profile'  => $_POST["newProfile"],
-					'photo'    => $photo,
-					'email'    => $newEmail,
-					'phone'    => $newPhone,
+					'name'        => $_POST["newName"],
+					'user'        => $_POST["newUser"],
+					'password'    => $encryptpass,
+					'profile'     => $rbac['profile'],
+					'role'        => $rbac['role'],
+					'permissions' => $rbac['permissions'],
+					'photo'       => $photo,
+					'email'       => $newEmail,
+					'phone'       => $newPhone,
 				);
 
 				$answer = UsersModel::mdlAddUser($table, $data);
@@ -368,14 +425,18 @@ class ControllerUsers{
 
 				}
 
+				$rbac = self::rbacFromPost($_POST["EditRole"] ?? null, $_POST["EditPerms"] ?? []);
+
 				$data = array(
-					'name'     => $_POST["EditName"],
-					'user'     => $_POST["EditUser"],
-					'password' => $encryptpass,
-					'profile'  => $_POST["EditProfile"],
-					'photo'    => $photo,
-					'email'    => $editEmail,
-					'phone'    => $editPhone,
+					'name'        => $_POST["EditName"],
+					'user'        => $_POST["EditUser"],
+					'password'    => $encryptpass,
+					'profile'     => $rbac['profile'],
+					'role'        => $rbac['role'],
+					'permissions' => $rbac['permissions'],
+					'photo'       => $photo,
+					'email'       => $editEmail,
+					'phone'       => $editPhone,
 				);
 
 				$answer = UsersModel::mdlEditUser($table, $data);

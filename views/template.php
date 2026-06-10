@@ -17,6 +17,9 @@
       $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
   }
 
+  // Resolve the active UI language (handles ?setlang=, session, cookie).
+  if (class_exists('I18n')) { I18n::init(); }
+
   $validThemeKeys = [
     'blue','blue-light','black','black-light',
     'purple','purple-light','red','red-light',
@@ -162,7 +165,7 @@
       if (Tenant::isSuperAdmin()) { ControllerSuperAdmin::ctrExitOrg(); }
       // A Super Admin who hasn't entered an org is limited to the platform pages.
       if (Tenant::isSuperAdmin() && Tenant::enteredOrg() === 0) {
-        $saRoutes = ["organizations", "org-currencies", "logout"];
+        $saRoutes = ["organizations", "org-currencies", "sa-profile", "logout"];
         if (!isset($_GET["route"]) || !in_array($_GET["route"], $saRoutes, true)) {
           $_GET["route"] = "organizations";
         }
@@ -229,6 +232,7 @@
             $_GET["route"] == 'report-tax' ||
             $_GET["route"] == 'organizations' ||
             $_GET["route"] == 'org-currencies' ||
+            $_GET["route"] == 'sa-profile' ||
             $_GET["route"] == 'company-profile' ||
             $_GET["route"] == 'currencies' ||
             $_GET["route"] == 'logout'){

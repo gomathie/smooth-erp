@@ -14,51 +14,54 @@
 				echo '
 					<li class="header">SUPER ADMIN</li>
 					<li class="active">
-						<a href="organizations"><i class="fa fa-building"></i> <span>Organizations</span></a>
+						<a href="organizations"><i class="fa fa-building"></i> <span>'.t('Organizations').'</span></a>
 					</li>
 					<li>
-						<a href="logout"><i class="fa fa-sign-out"></i> <span>Log out</span></a>
+						<a href="sa-profile"><i class="fa fa-user-circle"></i> <span>'.t('My Profile').'</span></a>
+					</li>
+					<li>
+						<a href="logout"><i class="fa fa-sign-out"></i> <span>'.t('Log out').'</span></a>
 					</li>
 				';
 
 			} else {
 
-			if ($_SESSION["profile"] == "Administrator") {
+			if (Permission::has("dashboard")) {
 
 				echo '
 					<li class="active">
 						<a href="home">
 							<i class="fa fa-home"></i>
-							<span>Home</span>
+							<span>'.t('Home').'</span>
 						</a>
 					</li>
 				';
 			}
 
-			if ($_SESSION["profile"] == "Administrator" || $_SESSION["profile"] == "Special") {
+			if (Permission::has("products")) {
 
 				echo '
 					<li>
 						<a href="categories">
 							<i class="fa fa-th"></i>
-							<span>Categories</span>
+							<span>'.t('Categories').'</span>
 						</a>
 					</li>
 					<li>
 						<a href="products">
 							<i class="fa fa-product-hunt"></i>
-							<span>Products</span>
+							<span>'.t('Products').'</span>
 						</a>
 					</li>
 				';
 			}
 
-			if ($_SESSION["profile"] == "Administrator" || $_SESSION["profile"] == "Seller") {
+			if (Permission::has("customers")) {
 				echo '
 					<li>
 						<a href="customers">
 							<i class="fa fa-users"></i>
-							<span>Customers</span>
+							<span>'.t('Customers').'</span>
 						</a>
 					</li>
 				';
@@ -67,23 +70,23 @@
 			/*=============================================
 			SALES
 			=============================================*/
-			if ($_SESSION["profile"] == "Administrator" || $_SESSION["profile"] == "Seller") {
+			if (Permission::has("sales")) {
 
 				echo '
 					<li class="treeview">
 						<a href="#">
 							<i class="fa fa-usd"></i>
-							<span>Sales</span>
+							<span>'.t('Sales').'</span>
 							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="sales"><i class="fa fa-circle"></i> <span>Manage Sales</span></a></li>
-							<li><a href="create-sale"><i class="fa fa-circle"></i> <span>Create Sale</span></a></li>
-							<li><a href="quotations"><i class="fa fa-circle"></i> <span>Quotations</span></a></li>
-							<li><a href="invoices"><i class="fa fa-circle"></i> <span>Invoices</span></a></li>';
+							<li><a href="sales"><i class="fa fa-circle"></i> <span>'.t('Manage Sales').'</span></a></li>
+							<li><a href="create-sale"><i class="fa fa-circle"></i> <span>'.t('Create Sale').'</span></a></li>
+							<li><a href="quotations"><i class="fa fa-circle"></i> <span>'.t('Quotations').'</span></a></li>
+							<li><a href="invoices"><i class="fa fa-circle"></i> <span>'.t('Invoices').'</span></a></li>';
 
-				if ($_SESSION["profile"] == "Administrator") {
-					echo '<li><a href="reports"><i class="fa fa-circle"></i> <span>Overview</span></a></li>';
+				if (Permission::has("reports")) {
+					echo '<li><a href="reports"><i class="fa fa-circle"></i> <span>'.t('Overview').'</span></a></li>';
 				}
 
 				echo '
@@ -92,73 +95,82 @@
 			}
 
 			/*=============================================
-			ADMIN-ONLY: REPORTS, ACCOUNTING, USERS, SETTINGS
+			REPORTS, ACCOUNTING, EXPENSES, CURRENCIES, USERS, SETTINGS
+			(each gated by its own permission)
 			=============================================*/
-			if ($_SESSION["profile"] == "Administrator") {
+			if (Permission::has("reports")) {
 
 				// Financial reports are hidden when the accounting module is off.
 				$acct = ControllerSettings::ctrAccountingEnabled();
 				$reportItems  = "";
-				if ($acct) { $reportItems .= '<li><a href="report-overview"><i class="fa fa-circle"></i> <span>Business Overview</span></a></li>'; }
-				$reportItems .= '<li><a href="report-sales"><i class="fa fa-circle"></i> <span>Sales</span></a></li>';
-				$reportItems .= '<li><a href="report-inventory"><i class="fa fa-circle"></i> <span>Inventory</span></a></li>';
+				if ($acct) { $reportItems .= '<li><a href="report-overview"><i class="fa fa-circle"></i> <span>'.t('Business Overview').'</span></a></li>'; }
+				$reportItems .= '<li><a href="report-sales"><i class="fa fa-circle"></i> <span>'.t('Sales').'</span></a></li>';
+				$reportItems .= '<li><a href="report-inventory"><i class="fa fa-circle"></i> <span>'.t('Inventory').'</span></a></li>';
 				if ($acct) {
-					$reportItems .= '<li><a href="report-payables"><i class="fa fa-circle"></i> <span>Payables</span></a></li>';
-					$reportItems .= '<li><a href="report-receivables"><i class="fa fa-circle"></i> <span>Receivables</span></a></li>';
-					$reportItems .= '<li><a href="report-payments"><i class="fa fa-circle"></i> <span>Payments Received</span></a></li>';
+					$reportItems .= '<li><a href="report-payables"><i class="fa fa-circle"></i> <span>'.t('Payables').'</span></a></li>';
+					$reportItems .= '<li><a href="report-receivables"><i class="fa fa-circle"></i> <span>'.t('Receivables').'</span></a></li>';
+					$reportItems .= '<li><a href="report-payments"><i class="fa fa-circle"></i> <span>'.t('Payments Received').'</span></a></li>';
 				}
-				$reportItems .= '<li><a href="report-activity"><i class="fa fa-circle"></i> <span>Activity</span></a></li>';
-				if ($acct) { $reportItems .= '<li><a href="report-tax"><i class="fa fa-circle"></i> <span>Tax Summary</span></a></li>'; }
+				$reportItems .= '<li><a href="report-activity"><i class="fa fa-circle"></i> <span>'.t('Activity').'</span></a></li>';
+				if ($acct) { $reportItems .= '<li><a href="report-tax"><i class="fa fa-circle"></i> <span>'.t('Tax Summary').'</span></a></li>'; }
 
 				echo '
 					<li class="treeview">
 						<a href="#">
 							<i class="fa fa-bar-chart"></i>
-							<span>Reports</span>
+							<span>'.t('Reports').'</span>
 							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 						</a>
 						<ul class="treeview-menu">' . $reportItems . '</ul>
 					</li>';
+			}
 
-				// Expenses always available (standalone), independent of the accounting toggle
+			// Expenses (standalone, independent of the accounting toggle)
+			if (Permission::has("expenses")) {
 				echo '
 					<li>
 						<a href="expenses">
 							<i class="fa fa-credit-card"></i>
-							<span>Expenses</span>
+							<span>'.t('Expenses').'</span>
 						</a>
 					</li>';
+			}
 
-				if (ControllerSettings::ctrAccountingEnabled()) {
-					echo '
+			if (Permission::has("accounting") && ControllerSettings::ctrAccountingEnabled()) {
+				echo '
 					<li class="treeview">
 						<a href="#">
 							<i class="fa fa-balance-scale"></i>
-							<span>Accounting</span>
+							<span>'.t('Accounting').'</span>
 							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="accounting"><i class="fa fa-circle"></i> <span>Overview</span></a></li>
-							<li><a href="chart-of-accounts"><i class="fa fa-circle"></i> <span>Chart of Accounts</span></a></li>
+							<li><a href="accounting"><i class="fa fa-circle"></i> <span>'.t('Overview').'</span></a></li>
+							<li><a href="chart-of-accounts"><i class="fa fa-circle"></i> <span>'.t('Chart of Accounts').'</span></a></li>
 						</ul>
 					</li>';
-				}
+			}
 
-				if (Currency::isEnabled()) {
-						echo '<li><a href="currencies"><i class="fa fa-money"></i> <span>Currencies</span></a></li>';
-					}
+			if (Permission::has("currencies") && Currency::isEnabled()) {
+				echo '<li><a href="currencies"><i class="fa fa-money"></i> <span>'.t('Currencies').'</span></a></li>';
+			}
 
-					echo '
+			if (Permission::has("users")) {
+				echo '
 					<li>
 						<a href="users">
 							<i class="fa fa-user"></i>
-							<span>User Management</span>
+							<span>'.t('User Management').'</span>
 						</a>
-					</li>
+					</li>';
+			}
+
+			if (Permission::has("settings")) {
+				echo '
 					<li>
 						<a href="settings">
 							<i class="fa fa-cog"></i>
-							<span>Settings</span>
+							<span>'.t('Settings').'</span>
 						</a>
 					</li>';
 			}

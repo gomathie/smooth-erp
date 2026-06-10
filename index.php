@@ -4,6 +4,7 @@ require_once "helpers/security.php";
 require_once "helpers/mailer.php";
 require_once "helpers/tenant.php";
 require_once "helpers/currency.php";
+require_once "helpers/i18n.php";
 require_once "controllers/template.controller.php";
 require_once "controllers/users.controller.php";
 require_once "controllers/categories.controller.php";

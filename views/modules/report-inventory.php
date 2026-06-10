@@ -1,5 +1,5 @@
 <?php
-if ($_SESSION["profile"] != "Administrator") { echo '<script>window.location="home";</script>'; return; }
+if (!Permission::has("reports")) { echo '<script>window.location="home";</script>'; return; }
 $reportRoute = "report-inventory";
 $range = ControllerReports::ctrRange();
 $movements = ControllerReports::ctrMovements($range["from"], $range["to"]);

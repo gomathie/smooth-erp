@@ -9,7 +9,7 @@ class ControllerCurrencies {
 
 	private static function allowed(): bool {
 		return Tenant::hasOrg()
-			&& ($_SESSION["profile"] ?? "") === "Administrator"
+			&& Permission::has("currencies")
 			&& Currency::isEnabled();
 	}
 

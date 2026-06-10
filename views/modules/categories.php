@@ -1,6 +1,6 @@
 <?php
 
-if($_SESSION["profile"] == "Seller"){
+if(!Permission::has("products")){
 
   echo '<script>
 

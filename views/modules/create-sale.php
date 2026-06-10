@@ -1,6 +1,6 @@
 <?php
 
-if($_SESSION["profile"] == "Special"){
+if(!Permission::has("sales")){
 
   echo '<script>
 

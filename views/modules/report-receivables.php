@@ -1,5 +1,5 @@
 <?php
-if ($_SESSION["profile"] != "Administrator") { echo '<script>window.location="home";</script>'; return; }
+if (!Permission::has("reports")) { echo '<script>window.location="home";</script>'; return; }
 if (!ControllerSettings::ctrAccountingEnabled()) { echo '<script>window.location="home";</script>'; return; }
 $reportRoute = "report-receivables";
 $range = ControllerReports::ctrRange();

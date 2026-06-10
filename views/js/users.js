@@ -86,18 +86,62 @@ $(document).on("click", ".btnEditUser", function(){
 				$("#EditPhone").val(answer["phone"] || '');
 
  			$("#currentPicture").val(answer["photo"]);
- 			
+
  			if(answer["photo"] != ''){
 
  				$('.preview').attr('src', answer["photo"]);
 
  			}
 
+ 			// RBAC: set role + permission checkboxes for the edit modal.
+ 			var role = answer["role"] || 'staff';
+ 			var perms = [];
+ 			try { perms = answer["permissions"] ? JSON.parse(answer["permissions"]) : []; } catch(e){ perms = []; }
+ 			permSetExplicit('Edit', role, perms);
+
  		}
 
  	});
 
  });
+
+
+/*=============================================
+RBAC: ROLE -> PERMISSION CHECKBOXES
+=============================================*/
+
+// Apply a role's default permissions to its modal's checkboxes.
+function permApplyRole(prefix){
+	var role = $('.roleSelect[data-prefix="'+prefix+'"]').val();
+	var $boxes = $('.perm-grid[data-prefix="'+prefix+'"] .perm-check');
+	if(role === 'administrator'){
+		$boxes.prop('checked', true).prop('disabled', true);
+	} else {
+		var defs = (window.ROLE_DEFAULTS && window.ROLE_DEFAULTS[role]) || ['dashboard'];
+		$boxes.prop('disabled', false);
+		$boxes.each(function(){ $(this).prop('checked', defs.indexOf($(this).val()) !== -1); });
+	}
+}
+
+// Set an explicit role + permission list (used when editing an existing user).
+function permSetExplicit(prefix, role, perms){
+	$('.roleSelect[data-prefix="'+prefix+'"]').val(role);
+	var $boxes = $('.perm-grid[data-prefix="'+prefix+'"] .perm-check');
+	if(role === 'administrator'){
+		$boxes.prop('checked', true).prop('disabled', true);
+	} else if (perms && perms.length){
+		$boxes.prop('disabled', false);
+		$boxes.each(function(){ $(this).prop('checked', perms.indexOf($(this).val()) !== -1); });
+	} else {
+		permApplyRole(prefix);
+	}
+}
+
+$(document).on('change', '.roleSelect', function(){
+	permApplyRole($(this).data('prefix'));
+});
+
+$(function(){ permApplyRole('new'); });
 
 
 /*=============================================

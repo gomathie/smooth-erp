@@ -29,6 +29,28 @@ class ControllerSuperAdmin {
 		return ModelOrganizations::mdlUserCount($idOrg);
 	}
 
+	public static function ctrOrgCount(): int {
+		return ModelOrganizations::mdlOrgCount();
+	}
+
+	/*=============================================
+	PLATFORM LIMITS (global cap on number of organizations)
+	=============================================*/
+
+	/** Max number of organizations allowed on the platform (default 3). */
+	public static function ctrMaxOrganizations(): int {
+		return (int) ModelSettings::mdlGetForOrg(0, "max_organizations", "3");
+	}
+
+	public static function ctrSetMaxOrganizations(): void {
+		if (!isset($_POST["maxOrganizations"]) || !self::guard()) {
+			return;
+		}
+		$max = max(1, (int)$_POST["maxOrganizations"]);
+		ModelSettings::mdlSetForOrg(0, "max_organizations", (string)$max);
+		self::alert("success", "Maximum organizations set to {$max}.");
+	}
+
 	/*=============================================
 	CREATE ORGANIZATION (+ chart of accounts, base currency, first admin)
 	=============================================*/
@@ -57,7 +79,15 @@ class ControllerSuperAdmin {
 			return;
 		}
 
+		// Enforce the platform-wide cap on number of organizations.
+		$maxOrgs = self::ctrMaxOrganizations();
+		if (ModelOrganizations::mdlOrgCount() >= $maxOrgs) {
+			self::alert("error", "Organization limit reached ({$maxOrgs}). Increase the limit in Platform Limits to add more.");
+			return;
+		}
+
 		$baseCurrency = strtoupper($_POST["newOrgBaseCurrency"] ?? "USD");
+		$maxUsers     = max(1, (int)($_POST["newOrgMaxUsers"] ?? 3));
 
 		Connection::begin();
 		try {
@@ -68,6 +98,7 @@ class ControllerSuperAdmin {
 				"phone"        => $_POST["newOrgPhone"]   ?? "",
 				"address"      => $_POST["newOrgAddress"] ?? "",
 				"baseCurrency" => $baseCurrency,
+				"maxUsers"     => $maxUsers,
 			]);
 
 			if ($orgId === "error") { Connection::rollBack(); return; }
@@ -116,6 +147,7 @@ class ControllerSuperAdmin {
 			"address"      => $_POST["editOrgAddress"] ?? "",
 			"baseCurrency" => strtoupper($_POST["editOrgBaseCurrency"] ?? "USD"),
 			"status"       => ($_POST["editOrgStatus"] ?? "1") === "1" ? 1 : 0,
+			"maxUsers"     => max(1, (int)($_POST["editOrgMaxUsers"] ?? 3)),
 		]);
 
 		if ($answer === "ok") {
@@ -204,7 +236,9 @@ class ControllerSuperAdmin {
 		$_SESSION["idOrganization"] = (int)$org["id"];
 		$_SESSION["baseCurrency"]   = $org["baseCurrency"];
 		// Act as an administrator within the org; isSuperAdmin stays true in session.
-		$_SESSION["profile"] = "Administrator";
+		$_SESSION["profile"]     = "Administrator";
+		$_SESSION["role"]        = "administrator";
+		$_SESSION["permissions"] = Permission::KEYS;
 
 		echo '<script>window.location = "home";</script>';
 	}
@@ -223,8 +257,61 @@ class ControllerSuperAdmin {
 	}
 
 	/*=============================================
+	SUPER ADMIN OWN PROFILE
+	=============================================*/
+
+	/** The current Super Admin's own user row. */
+	public static function ctrOwnProfile() {
+		if (!self::guard()) { return null; }
+		return ModelOrganizations::mdlGetUserById((int)($_SESSION["id"] ?? 0));
+	}
+
+	public static function ctrUpdateOwnProfile(): void {
+
+		if (!isset($_POST["saProfileSave"]) || !self::guard()) {
+			return;
+		}
+
+		$id    = (int)($_SESSION["id"] ?? 0);
+		$name  = trim($_POST["saName"]  ?? "");
+		$email = trim($_POST["saEmail"] ?? "");
+		$pass  = $_POST["saPassword"]   ?? "";
+
+		if ($name === "") {
+			self::alertStay("error", "Name is required.");
+			return;
+		}
+		if ($email !== "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			self::alertStay("error", "Please enter a valid email address.");
+			return;
+		}
+		if ($pass !== "" && strlen($pass) < 4) {
+			self::alertStay("error", "Password must be at least 4 characters.");
+			return;
+		}
+
+		$data = ["name" => $name, "email" => $email];
+		if ($pass !== "") { $data["password"] = password_hash($pass, PASSWORD_DEFAULT); }
+
+		if (ModelOrganizations::mdlUpdateOwnProfile($id, $data) === "ok") {
+			$_SESSION["name"] = $name;
+			self::alertStay("success", "Your profile has been updated.");
+		} else {
+			self::alertStay("error", "Could not update your profile.");
+		}
+	}
+
+	/*=============================================
 	SWAL HELPER
 	=============================================*/
+
+	/** Like alert() but returns to the Super Admin profile page on success. */
+	private static function alertStay(string $type, string $title): void {
+		echo '<script>
+		swal({ type: "' . $type . '", title: "' . addslashes($title) . '", confirmButtonText: "Close" })
+		  .then((r) => { if (r.value && "' . $type . '" === "success") { window.location = "sa-profile"; } })
+		</script>';
+	}
 
 	private static function alert(string $type, string $title): void {
 		echo '<script>

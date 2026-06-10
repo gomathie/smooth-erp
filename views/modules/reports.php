@@ -1,6 +1,6 @@
 <?php
 
-if($_SESSION["profile"] == "Special" || $_SESSION["profile"] == "Seller"){
+if(!Permission::has("reports")){
 
   echo '<script>
 

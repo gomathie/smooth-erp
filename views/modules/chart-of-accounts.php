@@ -1,6 +1,6 @@
 <?php
 
-if ($_SESSION["profile"] != "Administrator") {
+if (!Permission::has("accounting")) {
   echo '<script>window.location = "home";</script>';
   return;
 }

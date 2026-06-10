@@ -48,8 +48,8 @@ if (!function_exists('expenseAccountOptions')) {
 
   <section class="content">
 
-    <div class="box">
-      <div class="box-header with-border">
+    <div class="card">
+      <div class="card-header">
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddExpense">
           <i class="fa fa-plus"></i> Record Expense
         </button>
@@ -57,7 +57,7 @@ if (!function_exists('expenseAccountOptions')) {
           Total recorded: <strong>$ <?php echo number_format($totalExpenses, 2); ?></strong>
         </span>
       </div>
-      <div class="box-body">
+      <div class="card-body">
         <table class="table table-bordered table-hover table-striped dt-responsive expensesTable" width="100%">
           <thead>
             <tr>

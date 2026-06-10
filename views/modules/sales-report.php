@@ -21,13 +21,13 @@
 
   <section class="content">
 
-    <div class="box">
+    <div class="card">
 
-      <div class="box-header with-border">
+      <div class="card-header">
 
-        <h3 class="box-title">Title</h3>
+        <h3 class="card-title">Title</h3>
 
-        <div class="box-tools pull-right">
+        <div class="card-tools pull-right">
 
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-bs-toggle="tooltip" title="Collapse">
 
@@ -45,13 +45,13 @@
 
       </div>
 		<!--  -->
-      <div class="box-body">
+      <div class="card-body">
 
         Start creating your amazing application!
 
       </div>
 
-      <div class="box-footer">
+      <div class="card-footer">
 
         Footer
 

@@ -40,9 +40,9 @@ foreach ($active as $a) { $activeCodes[$a["code"]] = $a; }
 
     <div class="row">
       <div class="col-md-6">
-        <div class="box box-success">
-          <div class="box-header with-border"><h3 class="box-title">Activated</h3></div>
-          <div class="box-body">
+        <div class="card card-success card-outline">
+          <div class="card-header"><h3 class="card-title">Activated</h3></div>
+          <div class="card-body">
             <table class="table table-striped">
               <thead><tr><th>Code</th><th>Name</th><th>Symbol</th><th>Role</th><th class="text-right">Actions</th></tr></thead>
               <tbody>
@@ -67,9 +67,9 @@ foreach ($active as $a) { $activeCodes[$a["code"]] = $a; }
       </div>
 
       <div class="col-md-6">
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title">Available currencies</h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Available currencies</h3></div>
+          <div class="card-body">
             <table class="table table-striped">
               <thead><tr><th>Code</th><th>Name</th><th>Symbol</th><th class="text-right">Action</th></tr></thead>
               <tbody>

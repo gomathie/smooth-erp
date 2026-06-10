@@ -63,7 +63,8 @@
   opacity: 1;
 }
 
-/* ── Box compat accent uses the theme primary ─────────────────── */
-.box.box-primary { border-top-color: var(--pos-primary) !important; }
+/* ── Outline card accent uses the theme primary ───────────────── */
+.card-primary.card-outline { border-top-color: var(--pos-primary) !important; }
+.card-primary:not(.card-outline) > .card-header { background-color: var(--pos-primary) !important; border-color: var(--pos-primary) !important; }
 
 html, body { margin: 0 !important; padding: 0 !important; }

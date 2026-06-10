@@ -31,9 +31,9 @@ $srcLabels = ["opening"=>"Opening","sale"=>"Sale","sale_reversal"=>"Sale reversa
 
     <div class="row">
       <div class="col-md-6">
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title">Stock Valuation <small>(current)</small></h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Stock Valuation <small>(current)</small></h3></div>
+          <div class="card-body">
             <table class="table table-bordered table-striped dt-responsive" width="100%">
               <thead><tr><th>Code</th><th>Product</th><th class="text-right">Stock</th><th class="text-right">Unit Cost</th><th class="text-right">Value</th></tr></thead>
               <tbody>
@@ -53,9 +53,9 @@ $srcLabels = ["opening"=>"Opening","sale"=>"Sale","sale_reversal"=>"Sale reversa
         </div>
       </div>
       <div class="col-md-6">
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title">Stock Movements <small>(period)</small></h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Stock Movements <small>(period)</small></h3></div>
+          <div class="card-body">
             <table class="table table-bordered table-striped dt-responsive" width="100%">
               <thead><tr><th>Date</th><th>Product</th><th>Source</th><th class="text-right">Qty</th><th class="text-right">Unit Cost</th></tr></thead>
               <tbody>

@@ -41,11 +41,11 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
 
   <section class="content">
 
-    <div class="box box-solid">
-      <div class="box-header with-border">
-        <h3 class="box-title"><i class="fa fa-sliders"></i> Platform Limits</h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-sliders"></i> Platform Limits</h3>
       </div>
-      <div class="box-body">
+      <div class="card-body">
         <form method="post" role="form" class="form-inline">
           <div class="form-group">
             <label>Maximum organizations allowed&nbsp;</label>
@@ -60,8 +60,8 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
       </div>
     </div>
 
-    <div class="box">
-      <div class="box-header with-border">
+    <div class="card">
+      <div class="card-header">
         <?php if ($atOrgCap) { ?>
           <button class="btn btn-success" disabled title="Organization limit reached"><i class="fa fa-plus"></i> Onboard Organization</button>
           <span class="text-danger" style="padding-left:8px;"><i class="fa fa-exclamation-triangle"></i> Limit reached — raise the cap above to add more.</span>
@@ -70,7 +70,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
         <?php } ?>
         <span class="pull-right" style="padding-top:6px;"><?php echo $orgsUsed; ?> organization(s)</span>
       </div>
-      <div class="box-body">
+      <div class="card-body">
         <table class="table table-bordered table-hover table-striped">
           <thead>
             <tr>

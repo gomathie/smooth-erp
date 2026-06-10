@@ -51,9 +51,9 @@ $net = $income - $expensesTotal;
       <div class="col-md-3 col-sm-6"><div class="small-box <?php echo $net>=0?'bg-green':'bg-red'; ?>"><div class="inner"><h3>$ <?php echo number_format($net,2); ?></h3><p>Income &minus; Expenses</p></div><div class="icon"><i class="fa fa-balance-scale"></i></div></div></div>
     </div>
 
-    <div class="box box-default">
-      <div class="box-header with-border"><h3 class="box-title">Summary for the selected period</h3></div>
-      <div class="box-body">
+    <div class="card">
+      <div class="card-header"><h3 class="card-title">Summary for the selected period</h3></div>
+      <div class="card-body">
         <table class="table table-bordered">
           <tr><td>POS sales (count)</td><td class="text-right"><?php echo count($sales); ?></td><td class="text-right">$ <?php echo number_format($posSales,2); ?></td></tr>
           <tr><td>Invoices issued (non-draft)</td><td class="text-right"><?php echo count(array_filter($invoices, fn($i)=>$i["status"]!=="draft")); ?></td><td class="text-right">$ <?php echo number_format($invoiced,2); ?></td></tr>

@@ -38,12 +38,12 @@ $items         = json_decode($quote["items"], true) ?: [];
     <div class="row">
 
       <div class="col-lg-5 col-xs-12">
-        <div class="box box-default">
-          <div class="box-header with-border"></div>
+        <div class="card">
+          <div class="card-header"></div>
 
           <form role="form" method="post" class="quotationForm">
-            <div class="box-body">
-              <div class="box">
+            <div class="card-body">
+              <div class="card">
 
                 <div class="form-group">
                   <div class="input-group">
@@ -227,7 +227,7 @@ $items         = json_decode($quote["items"], true) ?: [];
               </div>
             </div>
 
-            <div class="box-footer">
+            <div class="card-footer">
               <button type="submit" class="btn btn-success pull-right">Save Changes</button>
             </div>
           </form>
@@ -241,9 +241,9 @@ $items         = json_decode($quote["items"], true) ?: [];
       </div>
 
       <div class="col-lg-7 hidden-md hidden-sm hidden-xs">
-        <div class="box box-default">
-          <div class="box-header with-border"></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"></div>
+          <div class="card-body">
             <table class="table table-bordered table-hover table-striped dt-responsive quotationsProductsTable">
               <thead>
                 <tr><th style="width:10px">#</th><th>Image</th><th style="width:30px">Code</th><th>Description</th><th>Stock</th><th>Actions</th></tr>
@@ -268,7 +268,7 @@ $items         = json_decode($quote["items"], true) ?: [];
           <h4 class="modal-title">Add Customer</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
             <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input class="form-control input-lg" type="text" name="newCustomer" placeholder="Write name" required></div></div>
             <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input class="form-control input-lg" type="number" min="0" name="newIdDocument" placeholder="Write your ID" required></div></div>
             <div class="form-group"><div class="input-group"><span class="input-group-addon"><i class="fa fa-envelope"></i></span><input class="form-control input-lg" type="text" name="newEmail" placeholder="Email" required></div></div>

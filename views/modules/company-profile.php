@@ -34,9 +34,9 @@ function v($a, $k) { return htmlspecialchars($a[$k] ?? "", ENT_QUOTES); }
       <div class="row">
         <!-- LEFT: logo + branding -->
         <div class="col-md-4">
-          <div class="box box-primary">
-            <div class="box-header with-border"><h3 class="box-title">Organization Logo</h3></div>
-            <div class="box-body text-center">
+          <div class="card card-primary card-outline">
+            <div class="card-header"><h3 class="card-title">Organization Logo</h3></div>
+            <div class="card-body text-center">
               <?php if ($logo && is_file($logo)) { ?>
                 <img src="<?php echo htmlspecialchars($logo); ?>" style="max-width:180px; max-height:180px; border:1px solid #eee; padding:4px;">
               <?php } else { ?>
@@ -52,9 +52,9 @@ function v($a, $k) { return htmlspecialchars($a[$k] ?? "", ENT_QUOTES); }
             </div>
           </div>
 
-          <div class="box box-default">
-            <div class="box-header with-border"><h3 class="box-title">Brand Color</h3></div>
-            <div class="box-body">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Brand Color</h3></div>
+            <div class="card-body">
               <div class="form-group">
                 <label>Theme / accent color</label>
                 <input type="color" class="form-control" name="themeColor" value="<?php echo htmlspecialchars($theme); ?>" style="height:42px; padding:4px;">
@@ -66,9 +66,9 @@ function v($a, $k) { return htmlspecialchars($a[$k] ?? "", ENT_QUOTES); }
 
         <!-- RIGHT: company details -->
         <div class="col-md-8">
-          <div class="box box-default">
-            <div class="box-header with-border"><h3 class="box-title">Company Details</h3></div>
-            <div class="box-body">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Company Details</h3></div>
+            <div class="card-body">
               <div class="row">
                 <div class="col-sm-7"><div class="form-group"><label>Organization Name</label><input type="text" class="form-control" name="orgName" value="<?php echo v($o,'name'); ?>" required></div></div>
                 <div class="col-sm-5"><div class="form-group"><label>Industry</label><input type="text" class="form-control" name="orgIndustry" value="<?php echo v($o,'industry'); ?>" placeholder="e.g. Technology"></div></div>
@@ -93,7 +93,7 @@ function v($a, $k) { return htmlspecialchars($a[$k] ?? "", ENT_QUOTES); }
                 <div class="col-sm-4"><div class="form-group"><label>Email</label><input type="text" class="form-control" name="orgEmail" value="<?php echo v($o,'email'); ?>"></div></div>
               </div>
             </div>
-            <div class="box-footer">
+            <div class="card-footer">
               <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Save Profile</button>
             </div>
           </div>

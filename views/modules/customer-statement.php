@@ -80,11 +80,11 @@ $closingBalance = $running;
 
     <div class="row">
       <div class="col-md-8">
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-user"></i> <?php echo htmlspecialchars($customer["name"]); ?></h3>
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-user"></i> <?php echo htmlspecialchars($customer["name"]); ?></h3>
           </div>
-          <div class="box-body">
+          <div class="card-body">
             <?php if (!empty($customer["email"])) { echo '<p style="margin:2px 0; color:#777;"><i class="fa fa-envelope"></i> '.htmlspecialchars($customer["email"]).'</p>'; } ?>
             <?php if (!empty($customer["phone"])) { echo '<p style="margin:2px 0; color:#777;"><i class="fa fa-phone"></i> '.htmlspecialchars($customer["phone"]).'</p>'; } ?>
             <?php if (!empty($customer["address"])) { echo '<p style="margin:2px 0; color:#777;"><i class="fa fa-map-marker"></i> '.htmlspecialchars($customer["address"]).'</p>'; } ?>
@@ -92,8 +92,8 @@ $closingBalance = $running;
         </div>
       </div>
       <div class="col-md-4">
-        <div class="box box-widget">
-          <div class="box-body text-center">
+        <div class="card">
+          <div class="card-body text-center">
             <p style="color:#888; margin-bottom:4px;">Closing Balance Due</p>
             <p style="font-size:30px; font-weight:bold; color:<?php echo $closingBalance > 0 ? '#e74c3c' : '#27ae60'; ?>; margin:0;">
               $ <?php echo number_format($closingBalance, 2); ?>
@@ -106,9 +106,9 @@ $closingBalance = $running;
       </div>
     </div>
 
-    <div class="box box-default">
-      <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-list"></i> Account Activity</h3></div>
-      <div class="box-body">
+    <div class="card">
+      <div class="card-header"><h3 class="card-title"><i class="fa fa-list"></i> Account Activity</h3></div>
+      <div class="card-body">
         <?php if (!$rows) { ?>
           <p class="text-muted">No invoices or payments on record for this customer yet.</p>
         <?php } else { ?>

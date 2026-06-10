@@ -8,7 +8,7 @@
 
   </div>
 
-  <div class="login-box-body">
+  <div class="login-card-body">
 
     <?php $authRoute = $_GET["route"] ?? "login"; ?>
 

@@ -21,11 +21,11 @@ $ctrl->ctrDeleteQuotation();
   </section>
 
   <section class="content">
-    <div class="box">
-      <div class="box-header with-border">
+    <div class="card">
+      <div class="card-header">
         <a href="create-quotation"><button class="btn btn-success"><i class="fa fa-plus"></i> New Quotation</button></a>
       </div>
-      <div class="box-body">
+      <div class="card-body">
         <table class="table table-bordered table-hover table-striped dt-responsive quotationsTable" width="100%">
           <thead>
             <tr>

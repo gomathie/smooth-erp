@@ -28,9 +28,9 @@ foreach ($payments as $p) {
 
     <div class="row">
       <div class="col-md-4">
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title">By Payment Mode</h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">By Payment Mode</h3></div>
+          <div class="card-body">
             <table class="table">
               <?php foreach ($byMode as $m => $amt) { ?>
                 <tr><td><?php echo $modeLabels[$m] ?? ucfirst($m); ?></td><td class="text-right">$ <?php echo number_format($amt,2); ?></td></tr>
@@ -40,9 +40,9 @@ foreach ($payments as $p) {
         </div>
       </div>
       <div class="col-md-8">
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title">Payments</h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Payments</h3></div>
+          <div class="card-body">
             <table class="table table-bordered table-striped dt-responsive" width="100%">
               <thead><tr><th>Payment #</th><th>Date</th><th>Invoice</th><th>Customer</th><th>Mode</th><th class="text-right">Amount</th></tr></thead>
               <tbody>

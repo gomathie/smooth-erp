@@ -31,12 +31,12 @@ if(!Permission::has("products")){
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
-        <div class="box-header with-border">
+      <div class="card">
+        <div class="card-header">
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCategories"> <i class="fa fa-plus"></i> Add Categories</button>
 
         </div>
-        <div class="box-body">
+        <div class="card-body">
           <table class="table table-bordered table-hover table-striped dt-responsive tables" width="100%">
          
             <thead>
@@ -116,7 +116,7 @@ if(!Permission::has("products")){
           <h4 class="modal-title">Add Categories</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
 
             <!--Input name -->
             <div class="form-group">
@@ -162,7 +162,7 @@ if(!Permission::has("products")){
           <h4 class="modal-title">Edit Categories</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
 
             <!--Input name -->
             <div class="form-group">

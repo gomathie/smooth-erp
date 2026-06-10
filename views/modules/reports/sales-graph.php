@@ -50,17 +50,17 @@ SALES GRAPH
 ======================================-->
 
 <!--  -->
-<div class="box box-solid bg-red-gradient">
+<div class="card bg-red-gradient">
 	
-	<div class="box-header">
+	<div class="card-header">
 		
  		<i class="fa fa-th"></i>
 
-  		<h3 class="box-title">Sales Graph</h3>
+  		<h3 class="card-title">Sales Graph</h3>
 
 	</div>
 
-	<div class="box-body border-radius-none newSalesGraph">
+	<div class="card-body border-radius-none newSalesGraph">
 
 		<div class="chart" id="line-chart-Sales" style="height: 250px;"></div>
 

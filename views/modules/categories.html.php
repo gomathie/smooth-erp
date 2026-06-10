@@ -15,12 +15,12 @@
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
-        <div class="box-header with-border">
+      <div class="card">
+        <div class="card-header">
           <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategories">Add Categories</button>
 
         </div>
-        <div class="box-body">
+        <div class="card-body">
           <table class="table table-bordered table-hover table-striped dt-responsive tables" width="100%">
          
             <thead>
@@ -117,7 +117,7 @@
           <h4 class="modal-title">Add Categories</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
 
             <!--Input name -->
             <div class="form-group">

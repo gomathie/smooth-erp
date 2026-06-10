@@ -33,9 +33,9 @@ foreach (ControllerAccounting::ctrTrialBalance() as $a) {
 
     <div class="row">
       <div class="col-md-4">
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title">By Expense Account</h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">By Expense Account</h3></div>
+          <div class="card-body">
             <table class="table">
               <?php foreach ($byAccount as $k => $amt) { ?>
                 <tr><td><?php echo htmlspecialchars($k); ?></td><td class="text-right">$ <?php echo number_format($amt,2); ?></td></tr>
@@ -45,9 +45,9 @@ foreach (ControllerAccounting::ctrTrialBalance() as $a) {
         </div>
       </div>
       <div class="col-md-8">
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title">Expenses</h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Expenses</h3></div>
+          <div class="card-body">
             <table class="table table-bordered table-striped dt-responsive" width="100%">
               <thead><tr><th>#</th><th>Date</th><th>Account</th><th>Paid Through</th><th>Payee</th><th class="text-right">Amount</th></tr></thead>
               <tbody>

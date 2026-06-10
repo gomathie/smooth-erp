@@ -136,9 +136,9 @@ $accountTypeLabels = [
 
       <!-- TRIAL BALANCE -->
       <div class="col-md-6">
-        <div class="box box-primary">
-          <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-balance-scale"></i> Trial Balance</h3></div>
-          <div class="box-body">
+        <div class="card card-primary card-outline">
+          <div class="card-header"><h3 class="card-title"><i class="fa fa-balance-scale"></i> Trial Balance</h3></div>
+          <div class="card-body">
             <table class="table table-bordered">
               <thead>
                 <tr style="background:#f5f5f5;">
@@ -176,9 +176,9 @@ $accountTypeLabels = [
 
       <!-- OUTSTANDING INVOICES -->
       <div class="col-md-6">
-        <div class="box box-warning">
-          <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-hourglass-half"></i> Outstanding Invoices</h3></div>
-          <div class="box-body">
+        <div class="card card-warning card-outline">
+          <div class="card-header"><h3 class="card-title"><i class="fa fa-hourglass-half"></i> Outstanding Invoices</h3></div>
+          <div class="card-body">
             <?php if (!$outstanding) { ?>
               <p class="text-muted">Nothing outstanding — all invoices are settled. 🎉</p>
             <?php } else { ?>
@@ -210,9 +210,9 @@ $accountTypeLabels = [
     <!-- JOURNAL / GENERAL LEDGER -->
     <div class="row">
       <div class="col-md-12">
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-book"></i> Recent Journal Entries</h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title"><i class="fa fa-book"></i> Recent Journal Entries</h3></div>
+          <div class="card-body">
             <?php if (!$entries) { ?>
               <p class="text-muted">No journal entries yet. They are posted automatically when invoices are sent and payments recorded.</p>
             <?php } else { ?>

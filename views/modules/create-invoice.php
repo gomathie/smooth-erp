@@ -43,15 +43,15 @@ if(!Permission::has("sales")){
       =============================================-->
       <div class="col-lg-5 col-xs-12">
 
-        <div class="box box-default">
+        <div class="card">
 
-          <div class="box-header with-border"></div>
+          <div class="card-header"></div>
 
           <form role="form" method="post" class="invoiceForm">
 
-            <div class="box-body">
+            <div class="card-body">
 
-                <div class="box">
+                <div class="card">
 
                     <!--=====================================
                     =            SELLER INPUT           =
@@ -309,7 +309,7 @@ if(!Permission::has("sales")){
 
             </div>
 
-            <div class="box-footer">
+            <div class="card-footer">
               <button type="submit" class="btn btn-success pull-right">Save Invoice</button>
             </div>
           </form>
@@ -333,11 +333,11 @@ if(!Permission::has("sales")){
 		<!--  -->
       <div class="col-lg-7 hidden-md hidden-sm hidden-xs">
 
-          <div class="box box-default">
+          <div class="card">
 
-            <div class="box-header with-border"></div>
+            <div class="card-header"></div>
 
-            <div class="box-body">
+            <div class="card-body">
 
               <table class="table table-bordered table-hover table-striped dt-responsive invoicesProductsTable">
 
@@ -382,7 +382,7 @@ if(!Permission::has("sales")){
           <h4 class="modal-title">Add Customer</h4>
         </div>
         <div class="modal-body">
-          <div class="box-body">
+          <div class="card-body">
 
             <div class="form-group">
               <div class="input-group">

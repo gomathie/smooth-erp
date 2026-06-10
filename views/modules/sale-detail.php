@@ -46,8 +46,8 @@ $sym   = Currency::symbol($sale["currency"] ?? Currency::base());
 
     <div class="row">
       <div class="col-md-8">
-        <div class="box box-primary">
-          <div class="box-body">
+        <div class="card card-primary card-outline">
+          <div class="card-body">
 
             <div class="row">
               <div class="col-xs-6">
@@ -103,8 +103,8 @@ $sym   = Currency::symbol($sale["currency"] ?? Currency::base());
       </div>
 
       <div class="col-md-4">
-        <div class="box box-widget">
-          <div class="box-body text-center">
+        <div class="card">
+          <div class="card-body text-center">
             <p style="color:#888; margin-bottom:4px;">Total</p>
             <p style="font-size:32px; font-weight:bold; color:#00a65a; margin:0;"><?php echo $sym; ?> <?php echo number_format($total, 2); ?></p>
             <p class="text-muted" style="margin-top:6px;"><?php echo count($items); ?> item(s) &middot; <?php echo htmlspecialchars($sale["paymentMethod"]); ?></p>

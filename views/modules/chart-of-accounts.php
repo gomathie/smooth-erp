@@ -36,13 +36,13 @@ $typeLabels = [
 
   <section class="content">
 
-    <div class="box">
-      <div class="box-header with-border">
+    <div class="card">
+      <div class="card-header">
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddAccount">
           <i class="fa fa-plus"></i> New Account
         </button>
       </div>
-      <div class="box-body">
+      <div class="card-body">
         <table class="table table-bordered table-hover table-striped dt-responsive accountsTable" width="100%">
           <thead>
             <tr>

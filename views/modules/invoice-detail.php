@@ -113,8 +113,8 @@ $paymentModeMap = [
 
       <!-- LEFT: INVOICE DOCUMENT -->
       <div class="col-md-8">
-        <div class="box box-primary">
-          <div class="box-body">
+        <div class="card card-primary card-outline">
+          <div class="card-body">
 
             <div class="row">
               <div class="col-xs-6">
@@ -184,9 +184,9 @@ $paymentModeMap = [
         </div>
 
         <!-- PAYMENTS RECEIVED -->
-        <div class="box box-success">
-          <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-money"></i> Payments Received</h3></div>
-          <div class="box-body">
+        <div class="card card-success card-outline">
+          <div class="card-header"><h3 class="card-title"><i class="fa fa-money"></i> Payments Received</h3></div>
+          <div class="card-body">
             <?php if (!$payments) { ?>
               <p class="text-muted">No payments recorded yet.</p>
             <?php } else { ?>
@@ -239,8 +239,8 @@ $paymentModeMap = [
       <!-- RIGHT: SUMMARY + ACTIVITY -->
       <div class="col-md-4">
 
-        <div class="box box-widget">
-          <div class="box-body text-center">
+        <div class="card">
+          <div class="card-body text-center">
             <p style="color:#888; margin-bottom:4px;">Balance Due</p>
             <p style="font-size:32px; font-weight:bold; color:<?php echo $balance > 0 ? '#e74c3c' : '#27ae60'; ?>; margin:0;">
               <?php echo $sym; ?> <?php echo number_format($balance, 2); ?>
@@ -249,9 +249,9 @@ $paymentModeMap = [
           </div>
         </div>
 
-        <div class="box box-default">
-          <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-history"></i> Activity Log</h3></div>
-          <div class="box-body">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title"><i class="fa fa-history"></i> Activity Log</h3></div>
+          <div class="card-body">
             <?php if (!$activity) { ?>
               <p class="text-muted">No activity yet.</p>
             <?php } else { ?>

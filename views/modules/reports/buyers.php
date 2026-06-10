@@ -45,15 +45,15 @@ $dontrepeatnames = array_unique($arrayCustomers);
 Customers
 ======================================-->
 
-<div class="box box-default">
+<div class="card">
 	
-	<div class="box-header with-border">
+	<div class="card-header">
     
-    	<h3 class="box-title">Customers</h3>
+    	<h3 class="card-title">Customers</h3>
   
   	</div>
 
-  	<div class="box-body">
+  	<div class="card-body">
   		
 		<div class="chart-responsive">
 			

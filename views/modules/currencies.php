@@ -30,9 +30,9 @@ $active = ControllerCurrencies::ctrOrgCurrencies();
       create invoices and quotations. To add or change currencies, please contact your provider.
     </div>
 
-    <div class="box box-success">
-      <div class="box-header with-border"><h3 class="box-title">Enabled currencies</h3></div>
-      <div class="box-body">
+    <div class="card card-success card-outline">
+      <div class="card-header"><h3 class="card-title">Enabled currencies</h3></div>
+      <div class="card-body">
         <table class="table table-striped">
           <thead><tr><th>Code</th><th>Name</th><th>Symbol</th><th>Role</th></tr></thead>
           <tbody>

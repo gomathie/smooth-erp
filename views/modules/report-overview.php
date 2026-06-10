@@ -29,7 +29,7 @@ $net = $income - $expensesTotal;
 ?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Business Overview <small>Report</small></h1>
+    <h1><?php echo t('Business Overview'); ?> <small><?php echo t('Report'); ?></small></h1>
     <ol class="breadcrumb">
       <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Business Overview</li>

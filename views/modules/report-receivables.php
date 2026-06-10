@@ -20,7 +20,7 @@ foreach ($invoices as $i) {
 ?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Receivables <small>Report</small></h1>
+    <h1><?php echo t('Receivables'); ?> <small><?php echo t('Report'); ?></small></h1>
     <ol class="breadcrumb"><li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li><li class="active">Receivables</li></ol>
   </section>
   <section class="content">

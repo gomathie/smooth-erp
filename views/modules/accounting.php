@@ -59,7 +59,7 @@ $accountTypeLabels = [
 <div class="content-wrapper">
 
   <section class="content-header">
-    <h1>Accounting</h1>
+    <h1><?php echo t('Accounting'); ?></h1>
     <ol class="breadcrumb">
       <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Accounting</li>

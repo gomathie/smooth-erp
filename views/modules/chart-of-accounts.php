@@ -26,7 +26,7 @@ $typeLabels = [
 <div class="content-wrapper">
 
   <section class="content-header">
-    <h1>Chart of Accounts</h1>
+    <h1><?php echo t('Chart of Accounts'); ?></h1>
     <ol class="breadcrumb">
       <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
       <li><a href="accounting">Accounting</a></li>

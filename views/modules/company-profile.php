@@ -19,7 +19,7 @@ function v($a, $k) { return htmlspecialchars($a[$k] ?? "", ENT_QUOTES); }
 <div class="content-wrapper">
 
   <section class="content-header">
-    <h1>Company Profile</h1>
+    <h1><?php echo t('Company Profile'); ?></h1>
     <ol class="breadcrumb">
       <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
       <li><a href="settings">Settings</a></li>

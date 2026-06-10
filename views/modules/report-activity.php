@@ -11,7 +11,7 @@ $actionLabels = [
 ?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Activity <small>Report</small></h1>
+    <h1><?php echo t('Activity'); ?> <small><?php echo t('Report'); ?></small></h1>
     <ol class="breadcrumb"><li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li><li class="active">Activity</li></ol>
   </section>
   <section class="content">

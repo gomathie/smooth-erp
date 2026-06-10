@@ -9,7 +9,7 @@ foreach ($sales as $s) { $total += (float)$s["totalPrice"]; $tax += (float)$s["t
 ?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Sales <small>Report</small></h1>
+    <h1><?php echo t('Sales'); ?> <small><?php echo t('Report'); ?></small></h1>
     <ol class="breadcrumb"><li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li><li class="active">Sales</li></ol>
   </section>
   <section class="content">

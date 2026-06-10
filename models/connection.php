@@ -4,6 +4,7 @@
 // AJAX endpoints), so load it alongside the DB layer.
 require_once __DIR__ . '/../helpers/tenant.php';
 require_once __DIR__ . '/../helpers/permission.php';
+require_once __DIR__ . '/../helpers/tenant_query.php';
 
 class Connection{
 

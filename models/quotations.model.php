@@ -20,16 +20,13 @@ class ModelQuotations {
 	 */
 	public static function mdlShowQuotations($item, $value) {
 
+		// Scoped by org automatically; column name is validated by Scope::col()
+		// (the previous {$item} interpolation was a latent injection point).
 		if ($item != null) {
-			$stmt = Connection::connect()->prepare("SELECT * FROM quotations WHERE {$item} = :{$item} AND idOrganization = " . (int)Tenant::id() . " ORDER BY id ASC");
-			$stmt->bindParam(":{$item}", $value, PDO::PARAM_STR);
-			$stmt->execute();
-			return $stmt->fetch();
+			return Scope::firstBy('quotations', $item, $value, 'id ASC');
 		}
 
-		$stmt = Connection::connect()->prepare("SELECT * FROM quotations WHERE idOrganization = " . (int)Tenant::id() . " ORDER BY id ASC");
-		$stmt->execute();
-		return $stmt->fetchAll();
+		return Scope::all('quotations', 'id ASC');
 
 	}
 
@@ -92,10 +89,7 @@ class ModelQuotations {
 
 	public static function mdlDeleteQuotation(int $id): string {
 
-		$stmt = Connection::connect()->prepare("DELETE FROM quotations WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
-		$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-
-		return $stmt->execute() ? "ok" : "error";
+		return Scope::deleteById('quotations', $id) ? "ok" : "error";
 
 	}
 

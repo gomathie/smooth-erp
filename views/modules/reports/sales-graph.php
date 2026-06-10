@@ -100,17 +100,18 @@ SALES GRAPH
     xkey             : 'y',
     ykeys            : ['Sales'],
     labels           : ['Sales'],
-    lineColors       : ['#efefef'],
-    lineWidth        : 2,
+    lineColors       : ['#ffffff'],
+    lineWidth        : 3,
     hideHover        : 'auto',
-    gridTextColor    : '#fff',
-    gridStrokeWidth  : 0.4,
-    pointSize        : 4,
-    pointStrokeColors: ['#efefef'],
-    gridLineColor    : '#efefef',
-    gridTextFamily   : 'Open Sans',
+    gridTextColor    : 'rgba(255,255,255,0.85)',
+    gridStrokeWidth  : 0.5,
+    pointSize        : 5,
+    pointFillColors  : ['#ffffff'],
+    pointStrokeColors: ['#e73827'],
+    gridLineColor    : 'rgba(255,255,255,0.18)',
+    gridTextFamily   : 'Source Sans Pro',
     preUnits         : '$',
-    gridTextSize     : 10
+    gridTextSize     : 11
   });
 
 </script>

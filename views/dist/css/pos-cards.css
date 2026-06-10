@@ -59,6 +59,27 @@
   color: #fff;
 }
 
+/* ── Gradient graph card (sales trend) ───────────────────────────────────────
+   The markup uses AdminLTE 2's .bg-red-gradient, which AdminLTE 4 dropped.
+   Style it as a modern high-contrast gradient panel with white chart text. */
+.card.bg-red-gradient {
+  background: linear-gradient(135deg, #f85032 0%, #e73827 100%) !important;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(231, 56, 39, .25);
+  overflow: hidden;
+}
+.card.bg-red-gradient > .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, .18);
+  color: #fff;
+}
+.card.bg-red-gradient .card-title,
+.card.bg-red-gradient .card-header > .fa { color: #fff; }
+/* Bolden the Morris trend line + soften its grid (data line gets lineWidth 3) */
+#line-chart-Sales svg path[stroke-width="3"] { filter: drop-shadow(0 3px 5px rgba(0, 0, 0, .18)); }
+
 /* ── Per-colour gradients (135deg). Override the flat compat fills. ───────── */
 .small-box.bg-green      { background: linear-gradient(135deg, #00a65a 0%, #20c997 100%) !important; }
 .small-box.bg-aqua       { background: linear-gradient(135deg, #00c0ef 0%, #36d1dc 100%) !important; }

@@ -49,14 +49,14 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
         <form method="post" role="form" class="form-inline">
           <div class="form-group">
             <label>Maximum organizations allowed&nbsp;</label>
-            <input type="number" min="1" class="form-control" name="maxOrganizations" value="<?php echo (int)$maxOrgs; ?>" style="width:90px;">
+            <input type="number" min="1" class="form-control" name="maxOrganizations" value="<?php echo (int)$maxOrgs; ?>">
           </div>
           <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-          <span style="padding-left:12px; color:#888;">
+          <span class="usage-indicator">
             Currently <strong><?php echo $orgsUsed; ?></strong> of <strong><?php echo (int)$maxOrgs; ?></strong> used.
           </span>
         </form>
-        <p class="help-block" style="margin-top:8px;">The default cap is 3 organizations. Each organization also has its own maximum number of users (set when onboarding or editing it).</p>
+        <p class="help-block">The default cap is 3 organizations. Each organization also has its own maximum number of users (set when onboarding or editing it).</p>
       </div>
     </div>
 

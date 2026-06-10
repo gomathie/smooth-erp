@@ -52,6 +52,7 @@
 
 /* ---- AdminLTE 4 dropped .content-wrapper; make it a passthrough inside
         .app-main, and give the page sections sensible padding. -------------- */
+main.app-main { padding: 1.5rem; }
 .content-wrapper { display: block; width: 100%; }
 .content-header  { padding: 1rem 1rem .5rem; }
 .content-header h1 { margin: 0; font-size: 1.6rem; font-weight: 300; }

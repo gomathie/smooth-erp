@@ -208,7 +208,22 @@
 
       if(isset($_GET["route"])){
 
-        if ($_GET["route"] == 'home' || 
+        // Accounting reports: routes like 'accounting-general-ledger' map to accounting-reports/general-ledger.php
+        $acctReportMap = array(
+          'accounting-general-ledger'     => 'accounting-reports/general-ledger',
+          'accounting-profit-loss'        => 'accounting-reports/profit-loss',
+          'accounting-balance-sheet'      => 'accounting-reports/balance-sheet',
+          'accounting-trial-balance'      => 'accounting-reports/trial-balance',
+          'accounting-accounts-receivable'=> 'accounting-reports/accounts-receivable',
+          'accounting-accounts-payable'   => 'accounting-reports/accounts-payable',
+          'accounting-cash-flow'          => 'accounting-reports/cash-flow',
+          'accounting-expense-breakdown'  => 'accounting-reports/expense-breakdown',
+          'accounting-inventory-valuation'=> 'accounting-reports/inventory-valuation',
+        );
+        $route = $_GET["route"];
+        if (isset($acctReportMap[$route])) {
+          include "modules/" . $acctReportMap[$route] . ".php";
+        } elseif ($_GET["route"] == 'home' || 
             $_GET["route"] == 'users' ||
             $_GET["route"] == 'categories' ||
             $_GET["route"] == 'products' ||
@@ -227,6 +242,7 @@
             $_GET["route"] == 'invoice-detail' ||
             $_GET["route"] == 'customer-statement' ||
             $_GET["route"] == 'accounting' ||
+            $_GET["route"] == 'reports-center' ||
             $_GET["route"] == 'expenses' ||
             $_GET["route"] == 'chart-of-accounts' ||
             $_GET["route"] == 'settings' ||

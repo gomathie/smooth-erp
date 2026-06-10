@@ -10,78 +10,87 @@ $colours = array("red","green","yellow","aqua","purple","blue","cyan","magenta",
 
 $salesTotal = ControllerProducts::ctrShowAddingOfTheSales();
 
+$chartColours = ["#ef4444","#10b981","#f59e0b","#06b6d4","#8b5cf6","#3b82f6","#06b6d4","#ec4899","#f97316","#eab308"];
 
 ?>
 
 <!--=====================================
-products MÁS VENDIDOS
+Bestseller Products
 ======================================-->
-<!--  -->
-<div class="card">
-	
+<div class="card bestseller-card">
+
 	<div class="card-header with-bvalue">
-  
+
       <h3 class="card-title">Bestseller Products</h3>
 
     </div>
 
 	<div class="card-body">
-    
+
       	<div class="row">
 
-	        <div class="col-md-7">
+	        <div class="col-md-12">
 
-	 			<div class="chart-responsive">
-	            
-	            	<canvas id="pieChart" height="150"></canvas>
-	          
+	 			<div class="chart-responsive" id="barChartContainer">
+	 				<div class="bar-chart">
+	 				<?php
+	 				$maxVal = 0;
+	 				for($i = 0; $i < 5; $i++){
+	 				    $pct = ceil($products[$i]["sales"]*100/$salesTotal["total"]);
+	 				    if($pct > $maxVal) $maxVal = $pct;
+	 				}
+	 				$scale = $maxVal > 0 ? 200 / $maxVal : 1;
+
+	 				for($i = 0; $i < 5; $i++):
+	 				    $pct = ceil($products[$i]["sales"]*100/$salesTotal["total"]);
+	 				    $barH = round($pct * $scale);
+	 				    $colour = $chartColours[$i % count($chartColours)];
+	 				?>
+	 				<div class="bar-column">
+	 					<div class="bar-value" style="color:<?php echo $colour; ?>"><?php echo $pct; ?>%</div>
+	 					<div class="bar-track">
+	 						<div class="bar-fill" style="height:<?php echo $barH; ?>px; background:<?php echo $colour; ?>;"></div>
+	 					</div>
+	 					<div class="bar-label"><?php echo $products[$i]["description"]; ?></div>
+	 				</div>
+	 				<?php endfor; ?>
+	 				</div>
+
 	          	</div>
 
 	        </div>
 
-		    <div class="col-md-5">
-		      	
-		  	 	<ul class="chart-legend clearfix">
-
-		  	 	<?php
-
-					for($i = 0; $i < 10; $i++){
-
-					echo ' <li><i class="fa fa-circle-o text-'.$colours[$i].'"></i> '.$products[$i]["description"].'</li>';
-
-					}
-
-
-		  	 	?>
-
-
-		  	 	</ul>
-
-		    </div>
-
 		</div>
 
     </div>
-	<!--  -->
-    <div class="card-footer no-padding">
-    	
-		<ul class="nav nav-pills nav-stacked">
-			
+
+    <div class="card-footer">
+
+		<ul class="nav">
+
 			 <?php
 
-          	for($i = 0; $i <5; $i++){
-			
+          	for($i = 0; $i < 5; $i++){
+
+          		$pct = ceil($products[$i]["sales"]*100/$salesTotal["total"]);
+          		$colour = $colours[$i % count($colours)];
+
           		echo '<li>
-						 
-						 <a>
 
-						 <img src="'.$products[$i]["image"].'" class="img-thumbnail" width="60px" style="margin-right:10px"> 
-						 '.$products[$i]["description"].'
+						 <a href="#">
 
-						 <span class="float-end text-'.$colours[$i].'">   
-						 '.ceil($products[$i]["sales"]*100/$salesTotal["total"]).'%
+						 <img src="'.$products[$i]["image"].'" class="img-thumbnail" alt="'.$products[$i]["description"].'">
+
+						 <span class="product-label">'.$products[$i]["description"].'</span>
+
+						 <span class="percentage-badge text-'.$colour.'">
+						 '.$pct.'%
 						 </span>
-							
+
+						 <div class="progress-tile">
+						   <div class="progress-bar-tile bg-'.$colour.'" style="width: '.$pct.'%"></div>
+						 </div>
+
 						 </a>
 
       				</li>';
@@ -90,71 +99,8 @@ products MÁS VENDIDOS
 
 			?>
 
-
 		</ul>
 
     </div>
 
 </div>
-
-<script>
-	
-
-  // -------------
-  // - PIE CHART -
-  // -------------
-  // Get context with jQuery - using jQuery's .get() method.
-  var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
-  var pieChart       = new Chart(pieChartCanvas);
-  var PieData        = [
-
-  <?php
-
-  for($i = 0; $i < 10; $i++){
-
-  	echo "{
-      value    : ".$products[$i]["sales"].",
-      color    : '".$colours[$i]."',
-      highlight: '".$colours[$i]."',
-      label    : '".$products[$i]["description"]."'
-    },";
-
-  }
-    
-   ?>
-  ];
-  var pieOptions     = {
-    // Boolean - Whether we should show a stroke on each segment
-    segmentShowStroke    : true,
-    // String - The colour of each segment stroke
-    segmentStrokeColor   : '#fff',
-    // Number - The width of each segment stroke
-    segmentStrokeWidth   : 1,
-    // Number - The percentage of the chart that we cut out of the middle
-    percentageInnerCutout: 50, // This is 0 for Pie charts
-    // Number - Amount of animation steps
-    animationSteps       : 100,
-    // String - Animation easing effect
-    animationEasing      : 'easeOutBounce',
-    // Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate        : true,
-    // Boolean - Whether we animate scaling the Doughnut from the centre
-    animateScale         : false,
-    // Boolean - whether to make the chart responsive to window resizing
-    responsive           : true,
-    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-    maintainAspectRatio  : false,
-    // String - A legend template
-    legendTemplate       : '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<segments.length; i++){%><li><span style=\'background-color:<%=segments[i].fillColor%>\'></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>',
-    // String - A tooltip template
-    tooltipTemplate      : '<%=value %> <%=label%>'
-  };
-  // Create pie or douhnut chart
-  // You can switch between pie and douhnut using the method below.
-  pieChart.Doughnut(PieData, pieOptions);
-  // -----------------
-  // - END PIE CHART -
-  // -----------------
-
-
-</script>

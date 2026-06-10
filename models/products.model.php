@@ -24,7 +24,7 @@ class ProductsModel{
 	=============================================*/
 	static public function mdlAddProduct($table, $data){
 
-		$stmt = Connection::connect()->prepare("INSERT INTO $table(idCategory, type, code, description, image, stock, buyingPrice, sellingPrice, idOrganization) VALUES (:idCategory, :type, :code, :description, :image, :stock, :buyingPrice, :sellingPrice, :__org)");
+		$stmt = Connection::connect()->prepare("INSERT INTO $table(idCategory, type, code, description, image, stock, buyingPrice, sellingPrice, sales, idOrganization) VALUES (:idCategory, :type, :code, :description, :image, :stock, :buyingPrice, :sellingPrice, 0, :__org)");
 
 		$stmt->bindValue(":__org", Tenant::id(), PDO::PARAM_INT);
 		$stmt->bindParam(":idCategory", $data["idCategory"], PDO::PARAM_INT);

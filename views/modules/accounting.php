@@ -76,6 +76,7 @@ $accountTypeLabels = [
       </div>
     </div>
 
+
     <!-- KPI CARDS -->
     <div class="row">
       <div class="col-md-3 col-sm-6">

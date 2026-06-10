@@ -90,6 +90,14 @@ if (Permission::has("sales")) {
     </li>';
 }
 
+          /* REPORTS CENTER (top-level link) */
+          if (Permission::has("reports") || Permission::has("accounting")) {
+            echo '
+              <li class="nav-item">
+                <a href="index.php?route=reports-center" class="nav-link"><i class="nav-icon fa fa-bar-chart"></i><p>' . t('Reports Center') . '</p></a>
+              </li>';
+          }
+
           /* REPORTS (treeview) */
           if (Permission::has("reports")) {
             $acct = ControllerSettings::ctrAccountingEnabled();

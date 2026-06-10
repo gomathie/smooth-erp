@@ -147,13 +147,14 @@ class ModelOrganizations {
 	}
 
 	/*=============================================
-	SEED A NEW ORG'S CHART OF ACCOUNTS (clone the default org's chart)
+	SEED A NEW ORG'S CHART OF ACCOUNTS (clone only user-defined accounts)
+	System accounts (isSystem=1) are now GLOBAL and shared across all orgs.
 	=============================================*/
 
 	public static function mdlSeedAccounts(int $idOrg): void {
 		$stmt = Connection::connect()->prepare(
 			"INSERT INTO accounts (code, name, type, isSystem, idOrganization)
-			 SELECT code, name, type, isSystem, :idOrg FROM accounts WHERE idOrganization = 1"
+			 SELECT code, name, type, isSystem, :idOrg FROM accounts WHERE idOrganization = 1 AND isSystem = 0"
 		);
 		$stmt->bindParam(":idOrg", $idOrg, PDO::PARAM_INT);
 		$stmt->execute();

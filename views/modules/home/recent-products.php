@@ -15,7 +15,7 @@ $products = ControllerProducts::ctrShowProducts($item, $value, $order);
 
     <h3 class="card-title">Recently Added Products</h3>
 
-    <div class="card-tools float-end">
+    <div class="card-tools">
 
       <button type="button" class="btn btn-box-tool" data-widget="collapse">
 
@@ -32,7 +32,7 @@ $products = ControllerProducts::ctrShowProducts($item, $value, $order);
     </div>
 
   </div>
-  <!--  -->
+
   <div class="card-body">
 
     <ul class="products-list product-list-in-box">
@@ -55,7 +55,7 @@ $products = ControllerProducts::ctrShowProducts($item, $value, $order);
 
             '.$products[$i]["description"].'
 
-            <span class="badge text-bg-warning float-end">$'.$products[$i]["sellingPrice"].'</span>
+            <span class="badge text-bg-warning">$'.$products[$i]["sellingPrice"].'</span>
 
           </a>
     
@@ -73,9 +73,9 @@ $products = ControllerProducts::ctrShowProducts($item, $value, $order);
 
   <div class="card-footer text-center">
 
-    <a href="products" class="uppercase">View All Products</a>
+    <a href="products">View All Products</a>
   
   </div>
-	<!--  -->
+
 </div>
 

@@ -127,7 +127,7 @@
 
                         </select>
 
-                        <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalAddCustomer" data-dismiss="modal">Add Customer</button></span>
+                        <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer" data-bs-dismiss="modal">Add Customer</button></span>
 
                       </div>
 					<!--  -->
@@ -379,7 +379,7 @@
     <div class="modal-content">
       <form role="form" method="POST">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Customer</h4>
         </div>
         <div class="modal-body">
@@ -437,7 +437,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Customer</button>
         </div>
       </form><!--  -->

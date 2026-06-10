@@ -66,7 +66,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
           <button class="btn btn-success" disabled title="Organization limit reached"><i class="fa fa-plus"></i> Onboard Organization</button>
           <span class="text-danger" style="padding-left:8px;"><i class="fa fa-exclamation-triangle"></i> Limit reached — raise the cap above to add more.</span>
         <?php } else { ?>
-          <button class="btn btn-success" data-toggle="modal" data-target="#modalAddOrg"><i class="fa fa-plus"></i> Onboard Organization</button>
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddOrg"><i class="fa fa-plus"></i> Onboard Organization</button>
         <?php } ?>
         <span class="pull-right" style="padding-top:6px;"><?php echo $orgsUsed; ?> organization(s)</span>
       </div>
@@ -137,7 +137,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
     <div class="modal-content">
       <form method="post" role="form">
         <div class="modal-header" style="background:#00a65a; color:#fff;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Onboard Organization</h4>
         </div>
         <div class="modal-body">
@@ -166,7 +166,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Create</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -179,7 +179,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
     <div class="modal-content">
       <form method="post" role="form">
         <div class="modal-header" style="background:#3c8dbc; color:#fff;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Edit Organization</h4>
         </div>
         <div class="modal-body">
@@ -196,7 +196,7 @@ function currencyOptions(array $currencies, string $selected = "USD"): string {
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -213,6 +213,6 @@ $(document).on("click", ".btnEditOrg", function(){
   $("#editOrgBaseCurrency").val($(this).data("currency"));
   $("#editOrgMaxUsers").val($(this).data("maxusers"));
   $("#editOrgStatus").val(String($(this).data("status")));
-  $("#modalEditOrg").modal("show");
+  bootstrap.Modal.getOrCreateInstance(document.getElementById("modalEditOrg")).show();
 });
 </script>

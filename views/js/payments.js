@@ -14,7 +14,7 @@ $(document).on("click", ".btnEditPayment", function () {
     $("#editPaymentReference").val($(this).data("reference"));
     $("#editPaymentNotes").val($(this).data("notes"));
 
-    $("#modalEditPayment").modal("show");
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("modalEditPayment")).show();
 
 });
 

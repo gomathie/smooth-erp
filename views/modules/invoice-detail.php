@@ -93,7 +93,7 @@ $paymentModeMap = [
     <div class="row">
       <div class="col-xs-12" style="margin-bottom:15px;">
         <?php if ($balance > 0) { ?>
-          <button class="btn btn-success" data-toggle="modal" data-target="#modalRecordPayment">
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRecordPayment">
             <i class="fa fa-money"></i> Record Payment
           </button>
         <?php } ?>
@@ -284,7 +284,7 @@ $paymentModeMap = [
     <div class="modal-content">
       <form role="form" method="post">
         <div class="modal-header" style="background:#00a65a; color:#fff;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Record Payment</h4>
         </div>
         <div class="modal-body">
@@ -326,7 +326,7 @@ $paymentModeMap = [
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Save Payment</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -339,7 +339,7 @@ $paymentModeMap = [
     <div class="modal-content">
       <form role="form" method="post">
         <div class="modal-header" style="background:#3c8dbc; color:#fff;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Edit Payment</h4>
         </div>
         <div class="modal-body">
@@ -381,7 +381,7 @@ $paymentModeMap = [
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Update Payment</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

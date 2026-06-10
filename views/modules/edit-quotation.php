@@ -89,7 +89,7 @@ $items         = json_decode($quote["items"], true) ?: [];
                       <option value="<?php echo $thisCustomer["id"]; ?>"><?php echo htmlspecialchars($thisCustomer["name"]); ?></option>
                       <?php foreach ($allCustomers as $c) { echo '<option value="'.$c["id"].'">'.htmlspecialchars($c["name"]).'</option>'; } ?>
                     </select>
-                    <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalAddCustomer">Add</button></span>
+                    <span class="input-group-addon"><button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAddCustomer">Add</button></span>
                   </div>
                 </div>
 
@@ -264,7 +264,7 @@ $items         = json_decode($quote["items"], true) ?: [];
     <div class="modal-content">
       <form role="form" method="POST">
         <div class="modal-header" style="background: #DD4B39; color: #fff">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Customer</h4>
         </div>
         <div class="modal-body">
@@ -279,7 +279,7 @@ $items         = json_decode($quote["items"], true) ?: [];
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save Customer</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
         <?php
           $createCustomer = new ControllerCustomers();

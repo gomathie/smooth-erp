@@ -53,7 +53,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
       <div class="box-header with-border">
 
-        <button class="btn btn-success" data-toggle="modal" data-target="#addUser">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUser">
 
          <i class="fa fa-plus"></i> Add User
 
@@ -133,7 +133,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
                       <div class="btn-group">
                           
-                        <button class="btn btn-primary btnEditUser" idUser="'.$value["id"].'" data-toggle="modal" data-target="#editUser"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-primary btnEditUser" idUser="'.$value["id"].'" data-bs-toggle="modal" data-bs-target="#editUser"><i class="fa fa-pencil"></i></button>
 
                         <button class="btn btn-danger btnDeleteUser" userId="'.$value["id"].'" username="'.$value["user"].'" userPhoto="'.$value["photo"].'"><i class="fa fa-trash"></i></button>
 
@@ -180,7 +180,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
         <div class="modal-header" style="background: #DD4B39; color: #fff">
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Add User</h4>
 
@@ -303,7 +303,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save</button>
           
@@ -345,7 +345,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
         <div class="modal-header" style="background: #DD4B39; color: #fff">
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Edit User</h4>
 
@@ -472,7 +472,7 @@ window.PERM_KEYS     = <?php echo json_encode(Permission::KEYS); ?>;
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Edit User</button>
           

@@ -104,8 +104,6 @@
 
   <!-- Bootstrap 5.3 bundle (includes Popper) -->
   <script src="views/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
-  <!-- Legacy data-API -> BS5 bridge (keeps data-toggle/target/dismiss working) -->
-  <script src="views/js/bs3-bridge.js"></script>
 
   <!-- FastClick -->
   <script src="views/bower_components/fastclick/lib/fastclick.js"></script>

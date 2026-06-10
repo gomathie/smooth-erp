@@ -55,10 +55,10 @@ $stock = "<button class='btn btn-success'>" . $products[$i]["stock"] . "</button
  ACTION BUTTONS
  =============================================*/ 
 if (isset($_GET["hiddenProfile"]) && $_GET["hiddenProfile"] == "Special") {
-$buttons = "<div class='btn-group'><button class='btn btn-primary btnEditProduct' idProduct='" . $products[$i]["id"] . "' data-toggle='modal' data-target='#modalEditProduct'><i class='fa fa-pencil'></i></button></div>";
+$buttons = "<div class='btn-group'><button class='btn btn-primary btnEditProduct' idProduct='" . $products[$i]["id"] . "' data-bs-toggle='modal' data-bs-target='#modalEditProduct'><i class='fa fa-pencil'></i></button></div>";
 }
 else{
-$buttons = "<div class='btn-group'><button class='btn btn-primary btnEditProduct' idProduct='" . $products[$i]["id"] . "' data-toggle='modal' data-target='#modalEditProduct'><i class='fa fa-pencil'></i></button><button class='btn btn-danger btnDeleteProduct' idProduct='" . $products[$i]["id"] . "' code='" . $products[$i]["code"] . "' image='" . $products[$i]["image"] . "'><i class='fa fa-trash'></i></button></div>";
+$buttons = "<div class='btn-group'><button class='btn btn-primary btnEditProduct' idProduct='" . $products[$i]["id"] . "' data-bs-toggle='modal' data-bs-target='#modalEditProduct'><i class='fa fa-pencil'></i></button><button class='btn btn-danger btnDeleteProduct' idProduct='" . $products[$i]["id"] . "' code='" . $products[$i]["code"] . "' image='" . $products[$i]["image"] . "'><i class='fa fa-trash'></i></button></div>";
 }
 
 $data[] = [

@@ -50,7 +50,7 @@ if (!function_exists('expenseAccountOptions')) {
 
     <div class="box">
       <div class="box-header with-border">
-        <button class="btn btn-success" data-toggle="modal" data-target="#modalAddExpense">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddExpense">
           <i class="fa fa-plus"></i> Record Expense
         </button>
         <span class="pull-right" style="font-size:16px; padding-top:6px;">
@@ -114,7 +114,7 @@ if (!function_exists('expenseAccountOptions')) {
     <div class="modal-content">
       <form method="post" role="form">
         <div class="modal-header" style="background:#00a65a; color:#fff;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Record Expense</h4>
         </div>
         <div class="modal-body">
@@ -166,7 +166,7 @@ if (!function_exists('expenseAccountOptions')) {
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Save Expense</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>
@@ -179,7 +179,7 @@ if (!function_exists('expenseAccountOptions')) {
     <div class="modal-content">
       <form method="post" role="form">
         <div class="modal-header" style="background:#3c8dbc; color:#fff;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
           <h4 class="modal-title">Edit Expense</h4>
         </div>
         <div class="modal-body">
@@ -229,7 +229,7 @@ if (!function_exists('expenseAccountOptions')) {
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Update Expense</button>
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

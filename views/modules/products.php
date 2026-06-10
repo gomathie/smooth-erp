@@ -39,7 +39,7 @@ if(!Permission::has("products")){
 
       <div class="box-header with-border">
 
-        <button class="btn btn-success" data-toggle="modal" data-target="#addProduct"> <i class="fa fa-plus"></i> Add Product</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProduct"> <i class="fa fa-plus"></i> Add Product</button>
 
       </div>
 
@@ -99,7 +99,7 @@ if(!Permission::has("products")){
 
         <div class="modal-header" style="background: #DD4B39; color: #fff">
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Add Product</h4>
 
@@ -285,7 +285,7 @@ if(!Permission::has("products")){
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save Product</button>
 
@@ -328,7 +328,7 @@ EDIT PRODUCT
 
         <div class="modal-header" style="background:#DD4B39; color:white">
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Edit product</h4>
 
@@ -501,7 +501,7 @@ EDIT PRODUCT
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Close</button>
 
           <button type="submit" class="btn btn-success">Save Changes</button>
 

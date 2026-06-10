@@ -1,0 +1,88 @@
+/* =============================================================================
+   POS Theme Engine — AdminLTE 3 edition
+   -----------------------------------------------------------------------------
+   Same CSS variables as before (set by themes.config.js: --pos-primary,
+   --pos-primary-dark, --pos-sidebar-bg, --pos-sidebar-text, --pos-sidebar-hover)
+   but targeting AdminLTE 3 / Bootstrap 4 markup instead of AdminLTE 2.
+   Keeps the existing 12-theme picker working after the shell upgrade.
+
+   Load AFTER adminlte.min.css.
+   ============================================================================= */
+
+/* ── Top navbar ───────────────────────────────────────────────── */
+.main-header.navbar {
+  background-color: var(--pos-primary) !important;
+  border-bottom: 0 !important;
+}
+.main-header.navbar .nav-link,
+.main-header.navbar .navbar-nav .nav-link,
+.main-header.navbar .navbar-nav > .nav-item > .nav-link > i {
+  color: #ffffff !important;
+}
+.main-header.navbar .nav-link:hover,
+.main-header.navbar .nav-link:focus {
+  background: rgba(0,0,0,.10) !important;
+  color: #f0f0f0 !important;
+}
+
+/* ── Brand / logo bar ─────────────────────────────────────────── */
+.brand-link {
+  background-color: var(--pos-primary-dark) !important;
+  color: #ffffff !important;
+  border-bottom: 0 !important;
+}
+.brand-link .brand-text { color: #ffffff !important; }
+.brand-link:hover { filter: brightness(.95); }
+
+/* ── Sidebar panel ────────────────────────────────────────────── */
+.main-sidebar {
+  background-color: var(--pos-sidebar-bg) !important;
+}
+
+/* ── Sidebar links + icons ────────────────────────────────────── */
+.nav-sidebar .nav-link,
+.nav-sidebar .nav-link p,
+.nav-sidebar .nav-icon {
+  color: var(--pos-sidebar-text) !important;
+}
+.nav-sidebar .nav-header {
+  color: var(--pos-sidebar-text) !important;
+  opacity: .6;
+}
+
+/* ── Sidebar hover ────────────────────────────────────────────── */
+.nav-sidebar > .nav-item > .nav-link:hover,
+.nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
+  background-color: var(--pos-sidebar-hover) !important;
+  color: var(--pos-sidebar-text) !important;
+}
+
+/* ── Sidebar active item ──────────────────────────────────────── */
+.nav-sidebar .nav-link.active,
+.nav-sidebar > .nav-item.menu-open > .nav-link {
+  background-color: var(--pos-primary) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+.nav-sidebar .nav-link.active p,
+.nav-sidebar .nav-link.active .nav-icon,
+.nav-sidebar > .nav-item.menu-open > .nav-link p,
+.nav-sidebar > .nav-item.menu-open > .nav-link .nav-icon { color: #ffffff !important; }
+
+/* ── Treeview submenu ─────────────────────────────────────────── */
+.nav-sidebar .nav-treeview {
+  background-color: var(--pos-sidebar-bg) !important;
+  filter: brightness(.97);
+}
+.nav-sidebar .nav-treeview .nav-link { color: var(--pos-sidebar-text) !important; opacity: .9; }
+.nav-sidebar .nav-treeview .nav-link.active {
+  background-color: var(--pos-sidebar-hover) !important;
+  color: var(--pos-sidebar-text) !important;
+  opacity: 1;
+}
+
+/* ── Box compat top accent uses the theme primary ─────────────── */
+.box.box-primary { border-top-color: var(--pos-primary) !important; }
+
+/* ── Reset margins ────────────────────────────────────────────── */
+html, body { margin: 0 !important; padding: 0 !important; }

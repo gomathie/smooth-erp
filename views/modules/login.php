@@ -20,12 +20,9 @@
 
       <input type="hidden" name="_csrf" value="<?php echo h($_SESSION['csrf_token'] ?? ''); ?>">
 
-      <div class="form-group has-feedback">
-
+      <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Username or email" name="resetIdentifier" required>
-
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-
+        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-envelope"></span></div></div>
       </div>
 
       <div class="row">
@@ -53,20 +50,14 @@
       <input type="hidden" name="_csrf" value="<?php echo h($_SESSION['csrf_token'] ?? ''); ?>">
       <input type="hidden" name="resetToken" value="<?php echo h($_GET['token'] ?? ''); ?>">
 
-      <div class="form-group has-feedback">
-
+      <div class="input-group mb-3">
         <input type="password" class="form-control" placeholder="New password" name="newPassword" minlength="6" maxlength="72" required>
-
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-
+        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-lock"></span></div></div>
       </div>
 
-      <div class="form-group has-feedback">
-
+      <div class="input-group mb-3">
         <input type="password" class="form-control" placeholder="Confirm password" name="confirmPassword" minlength="6" maxlength="72" required>
-
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-
+        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-lock"></span></div></div>
       </div>
 
       <div class="row">
@@ -93,20 +84,14 @@
 
       <input type="hidden" name="_csrf" value="<?php echo h($_SESSION['csrf_token'] ?? ''); ?>">
 
-      <div class="form-group has-feedback">
-
+      <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="<?php echo htmlspecialchars(t('Username')); ?>" name="loginUser" required>
-
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-
+        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-user"></span></div></div>
       </div>
 
-      <div class="form-group has-feedback">
-
+      <div class="input-group mb-3">
         <input type="password" class="form-control" placeholder="<?php echo htmlspecialchars(t('Password')); ?>" name="loginPass" required>
-
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-
+        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-lock"></span></div></div>
       </div>
 
       <div class="row">

@@ -1,0 +1,69 @@
+/* =============================================================================
+   POS Theme Engine — AdminLTE 4 / Bootstrap 5 edition
+   -----------------------------------------------------------------------------
+   Same CSS variables from themes.config.js, retargeted to AdminLTE 4 markup
+   (.app-header, .app-sidebar, .sidebar-menu, .sidebar-brand). Keeps the 12-theme
+   picker working. Load AFTER adminlte.min.css (AdminLTE 4).
+   ============================================================================= */
+
+/* ── Top navbar ───────────────────────────────────────────────── */
+.app-header.navbar {
+  background-color: var(--pos-primary) !important;
+  border-bottom: 0 !important;
+}
+.app-header.navbar .nav-link,
+.app-header.navbar .navbar-nav .nav-link,
+.app-header.navbar .navbar-nav > .nav-item > .nav-link > i { color: #ffffff !important; }
+.app-header.navbar .nav-link:hover,
+.app-header.navbar .nav-link:focus { background: rgba(0,0,0,.10) !important; color: #f0f0f0 !important; }
+
+/* ── Sidebar brand / logo ─────────────────────────────────────── */
+.app-sidebar .sidebar-brand,
+.app-sidebar .brand-link {
+  background-color: var(--pos-primary-dark) !important;
+  color: #ffffff !important;
+}
+.app-sidebar .brand-link .brand-text { color: #ffffff !important; }
+
+/* ── Sidebar panel ────────────────────────────────────────────── */
+.app-sidebar {
+  background-color: var(--pos-sidebar-bg) !important;
+}
+
+/* ── Sidebar links + icons ────────────────────────────────────── */
+.app-sidebar .sidebar-menu .nav-link,
+.app-sidebar .sidebar-menu .nav-link p,
+.app-sidebar .sidebar-menu .nav-icon,
+.app-sidebar .sidebar-menu .nav-arrow { color: var(--pos-sidebar-text) !important; }
+.app-sidebar .nav-header { color: var(--pos-sidebar-text) !important; opacity: .6; }
+
+/* ── Sidebar hover ────────────────────────────────────────────── */
+.app-sidebar .sidebar-menu .nav-link:hover,
+.app-sidebar .nav-treeview .nav-link:hover {
+  background-color: var(--pos-sidebar-hover) !important;
+  color: var(--pos-sidebar-text) !important;
+}
+
+/* ── Sidebar active item ──────────────────────────────────────── */
+.app-sidebar .sidebar-menu .nav-link.active,
+.app-sidebar .sidebar-menu > .nav-item.menu-open > .nav-link {
+  background-color: var(--pos-primary) !important;
+  color: #ffffff !important;
+}
+.app-sidebar .sidebar-menu .nav-link.active p,
+.app-sidebar .sidebar-menu .nav-link.active .nav-icon,
+.app-sidebar .sidebar-menu .nav-link.active .nav-arrow { color: #ffffff !important; }
+
+/* ── Treeview submenu ─────────────────────────────────────────── */
+.app-sidebar .nav-treeview { background-color: var(--pos-sidebar-bg) !important; filter: brightness(.97); }
+.app-sidebar .nav-treeview .nav-link { color: var(--pos-sidebar-text) !important; opacity: .9; }
+.app-sidebar .nav-treeview .nav-link.active {
+  background-color: var(--pos-sidebar-hover) !important;
+  color: var(--pos-sidebar-text) !important;
+  opacity: 1;
+}
+
+/* ── Box compat accent uses the theme primary ─────────────────── */
+.box.box-primary { border-top-color: var(--pos-primary) !important; }
+
+html, body { margin: 0 !important; padding: 0 !important; }

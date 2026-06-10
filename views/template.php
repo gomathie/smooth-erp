@@ -56,8 +56,10 @@
   <!--=================================
   =            Plugins CSS            =
   ==================================-->
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="views/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Bootstrap 5.3 (migrated from Bootstrap 4.6) -->
+  <link rel="stylesheet" href="views/vendor/bootstrap5/css/bootstrap.min.css">
+  <!-- Bootstrap 4 -> 5 compatibility layer -->
+  <link rel="stylesheet" href="views/dist/css/bs5-compat.css">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css">
@@ -65,11 +67,13 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="views/bower_components/Ionicons/css/ionicons.min.css">
   
-  <!-- Theme style -->
-  <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
+  <!-- AdminLTE 4 theme (migrated from AdminLTE 3.2) -->
+  <link rel="stylesheet" href="views/vendor/adminlte4/css/adminlte.min.css">
+  <!-- AdminLTE 2 box -> card + legacy class compatibility -->
+  <link rel="stylesheet" href="views/dist/css/alte2-box-compat.css">
 
-  <!-- POS custom theme engine (CSS variables — edit themes.config.js, not this) -->
-  <link rel="stylesheet" href="views/dist/css/pos-themes.css">
+  <!-- POS custom theme engine for AdminLTE 4 (CSS variables — edit themes.config.js) -->
+  <link rel="stylesheet" href="views/dist/css/pos-themes-alte4.css">
 
   <!-- themes.config.js must run in <head> to set CSS vars before first paint -->
   <script src="views/js/themes.config.js"></script>
@@ -77,9 +81,9 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> 
 
-   <!-- DataTables -->
-  <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-  <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+   <!-- DataTables (Bootstrap 5 integration) -->
+  <link rel="stylesheet" href="views/vendor/datatables-bs5/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="views/vendor/datatables-bs5/css/responsive.bootstrap5.min.css">
 
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="views/plugins/iCheck/all.css">
@@ -98,20 +102,22 @@
   <!-- jQuery 3 -->
   <script src="views/bower_components/jquery/dist/jquery.min.js"></script>
 
-  <!-- Bootstrap 3.3.7 -->
-  <script src="views/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Bootstrap 5.3 bundle (includes Popper) -->
+  <script src="views/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
+  <!-- Legacy data-API -> BS5 bridge (keeps data-toggle/target/dismiss working) -->
+  <script src="views/js/bs3-bridge.js"></script>
 
   <!-- FastClick -->
   <script src="views/bower_components/fastclick/lib/fastclick.js"></script>
 
-  <!-- AdminLTE App -->
-  <script src="views/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE 4 App -->
+  <script src="views/vendor/adminlte4/js/adminlte.min.js"></script>
 
    <!-- DataTables -->
   <script src="views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script src="views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="views/vendor/datatables-bs5/js/dataTables.bootstrap5.min.js"></script>
   <script src="views/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
-  <script src="views/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
+  <script src="views/vendor/datatables-bs5/js/responsive.bootstrap5.min.js"></script>
 
   <!-- sweet alert -->
   <script src="views/plugins/sweetalert2/sweetalert2.all.js"></script>
@@ -144,8 +150,8 @@
 
 <?php
   $bodyClass = (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == "ok")
-    ? 'hold-transition fixed sidebar-collapse sidebar-mini'
-    : 'hold-transition login-page';
+    ? 'layout-fixed sidebar-expand-lg bg-body-tertiary'
+    : 'login-page';
 ?>
 
 <body class="<?php echo $bodyClass; ?>">
@@ -156,7 +162,7 @@
 
     if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == "ok"){
 
-      echo '<div class="wrapper">';
+      echo '<div class="app-wrapper">';
 
       /*=============================================
       =     Super Admin context handling           =
@@ -182,6 +188,8 @@
       =============================================*/ 
 
       include "modules/sidebar.php";
+
+      echo '<main class="app-main">';
 
       /*=============================================
       =     Entered-org banner (Super Admin)       =
@@ -251,9 +259,11 @@
       
       }
  
+      echo '</main>';
+
       /*=============================================
       =            Footer          =
-      =============================================*/ 
+      =============================================*/
 
       include "modules/footer.php";
 

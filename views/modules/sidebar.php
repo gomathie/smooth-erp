@@ -90,30 +90,12 @@ if (Permission::has("sales")) {
     </li>';
 }
 
-          /* REPORTS CENTER (treeview) — landing page + all reports consolidated under it */
+          /* REPORTS CENTER — single entry; individual reports live under the
+             report categories inside the Reports Center page itself. */
           if (Permission::has("reports") || Permission::has("accounting")) {
-            $acct = ControllerSettings::ctrAccountingEnabled();
-
-            // Reports Center landing first, then every report after it.
-            $reportItems = '<li class="nav-item"><a href="index.php?route=reports-center" class="nav-link"><i class="nav-icon fa fa-th-large"></i><p>' . t('Overview') . '</p></a></li>';
-
-            if (Permission::has("reports")) {
-              if ($acct) { $reportItems .= '<li class="nav-item"><a href="report-overview" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Business Overview') . '</p></a></li>'; }
-              $reportItems .= '<li class="nav-item"><a href="report-sales" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Sales') . '</p></a></li>';
-              $reportItems .= '<li class="nav-item"><a href="report-inventory" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Inventory') . '</p></a></li>';
-              if ($acct) {
-                $reportItems .= '<li class="nav-item"><a href="report-payables" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Payables') . '</p></a></li>';
-                $reportItems .= '<li class="nav-item"><a href="report-receivables" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Receivables') . '</p></a></li>';
-                $reportItems .= '<li class="nav-item"><a href="report-payments" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Payments Received') . '</p></a></li>';
-              }
-              $reportItems .= '<li class="nav-item"><a href="report-activity" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Activity') . '</p></a></li>';
-              if ($acct) { $reportItems .= '<li class="nav-item"><a href="report-tax" class="nav-link"><i class="nav-icon fa fa-circle-o"></i><p>' . t('Tax Summary') . '</p></a></li>'; }
-            }
-
             echo '
               <li class="nav-item">
-                <a href="#" class="nav-link"><i class="nav-icon fa fa-bar-chart"></i><p>' . t('Reports Center') . '<i class="nav-arrow fa fa-angle-right"></i></p></a>
-                <ul class="nav nav-treeview">' . $reportItems . '</ul>
+                <a href="index.php?route=reports-center" class="nav-link"><i class="nav-icon fa fa-bar-chart"></i><p>' . t('Reports Center') . '</p></a>
               </li>';
           }
 

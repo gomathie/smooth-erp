@@ -34,15 +34,24 @@ Bestseller Products
 	 			<div class="chart-responsive" id="barChartContainer">
 	 				<div class="bar-chart">
 	 				<?php
+	 				// Guard against empty data (no sales / fewer than 5 products) so the
+	 				// dashboard never fatals for organizations with little or no data.
+	 				$total = (float)($salesTotal["total"] ?? 0);
+	 				$prodCount = is_array($products) ? count($products) : 0;
+	 				$topN = min(5, $prodCount);
+	 				$pctOf = function($p) use ($total) {
+	 				    return $total > 0 ? (int)ceil(((float)($p["sales"] ?? 0)) * 100 / $total) : 0;
+	 				};
+
 	 				$maxVal = 0;
-	 				for($i = 0; $i < 5; $i++){
-	 				    $pct = ceil($products[$i]["sales"]*100/$salesTotal["total"]);
+	 				for($i = 0; $i < $topN; $i++){
+	 				    $pct = $pctOf($products[$i]);
 	 				    if($pct > $maxVal) $maxVal = $pct;
 	 				}
 	 				$scale = $maxVal > 0 ? 200 / $maxVal : 1;
 
-	 				for($i = 0; $i < 5; $i++):
-	 				    $pct = ceil($products[$i]["sales"]*100/$salesTotal["total"]);
+	 				for($i = 0; $i < $topN; $i++):
+	 				    $pct = $pctOf($products[$i]);
 	 				    $barH = round($pct * $scale);
 	 				    $colour = $chartColours[$i % count($chartColours)];
 	 				?>
@@ -70,9 +79,9 @@ Bestseller Products
 
 			 <?php
 
-          	for($i = 0; $i < 5; $i++){
+          	for($i = 0; $i < $topN; $i++){
 
-          		$pct = ceil($products[$i]["sales"]*100/$salesTotal["total"]);
+          		$pct = $pctOf($products[$i]);
           		$colour = $colours[$i % count($colours)];
 
           		echo '<li>

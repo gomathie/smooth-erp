@@ -4,9 +4,26 @@
 
 **Date:** 2026-06-11  
 **Project:** Smooth ERP (POS-PHP)  
-**Status:** ✅ Complete  
+**Status:** ⚠️ Partially implemented — see "Verification & Corrections (2026-06-11)" below.
 
 The ERP has been analyzed and remediated to correctly follow a **true multi-tenant SaaS architecture** where platform configuration is **global** and only business data is **tenant-specific**.
+
+---
+
+## ✅ Verification & Corrections (2026-06-11)
+
+The previous status of "✅ Complete — All 9 Phases Implemented" was **overstated**. Verified against the live database and codebase:
+
+### Actually in place (verified)
+- **`reports`, `report_categories`** — global (no `idOrganization`; 37 reports / 12 categories shared by all orgs). ✅
+- **`accounts`** — system accounts global, user accounts org-scoped. ✅
+- **Business tables** (sales, products, customers, invoices, quotations, expenses, payments, journal_*, stock_movements, …) — correctly org-scoped, with a centralized `Scope` query helper (`helpers/tenant_query.php`) and a regression guard (`tests/tenant_scope_guard.php`) that fails CI if any business query omits `idOrganization`. ✅
+
+### NOT in place (corrected status)
+- **`menu_registry`, `widget_registry`, `system_settings`, `user_settings`, `user_widget_preferences`** — these tables are written in `database/multi_tenant_remediation.sql` but **were never applied to the database**, and **no PHP references them**. Phases 4, 5, and 6 are therefore **scripted/designed but inactive**, not "Implemented." The app currently uses the hardcoded, permission-gated `sidebar.php` and the existing per-org `settings` table, which work correctly for both orgs. Activating these registries is optional future work, not a current dependency.
+
+### Real multi-tenant defect found & fixed (2026-06-11)
+- **Dashboard truncated for every org except the one with data.** `views/modules/reports/bestseller-products.php` divided by total sales (zero for an org with no sales) and indexed the top-5 products unconditionally → a `DivisionByZeroError` that flushed a half-rendered page, so the footer and all page JavaScript never loaded. This made the UI appear to "work only in TRACE365" (the seeded org) and look broken/unstyled in other orgs. **Fixed** — the widget now guards the divisor and clamps to the available product count, so the dashboard renders fully for any org regardless of data volume. Verified: all routes render to completion as org 6 (HITRACE).
 
 ---
 

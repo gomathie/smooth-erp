@@ -5,6 +5,7 @@
 require_once __DIR__ . '/../helpers/tenant.php';
 require_once __DIR__ . '/../helpers/permission.php';
 require_once __DIR__ . '/../helpers/tenant_query.php';
+require_once __DIR__ . '/../helpers/db_camelcase.php';
 
 class Connection{
 
@@ -17,6 +18,9 @@ class Connection{
 	/** @var bool Set when an inner scope rolls back so the outer commit aborts. */
 	static private $txRolledBack = false;
 
+	/** @var string|null Active PDO driver: 'mysql' | 'pgsql'. */
+	static private $driver = null;
+
 	static public function connect(){
 
 		// Reuse one PDO per request so transactions can span multiple model
@@ -27,23 +31,66 @@ class Connection{
 
 		$env = self::loadEnv();
 
-		$host = $env['DB_HOST'] ?? 'localhost';
-		$db = $env['DB_NAME'] ?? 'smootherp';
-		$user = $env['DB_USER'] ?? 'root';
-		$pass = $env['DB_PASS'] ?? '';
+		// 'mysql' (default, local/XAMPP) or 'pgsql' (Supabase/Postgres production).
+		self::$driver = strtolower($env['DB_CONNECTION'] ?? 'mysql');
+
+		$host    = $env['DB_HOST'] ?? 'localhost';
+		$db      = $env['DB_NAME'] ?? 'smootherp';
+		$user    = $env['DB_USER'] ?? 'root';
+		$pass    = $env['DB_PASS'] ?? '';
 		$charset = $env['DB_CHARSET'] ?? 'utf8';
+		$port    = $env['DB_PORT'] ?? (self::$driver === 'pgsql' ? '5432' : '3306');
 
-		$dsn = "mysql:host={$host};dbname={$db};charset={$charset}";
-
-		$link = new PDO($dsn, $user, $pass, [
-			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+		$options = [
+			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$charset}"
-		]);
+		];
+
+		if (self::$driver === 'pgsql') {
+			// Supabase requires TLS. Result keys are remapped to camelCase by
+			// CamelCaseStatement (Postgres lower-cases identifiers).
+			$sslmode = $env['DB_SSLMODE'] ?? 'require';
+			$dsn = "pgsql:host={$host};port={$port};dbname={$db};sslmode={$sslmode}";
+			$options[PDO::ATTR_STATEMENT_CLASS] = [CamelCaseStatement::class, []];
+		} else {
+			$dsn = "mysql:host={$host};port={$port};dbname={$db};charset={$charset}";
+			$options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES {$charset}";
+		}
+
+		$link = new PDO($dsn, $user, $pass, $options);
 
 		self::$instance = $link;
 
 		return $link;
+	}
+
+	/** Active driver for the current connection ('mysql' | 'pgsql'). */
+	static public function driver(): string
+	{
+		if (self::$driver === null) { self::connect(); }
+		return self::$driver ?? 'mysql';
+	}
+
+	/*=============================================
+	CROSS-DRIVER SQL HELPERS (MySQL <-> PostgreSQL)
+	=============================================*/
+
+	/** "INSERT IGNORE INTO" on MySQL; plain "INSERT INTO" on Postgres (pair with onConflictDoNothing()). */
+	static public function insertIgnoreInto(): string
+	{
+		return self::driver() === 'pgsql' ? 'INSERT INTO' : 'INSERT IGNORE INTO';
+	}
+
+	/** Trailing " ON CONFLICT DO NOTHING" on Postgres; empty on MySQL. */
+	static public function onConflictDoNothing(): string
+	{
+		return self::driver() === 'pgsql' ? ' ON CONFLICT DO NOTHING' : '';
+	}
+
+	/** Integer cast type for "CAST(x AS ...)": UNSIGNED on MySQL, BIGINT on Postgres. */
+	static public function intCast(): string
+	{
+		return self::driver() === 'pgsql' ? 'BIGINT' : 'UNSIGNED';
 	}
 
 	/*=============================================

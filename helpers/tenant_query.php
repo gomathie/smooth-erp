@@ -48,7 +48,7 @@ class Scope {
 
 	/** All rows for the current org. */
 	public static function all(string $table, string $orderBy = ''): array {
-		$sql = "SELECT * FROM `" . self::table($table) . "` WHERE idOrganization = :__org" . self::orderBy($orderBy);
+		$sql = "SELECT * FROM " . self::table($table) . " WHERE idOrganization = :__org" . self::orderBy($orderBy);
 		$st = Connection::connect()->prepare($sql);
 		$st->bindValue(':__org', Tenant::id(), PDO::PARAM_INT);
 		$st->execute();
@@ -57,7 +57,7 @@ class Scope {
 
 	/** First row where column = value, scoped to the current org (or false). */
 	public static function firstBy(string $table, string $column, $value, string $orderBy = '') {
-		$sql = "SELECT * FROM `" . self::table($table) . "` WHERE `" . self::col($column) . "` = :val AND idOrganization = :__org" . self::orderBy($orderBy) . " LIMIT 1";
+		$sql = "SELECT * FROM " . self::table($table) . " WHERE " . self::col($column) . " = :val AND idOrganization = :__org" . self::orderBy($orderBy) . " LIMIT 1";
 		$st = Connection::connect()->prepare($sql);
 		$st->bindValue(':val', $value);
 		$st->bindValue(':__org', Tenant::id(), PDO::PARAM_INT);
@@ -67,7 +67,7 @@ class Scope {
 
 	/** All rows where column = value, scoped to the current org. */
 	public static function rowsBy(string $table, string $column, $value, string $orderBy = ''): array {
-		$sql = "SELECT * FROM `" . self::table($table) . "` WHERE `" . self::col($column) . "` = :val AND idOrganization = :__org" . self::orderBy($orderBy);
+		$sql = "SELECT * FROM " . self::table($table) . " WHERE " . self::col($column) . " = :val AND idOrganization = :__org" . self::orderBy($orderBy);
 		$st = Connection::connect()->prepare($sql);
 		$st->bindValue(':val', $value);
 		$st->bindValue(':__org', Tenant::id(), PDO::PARAM_INT);
@@ -82,7 +82,7 @@ class Scope {
 
 	/** Delete a row by id within the current org. Returns true on success. */
 	public static function deleteById(string $table, int $id): bool {
-		$st = Connection::connect()->prepare("DELETE FROM `" . self::table($table) . "` WHERE id = :id AND idOrganization = :__org");
+		$st = Connection::connect()->prepare("DELETE FROM " . self::table($table) . " WHERE id = :id AND idOrganization = :__org");
 		$st->bindValue(':id', $id, PDO::PARAM_INT);
 		$st->bindValue(':__org', Tenant::id(), PDO::PARAM_INT);
 		return $st->execute();
@@ -90,7 +90,7 @@ class Scope {
 
 	/** COUNT(*) for the current org, with an optional extra (parameterised) WHERE. */
 	public static function count(string $table, string $extraWhere = '', array $params = []): int {
-		$sql = "SELECT COUNT(*) AS n FROM `" . self::table($table) . "` WHERE idOrganization = :__org";
+		$sql = "SELECT COUNT(*) AS n FROM " . self::table($table) . " WHERE idOrganization = :__org";
 		if ($extraWhere !== '') { $sql .= " AND (" . $extraWhere . ")"; }
 		$st = Connection::connect()->prepare($sql);
 		$st->bindValue(':__org', Tenant::id(), PDO::PARAM_INT);

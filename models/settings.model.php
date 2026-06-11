@@ -50,9 +50,11 @@ class ModelSettings {
 	}
 
 	public static function mdlSetForOrg(int $idOrg, string $key, string $value): string {
+		$upsert = Connection::driver() === 'pgsql'
+			? "ON CONFLICT (idOrganization, settingKey) DO UPDATE SET settingValue = :v2"
+			: "ON DUPLICATE KEY UPDATE settingValue = :v2";
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO settings (settingKey, settingValue, idOrganization) VALUES (:k, :v, :o)
-			 ON DUPLICATE KEY UPDATE settingValue = :v2"
+			"INSERT INTO settings (settingKey, settingValue, idOrganization) VALUES (:k, :v, :o) " . $upsert
 		);
 		$stmt->bindParam(":k",  $key,   PDO::PARAM_STR);
 		$stmt->bindParam(":v",  $value, PDO::PARAM_STR);
@@ -72,9 +74,11 @@ class ModelSettings {
 	 */
 	public static function mdlSet(string $key, string $value): string {
 
+		$upsert = Connection::driver() === 'pgsql'
+			? "ON CONFLICT (idOrganization, settingKey) DO UPDATE SET settingValue = :v2"
+			: "ON DUPLICATE KEY UPDATE settingValue = :v2";
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO settings (settingKey, settingValue, idOrganization) VALUES (:k, :v, " . (int)Tenant::id() . ")
-			 ON DUPLICATE KEY UPDATE settingValue = :v2"
+			"INSERT INTO settings (settingKey, settingValue, idOrganization) VALUES (:k, :v, " . (int)Tenant::id() . ") " . $upsert
 		);
 		$stmt->bindParam(":k",  $key,   PDO::PARAM_STR);
 		$stmt->bindParam(":v",  $value, PDO::PARAM_STR);

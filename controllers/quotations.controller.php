@@ -192,7 +192,7 @@ class ControllerQuotations {
 
 	private static function nextInvoiceNumber(): string {
 
-		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(CAST(invoiceNumber AS UNSIGNED)), 10000) + 1 AS n FROM invoices");
+		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(CAST(invoiceNumber AS " . Connection::intCast() . ")), 10000) + 1 AS n FROM invoices");
 		$stmt->execute();
 		$row = $stmt->fetch();
 

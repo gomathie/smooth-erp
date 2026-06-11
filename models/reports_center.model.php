@@ -362,7 +362,7 @@ class ReportsCenterModel {
 
         $catIds = array();
         foreach ($categories as $cat) {
-            $ins = $link->prepare("INSERT IGNORE INTO report_categories (name, slug, icon, sort_order) VALUES (:name, :slug, :icon, :so)");
+            $ins = $link->prepare(Connection::insertIgnoreInto() . " report_categories (name, slug, icon, sort_order) VALUES (:name, :slug, :icon, :so)" . Connection::onConflictDoNothing());
             $ins->bindParam(":name", $cat["name"], PDO::PARAM_STR);
             $ins->bindParam(":slug", $cat["slug"], PDO::PARAM_STR);
             $ins->bindParam(":icon", $cat["icon"], PDO::PARAM_STR);

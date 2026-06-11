@@ -115,7 +115,7 @@ class ModelQuotations {
 
 	public static function mdlNextQuoteNumber(): string {
 
-		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(CAST(quoteNumber AS UNSIGNED)), 1000) + 1 AS n FROM quotations WHERE idOrganization = " . (int)Tenant::id() . "");
+		$stmt = Connection::connect()->prepare("SELECT COALESCE(MAX(CAST(quoteNumber AS " . Connection::intCast() . ")), 1000) + 1 AS n FROM quotations WHERE idOrganization = " . (int)Tenant::id() . "");
 		$stmt->execute();
 		$row = $stmt->fetch();
 

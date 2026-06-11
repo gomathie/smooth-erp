@@ -4,11 +4,12 @@ FROM php:8.2-apache
 RUN a2enmod rewrite \
  && sed -ri 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
-# PHP extensions the ERP needs — including GD for image/photo resizing
+# PHP extensions the ERP needs — GD (image/photo resizing) and BOTH database
+# drivers: pdo_mysql (local/XAMPP) and pdo_pgsql (Supabase/PostgreSQL production).
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
+        libpng-dev libjpeg62-turbo-dev libfreetype6-dev libpq-dev \
  && docker-php-ext-configure gd --with-freetype --with-jpeg \
- && docker-php-ext-install pdo pdo_mysql mysqli gd \
+ && docker-php-ext-install pdo pdo_mysql mysqli gd pdo_pgsql pgsql \
  && rm -rf /var/lib/apt/lists/*
 
 # App code. Document root stays at the project root (harden-in-place): sensitive

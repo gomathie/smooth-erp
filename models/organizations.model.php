@@ -166,7 +166,7 @@ class ModelOrganizations {
 
 	public static function mdlSeedBaseCurrency(int $idOrg, string $currency): void {
 		$stmt = Connection::connect()->prepare(
-			"INSERT IGNORE INTO organization_currencies (idOrganization, currencyCode, isBase) VALUES (:idOrg, :cur, 1)"
+			Connection::insertIgnoreInto() . " organization_currencies (idOrganization, currencyCode, isBase) VALUES (:idOrg, :cur, 1)" . Connection::onConflictDoNothing()
 		);
 		$stmt->bindParam(":idOrg", $idOrg,    PDO::PARAM_INT);
 		$stmt->bindParam(":cur",   $currency, PDO::PARAM_STR);
@@ -217,7 +217,7 @@ class ModelOrganizations {
 
 	public static function mdlActivateCurrency(int $idOrg, string $code): string {
 		$stmt = Connection::connect()->prepare(
-			"INSERT IGNORE INTO organization_currencies (idOrganization, currencyCode, isBase) VALUES (:o, :c, 0)"
+			Connection::insertIgnoreInto() . " organization_currencies (idOrganization, currencyCode, isBase) VALUES (:o, :c, 0)" . Connection::onConflictDoNothing()
 		);
 		$stmt->bindParam(":o", $idOrg, PDO::PARAM_INT);
 		$stmt->bindParam(":c", $code, PDO::PARAM_STR);
@@ -237,7 +237,7 @@ class ModelOrganizations {
 	public static function mdlSetBaseCurrency(int $idOrg, string $code): string {
 		$link = Connection::connect();
 		// Ensure it's activated, clear other base flags, set this as base, sync org row.
-		$link->prepare("INSERT IGNORE INTO organization_currencies (idOrganization, currencyCode, isBase) VALUES (:o,:c,0)")
+		$link->prepare(Connection::insertIgnoreInto() . " organization_currencies (idOrganization, currencyCode, isBase) VALUES (:o,:c,0)" . Connection::onConflictDoNothing())
 		     ->execute([":o"=>$idOrg, ":c"=>$code]);
 		$link->prepare("UPDATE organization_currencies SET isBase = 0 WHERE idOrganization = :o")->execute([":o"=>$idOrg]);
 		$link->prepare("UPDATE organization_currencies SET isBase = 1 WHERE idOrganization = :o AND currencyCode = :c")->execute([":o"=>$idOrg, ":c"=>$code]);

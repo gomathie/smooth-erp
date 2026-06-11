@@ -449,4 +449,5 @@ return [
 	'Account'           => 'Compte',
 	'Debit'             => 'Débit',
 	'Credit'            => 'Crédit',
+	'Reports Center'    => 'Centre de rapports',
 ];

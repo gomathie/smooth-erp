@@ -23,7 +23,7 @@ class UsersModel{
 			// exists, so they must NOT be org-scoped. Everything else is.
 			$authLookup = in_array($item, ['user', 'email', 'resetToken'], true);
 
-			$sql = "SELECT * FROM `users` WHERE `$item` = :val";
+			$sql = "SELECT * FROM users WHERE " . Connection::quoteIdent($item) . " = :val";
 			if (!$authLookup && $org > 0) { $sql .= " AND idOrganization = " . (int)$org; }
 
 			$stmt = Connection::connect()->prepare($sql);
@@ -33,7 +33,7 @@ class UsersModel{
 
 		} else {
 
-			$sql = "SELECT * FROM `users`";
+			$sql = "SELECT * FROM users";
 			if ($org > 0) { $sql .= " WHERE idOrganization = " . (int)$org; }
 
 			$stmt = Connection::connect()->prepare($sql);
@@ -50,7 +50,7 @@ class UsersModel{
 	static public function mdlAddUser($table, $data){
 
 		$stmt = Connection::connect()->prepare(
-			"INSERT INTO `users`(name, user, password, profile, role, permissions, photo, email, phone, idOrganization) VALUES (:name, :user, :password, :profile, :role, :permissions, :photo, :email, :phone, " . (int)Tenant::id() . ")"
+			"INSERT INTO users(name, " . Connection::quoteIdent('user') . ", password, profile, role, permissions, photo, email, phone, idOrganization) VALUES (:name, :user, :password, :profile, :role, :permissions, :photo, :email, :phone, " . (int)Tenant::id() . ")"
 		);
 
 		$stmt->bindParam(":name",     $data["name"],     PDO::PARAM_STR);
@@ -74,7 +74,7 @@ class UsersModel{
 	static public function mdlEditUser($table, $data){
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE `users` SET name = :name, password = :password, profile = :profile, role = :role, permissions = :permissions, photo = :photo, email = :email, phone = :phone WHERE user = :user AND idOrganization = " . (int)Tenant::id() . ""
+			"UPDATE users SET name = :name, password = :password, profile = :profile, role = :role, permissions = :permissions, photo = :photo, email = :email, phone = :phone WHERE " . Connection::quoteIdent('user') . " = :user AND idOrganization = " . (int)Tenant::id() . ""
 		);
 
 		$stmt->bindParam(":name",     $data["name"],     PDO::PARAM_STR);
@@ -105,7 +105,7 @@ class UsersModel{
 		}
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE `users` SET `$item1` = :v1 WHERE `$item2` = :v2"
+			"UPDATE users SET " . Connection::quoteIdent($item1) . " = :v1 WHERE " . Connection::quoteIdent($item2) . " = :v2"
 		);
 
 		$stmt->bindParam(':v1', $value1, PDO::PARAM_STR);
@@ -121,7 +121,7 @@ class UsersModel{
 	static public function mdlSetPasswordReset($userId, $tokenHash, $expiresAt){
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE `users` SET resetToken = :token, resetTokenExpires = :expires WHERE id = :id"
+			"UPDATE users SET resetToken = :token, resetTokenExpires = :expires WHERE id = :id"
 		);
 
 		$stmt->bindParam(':token', $tokenHash, PDO::PARAM_STR);
@@ -140,7 +140,7 @@ class UsersModel{
 		$empty = null;
 
 		$stmt = Connection::connect()->prepare(
-			"UPDATE `users` SET resetToken = :token, resetTokenExpires = :expires WHERE id = :id"
+			"UPDATE users SET resetToken = :token, resetTokenExpires = :expires WHERE id = :id"
 		);
 
 		$stmt->bindParam(':token', $empty, PDO::PARAM_NULL);
@@ -157,7 +157,7 @@ class UsersModel{
 
 	static public function mdlDeleteUser($table, $data){
 
-		$stmt = Connection::connect()->prepare("DELETE FROM `users` WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
+		$stmt = Connection::connect()->prepare("DELETE FROM users WHERE id = :id AND idOrganization = " . (int)Tenant::id() . "");
 		$stmt->bindParam(":id", $data, PDO::PARAM_STR);
 		return $stmt->execute() ? 'ok' : 'error';
 	}

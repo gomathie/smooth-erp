@@ -1,0 +1,179 @@
+/* ============================================================================
+   Authentication pages (login / forgot-password / reset-password)
+   ----------------------------------------------------------------------------
+   Loaded by views/modules/login.php on top of Bootstrap 5 ONLY (no AdminLTE),
+   so every rule applies without !important. Tweak the palette via the custom
+   properties in :root below.
+   ========================================================================== */
+
+:root {
+  --auth-bg-1:        #eef2f7;
+  --auth-bg-2:        #dfe6ef;
+  --auth-card-bg:     #ffffff;
+  --auth-text:        #1e293b;
+  --auth-muted:       #64748b;
+  --auth-border:      #e2e8f0;
+  --auth-field-bg:    #f8fafc;
+  --auth-primary:     #2563eb;
+  --auth-primary-700: #1d4ed8;
+  --auth-ring:        rgba(37, 99, 235, 0.18);
+  --auth-radius:      14px;
+}
+
+/* --- Layout --------------------------------------------------------------- */
+.auth-page {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, var(--auth-bg-1), var(--auth-bg-2));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--auth-text);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 410px;
+  padding: 36px 34px;
+  background: var(--auth-card-bg);
+  border: 1px solid var(--auth-border);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.25);
+}
+
+/* --- Brand & headings ----------------------------------------------------- */
+.auth-brand {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.auth-brand img {
+  max-width: 190px;
+  height: auto;
+}
+
+.auth-title {
+  margin: 0 0 4px;
+  text-align: center;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.auth-subtitle {
+  margin: 0 0 22px;
+  text-align: center;
+  color: var(--auth-muted);
+  font-size: 0.93rem;
+}
+
+/* --- Form fields ---------------------------------------------------------- */
+.auth-form .input-group {
+  margin-bottom: 16px;
+  border-radius: var(--auth-radius);
+}
+.auth-form .input-group:focus-within {
+  box-shadow: 0 0 0 4px var(--auth-ring);
+}
+
+.auth-form .input-group-text {
+  min-width: 46px;
+  justify-content: center;
+  background: var(--auth-field-bg);
+  border: 1px solid var(--auth-border);
+  border-right: none;
+  border-radius: var(--auth-radius) 0 0 var(--auth-radius);
+  color: var(--auth-muted);
+}
+
+.auth-form .form-control {
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: var(--auth-text);
+  border: 1px solid var(--auth-border);
+  border-left: none;
+  border-radius: 0 var(--auth-radius) var(--auth-radius) 0;
+}
+.auth-form .form-control:focus {
+  border-color: var(--auth-primary);
+  box-shadow: none;
+}
+.auth-form .input-group:focus-within .input-group-text {
+  border-color: var(--auth-primary);
+  color: var(--auth-primary);
+}
+
+/* --- Primary button ------------------------------------------------------- */
+.btn-auth {
+  width: 100%;
+  margin-top: 4px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--auth-radius);
+  background: var(--auth-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color .15s ease, transform .05s ease;
+}
+.btn-auth:hover,
+.btn-auth:focus {
+  background: var(--auth-primary-700);
+  color: #fff;
+}
+.btn-auth:active {
+  transform: translateY(1px);
+}
+
+/* --- Secondary links ------------------------------------------------------ */
+.auth-alt {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.auth-card a {
+  color: var(--auth-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+.auth-card a:hover {
+  text-decoration: underline;
+}
+
+/* --- Controller-emitted alerts (login errors, reset notices) -------------- */
+.auth-form .alert {
+  margin: 16px 0 0;
+}
+.auth-form br {
+  display: none;
+}
+
+/* --- Language switcher ---------------------------------------------------- */
+.auth-lang {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--auth-muted);
+}
+.auth-lang a {
+  color: var(--auth-muted);
+  font-weight: 500;
+}
+.auth-lang a.active {
+  color: var(--auth-text);
+  font-weight: 700;
+}
+.auth-lang .sep {
+  color: #cbd5e1;
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 22px;
+    border-radius: 16px;
+  }
+  .auth-brand img {
+    max-width: 160px;
+  }
+}

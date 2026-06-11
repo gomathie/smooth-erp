@@ -34,10 +34,13 @@ class Connection{
 		// 'mysql' (default, local/XAMPP) or 'pgsql' (Supabase/Postgres production).
 		self::$driver = strtolower($env['DB_CONNECTION'] ?? 'mysql');
 
+		// Accept both the canonical keys (DB_NAME/DB_USER/DB_PASS) and the
+		// Laravel-style aliases (DB_DATABASE/DB_USERNAME/DB_PASSWORD) so a .env
+		// written either way connects instead of silently falling back to local.
 		$host    = $env['DB_HOST'] ?? 'localhost';
-		$db      = $env['DB_NAME'] ?? 'smootherp';
-		$user    = $env['DB_USER'] ?? 'root';
-		$pass    = $env['DB_PASS'] ?? '';
+		$db      = $env['DB_NAME'] ?? $env['DB_DATABASE'] ?? 'smootherp';
+		$user    = $env['DB_USER'] ?? $env['DB_USERNAME'] ?? 'root';
+		$pass    = $env['DB_PASS'] ?? $env['DB_PASSWORD'] ?? '';
 		$charset = $env['DB_CHARSET'] ?? 'utf8';
 		$port    = $env['DB_PORT'] ?? (self::$driver === 'pgsql' ? '5432' : '3306');
 
@@ -91,6 +94,24 @@ class Connection{
 	static public function intCast(): string
 	{
 		return self::driver() === 'pgsql' ? 'BIGINT' : 'UNSIGNED';
+	}
+
+	/**
+	 * Quote a table/column identifier for the active driver: backticks on MySQL,
+	 * double quotes on Postgres. Needed for reserved words such as the `user`
+	 * column (MySQL backticks are a syntax error on Postgres, and unquoted
+	 * `user` on Postgres resolves to the session-user function, not the column).
+	 */
+	static public function quoteIdent(string $name): string
+	{
+		// Postgres folds unquoted identifiers to lower-case, and the schema was
+		// migrated with pgloader's "downcase identifiers" (so every column is
+		// lower-case). Lower-case the name before quoting so a reserved or
+		// mixed-case identifier (e.g. `user`, `lastLogin`) still matches the
+		// actual column instead of becoming a case-sensitive miss.
+		return self::driver() === 'pgsql'
+			? '"' . str_replace('"', '""', strtolower($name)) . '"'
+			: '`' . str_replace('`', '``', $name) . '`';
 	}
 
 	/*=============================================

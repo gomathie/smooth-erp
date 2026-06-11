@@ -1,142 +1,130 @@
-<div id="back"></div>
-<!--  -->
-<div class="login-box">
+<?php
+/*=============================================================================
+  AUTHENTICATION PAGE (login / forgot-password / reset-password)
+  -----------------------------------------------------------------------------
+  Self-contained document rendered by template.php for unauthenticated visitors.
+  It loads ONLY what it needs — Bootstrap 5, Font Awesome and login.css — not the
+  full AdminLTE app shell, so the styling is clean and needs no !important hacks.
+=============================================================================*/
 
-  <div class="login-logo">
+$authRoute = $_GET['route'] ?? 'login';
+$csrfToken = $_SESSION['csrf_token'] ?? '';
+$lang      = class_exists('I18n') ? I18n::current() : 'en';
+?>
+<!DOCTYPE html>
+<html lang="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'UTF-8'); ?>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?php echo htmlspecialchars(t('Log In')); ?> &middot; Smooth ERP</title>
 
-    <img class="img-responsive" src="views/img/template/logo-blanco-bloque.png" style="padding: 30px 100px 0 100px">
+  <link rel="icon" href="views/img/template/icono-negro.png">
+  <meta name="csrf-token" content="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
 
-  </div>
+  <link rel="stylesheet" href="views/vendor/bootstrap5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="views/dist/css/login.css">
+</head>
+<body class="auth-page">
 
-  <div class="login-card-body">
+  <main class="auth-card">
 
-    <?php $authRoute = $_GET["route"] ?? "login"; ?>
+    <header class="auth-brand">
+      <img src="views/img/template/logo-negro-bloque.png" alt="Smooth ERP">
+    </header>
 
-    <?php if ($authRoute === "forgot-password"): ?>
+    <?php if ($authRoute === 'forgot-password'): ?>
 
-    <p class="login-box-msg">Enter your username or email to reset your password</p>
+      <h1 class="auth-title"><?php echo htmlspecialchars(t('Reset your password')); ?></h1>
+      <p class="auth-subtitle"><?php echo htmlspecialchars(t('Enter your username or email to reset your password')); ?></p>
 
-    <form method="post">
+      <form method="post" class="auth-form">
+        <input type="hidden" name="_csrf" value="<?php echo h($csrfToken); ?>">
 
-      <input type="hidden" name="_csrf" value="<?php echo h($_SESSION['csrf_token'] ?? ''); ?>">
-
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Username or email" name="resetIdentifier" required>
-        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-envelope"></span></div></div>
-      </div>
-
-      <div class="row">
-
-        <div class="col-7">
-          <a href="login">Back to login</a>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+          <input type="text" class="form-control" name="resetIdentifier" placeholder="<?php echo htmlspecialchars(t('Username or email')); ?>" required autofocus>
         </div>
 
-        <div class="col-5">
-          <button type="submit" class="btn btn-success btn-block btn-flat">Reset</button>
+        <button type="submit" class="btn btn-auth"><?php echo htmlspecialchars(t('Send reset link')); ?></button>
+
+        <?php ControllerUsers::ctrForgotPassword(); ?>
+
+        <p class="auth-alt"><a href="login"><?php echo htmlspecialchars(t('Back to login')); ?></a></p>
+      </form>
+
+    <?php elseif ($authRoute === 'reset-password'): ?>
+
+      <h1 class="auth-title"><?php echo htmlspecialchars(t('Choose a new password')); ?></h1>
+
+      <form method="post" class="auth-form">
+        <input type="hidden" name="_csrf" value="<?php echo h($csrfToken); ?>">
+        <input type="hidden" name="resetToken" value="<?php echo h($_GET['token'] ?? ''); ?>">
+
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          <input type="password" class="form-control" name="newPassword" placeholder="<?php echo htmlspecialchars(t('New password')); ?>" minlength="6" maxlength="72" required autofocus>
         </div>
 
-      </div>
-
-      <?php ControllerUsers::ctrForgotPassword(); ?>
-
-    </form>
-
-    <?php elseif ($authRoute === "reset-password"): ?>
-
-    <p class="login-box-msg">Choose a new password</p>
-
-    <form method="post">
-
-      <input type="hidden" name="_csrf" value="<?php echo h($_SESSION['csrf_token'] ?? ''); ?>">
-      <input type="hidden" name="resetToken" value="<?php echo h($_GET['token'] ?? ''); ?>">
-
-      <div class="input-group mb-3">
-        <input type="password" class="form-control" placeholder="New password" name="newPassword" minlength="6" maxlength="72" required>
-        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-lock"></span></div></div>
-      </div>
-
-      <div class="input-group mb-3">
-        <input type="password" class="form-control" placeholder="Confirm password" name="confirmPassword" minlength="6" maxlength="72" required>
-        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-lock"></span></div></div>
-      </div>
-
-      <div class="row">
-
-        <div class="col-7">
-          <a href="login">Back to login</a>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          <input type="password" class="form-control" name="confirmPassword" placeholder="<?php echo htmlspecialchars(t('Confirm password')); ?>" minlength="6" maxlength="72" required>
         </div>
 
-        <div class="col-5">
-          <button type="submit" class="btn btn-success btn-block btn-flat">Save</button>
-        </div>
+        <button type="submit" class="btn btn-auth"><?php echo htmlspecialchars(t('Save')); ?></button>
 
-      </div>
+        <?php ControllerUsers::ctrResetPassword(); ?>
 
-      <?php ControllerUsers::ctrResetPassword(); ?>
-
-    </form>
+        <p class="auth-alt"><a href="login"><?php echo htmlspecialchars(t('Back to login')); ?></a></p>
+      </form>
 
     <?php else: ?>
 
-    <p class="login-box-msg"><?php echo htmlspecialchars(t('Please log in to start your session')); ?></p>
+      <p class="auth-subtitle"><?php echo htmlspecialchars(t('Please log in to start your session')); ?></p>
 
-    <form method="post">
+      <form method="post" class="auth-form">
+        <input type="hidden" name="_csrf" value="<?php echo h($csrfToken); ?>">
 
-      <input type="hidden" name="_csrf" value="<?php echo h($_SESSION['csrf_token'] ?? ''); ?>">
-
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="<?php echo htmlspecialchars(t('Username')); ?>" name="loginUser" required>
-        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-user"></span></div></div>
-      </div>
-
-      <div class="input-group mb-3">
-        <input type="password" class="form-control" placeholder="<?php echo htmlspecialchars(t('Password')); ?>" name="loginPass" required>
-        <div class="input-group-append"><div class="input-group-text"><span class="fa fa-lock"></span></div></div>
-      </div>
-
-      <div class="row">
-
-        <div class="col-8">
-
-          <a href="forgot-password"><?php echo htmlspecialchars(t('Forgot password?')); ?></a>
-
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-user"></i></span>
+          <input type="text" class="form-control" name="loginUser" placeholder="<?php echo htmlspecialchars(t('Username')); ?>" required autofocus>
         </div>
 
-        <div class="col-4">
-
-          <button type="submit" class="btn btn-success btn-block btn-flat"><?php echo htmlspecialchars(t('Log In')); ?></button>
-
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          <input type="password" class="form-control" name="loginPass" placeholder="<?php echo htmlspecialchars(t('Password')); ?>" required>
         </div>
-       
-      </div>
 
-      <?php
+        <button type="submit" class="btn btn-auth"><?php echo htmlspecialchars(t('Log In')); ?></button>
 
-        $login = new ControllerUsers();
-        $login -> ctrUserLogin();
+        <?php
+          $login = new ControllerUsers();
+          $login->ctrUserLogin();
+        ?>
 
-      ?>
-
-    </form>
+        <p class="auth-alt"><a href="forgot-password"><?php echo htmlspecialchars(t('Forgot password?')); ?></a></p>
+      </form>
 
     <?php endif; ?>
 
-    <?php if (class_exists('I18n')) { ?>
-      <div class="text-center" style="margin-top:14px; font-size:12px;">
+    <?php if (class_exists('I18n')): ?>
+      <div class="auth-lang">
+        <i class="fa fa-globe"></i>
         <?php
-          $curLang = I18n::current();
-          $parts = [];
+          $current = I18n::current();
+          $links = [];
           foreach (I18n::available() as $code => $label) {
-            $style = $code === $curLang ? ' style="font-weight:700; text-decoration:none;"' : '';
-            $parts[] = '<a href="index.php?route=' . htmlspecialchars($authRoute) . '&setlang=' . htmlspecialchars($code) . '"' . $style . '>' . htmlspecialchars($label) . '</a>';
+            $active = $code === $current ? ' class="active"' : '';
+            $links[] = '<a href="index.php?route=' . htmlspecialchars($authRoute) . '&setlang=' . htmlspecialchars($code) . '"' . $active . '>' . htmlspecialchars($label) . '</a>';
           }
-          echo '<i class="fa fa-globe"></i> ' . implode(' &middot; ', $parts);
+          echo implode(' <span class="sep">&middot;</span> ', $links);
         ?>
       </div>
-    <?php } ?>
+    <?php endif; ?>
 
-  </div>
+  </main>
 
-</div>
-<!--  -->
-
+  <script src="views/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

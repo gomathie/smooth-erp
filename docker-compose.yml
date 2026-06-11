@@ -1,7 +1,10 @@
-version: "3.8"
-
 services:
 
+  # Default stack connects to Supabase (PostgreSQL) — credentials come from
+  # config/.env (DB_CONNECTION=pgsql, session pooler host on port 5432).
+  # The app no longer depends on a local DB. To run fully local on MySQL
+  # instead, start with the "local" profile: `docker compose --profile local up`
+  # and set config/.env back to DB_CONNECTION=mysql, DB_HOST=db.
   app:
     build: .
     container_name: erp_app
@@ -12,14 +15,12 @@ services:
       - ./:/var/www/html
       # Keep container-managed storage from being shadowed if you prefer a volume:
       # - app_storage:/var/www/html/storage
-    depends_on:
-      - db
-    # NOTE: when running under Docker, set DB_HOST=db in config/.env
-    #       (the XAMPP value is localhost). The app reads config/.env.
 
+  # --- Local MySQL stack (opt-in, NOT started by default) -------------------
   db:
     image: mysql:8.0
     container_name: erp_db
+    profiles: ["local"]
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -36,6 +37,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: erp_phpmyadmin
+    profiles: ["local"]
     restart: always
     ports:
       - "8081:80"

@@ -35,6 +35,13 @@
       $currentThemeKey = $stored;
   }
   $_SESSION['pos_theme'] = $currentThemeKey;
+
+  // Unauthenticated visitors get the self-contained, lightweight auth page
+  // (its own minimal <head>) instead of the full AdminLTE app shell below.
+  if (!(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == "ok")) {
+      include "modules/login.php";
+      return;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +89,8 @@
   <script src="views/js/themes.config.js"></script>
 
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 
    <!-- DataTables (Bootstrap 5 integration) -->
   <link rel="stylesheet" href="views/vendor/datatables-bs5/css/dataTables.bootstrap5.min.css">
@@ -149,13 +157,7 @@
   
 </head>
 
-<?php
-  $bodyClass = (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == "ok")
-    ? 'layout-fixed sidebar-expand-lg bg-body-tertiary'
-    : 'login-page';
-?>
-
-<body class="<?php echo $bodyClass; ?>">
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 
 <!-- Site wrapper -->
 
@@ -286,14 +288,9 @@
 
       echo '</div>';
 
-    }else{
-       /*=============================================
-      =            login          =
-      =============================================*/ 
-
-      include "modules/login.php";
     }
-        
+    // Guests are served the self-contained login page earlier (top of this file),
+    // so only the authenticated branch above ever renders here.
   ?>
 
   

@@ -39,13 +39,20 @@ $products = ControllerProducts::ctrShowProducts($item, $value, $order);
 
     <?php
 
-    for($i = 0; $i < 7; $i++){
+    // Only render as many items as there actually are (was a fixed 7, which
+    // produced blank/dummy rows with empty images for orgs with fewer products).
+    $count = is_array($products) ? count($products) : 0;
+    $topN  = min(7, $count);
+
+    for($i = 0; $i < $topN; $i++){
+
+      $img = $products[$i]["image"] !== "" ? $products[$i]["image"] : "views/img/products/default/anonymous.png";
 
       echo '<li class="item">
 
         <div class="product-img">
 
-          <img src="'.$products[$i]["image"].'" alt="Product Image">
+          <img src="'.$img.'" alt="Product Image">
 
         </div>
 
@@ -58,11 +65,15 @@ $products = ControllerProducts::ctrShowProducts($item, $value, $order);
             <span class="badge text-bg-warning">$'.$products[$i]["sellingPrice"].'</span>
 
           </a>
-    
+
        </div>
 
       </li>';
 
+    }
+
+    if ($topN === 0) {
+      echo '<li class="item"><div class="product-info text-muted">' . t('No products yet') . '</div></li>';
     }
 
     ?>

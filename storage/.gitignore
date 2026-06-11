@@ -1,0 +1,7 @@
+# Keep the storage folders and their protective .htaccess in the repo,
+# but ignore the generated contents (logs, cache, uploads, exports).
+logs/*
+cache/*
+uploads/*
+exports/*
+!*/.htaccess

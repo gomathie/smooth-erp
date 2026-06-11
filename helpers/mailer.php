@@ -5,7 +5,9 @@ function env_value($key, $default = '') {
 
     if ($env === null) {
         $env = [];
-        $path = dirname(__DIR__) . '/.env';
+        // .env lives in config/ (moved for security); fall back to project root.
+        $root = dirname(__DIR__);
+        $path = is_file($root . '/config/.env') ? $root . '/config/.env' : $root . '/.env';
 
         if (is_file($path)) {
             $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

@@ -1,11 +1,34 @@
-Options All -Indexes
+# =============================================================================
+# Smooth ERP — front controller + security hardening (harden-in-place)
+# Document root stays at the project root; sensitive code/data dirs and files
+# are denied direct web access here instead of moving the docroot to /public.
+# =============================================================================
 
-# Block direct access to environment and sensitive files
-<FilesMatch "^\.env(\.example)?$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
+Options -Indexes
 
 RewriteEngine On
 
-RewriteRule ^([-a-zA-Z0-9]+)$ index.php?route=$1
+# ----------------------------------------------------------------------------
+# 1) Deny direct access to sensitive FILES (env, logs, dumps, docs, lockfiles,
+#    dotfiles like .env / .cpanel.yml / .gitignore, and the Dockerfile).
+# ----------------------------------------------------------------------------
+<FilesMatch "(^\.|\.(env|log|sql|sqlite|md|ya?ml|ini|lock|bak|dist|sh)$)">
+    Require all denied
+</FilesMatch>
+<FilesMatch "^(dockerfile|composer\.json|composer\.lock|package\.json|package-lock\.json)$">
+    Require all denied
+</FilesMatch>
+
+# ----------------------------------------------------------------------------
+# 2) Deny direct access to server-side CODE & DATA directories.
+#    (Left open on purpose: views/ + ajax/ = browser assets/endpoints,
+#     extensions/tcpdf = PDF endpoints. Only extensions/vendor is blocked.)
+# ----------------------------------------------------------------------------
+RewriteRule ^(config|models|controllers|helpers|app|routes|middleware|database|tests|tools)(/|$) - [F,L]
+RewriteRule ^storage/(logs|cache|exports)(/|$) - [F,L]
+RewriteRule ^extensions/vendor(/|$) - [F,L]
+
+# ----------------------------------------------------------------------------
+# 3) Pretty-route rewrite (unchanged): /home -> index.php?route=home
+# ----------------------------------------------------------------------------
+RewriteRule ^([-a-zA-Z0-9]+)$ index.php?route=$1 [L]

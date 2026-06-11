@@ -1,0 +1,17 @@
+# User uploads: serve static files, but NEVER execute server-side scripts here.
+<FilesMatch "\.(php|phtml|php[0-9]|phps|pht|phar|cgi|pl|py|sh|asp|aspx|jsp)$">
+    Require all denied
+</FilesMatch>
+
+# Belt-and-suspenders: disable the PHP engine in this directory (mod_php).
+<IfModule mod_php.c>
+    php_admin_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_admin_flag engine off
+</IfModule>
+<IfModule mod_php5.c>
+    php_admin_flag engine off
+</IfModule>
+
+Options -ExecCGI -Indexes

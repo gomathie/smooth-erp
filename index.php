@@ -1,5 +1,10 @@
 <?php
 
+// Logging + global error handling first, so failures anywhere below are captured.
+require_once "app/Helpers/Logger.php";
+require_once "app/Exceptions/Handler.php";
+Handler::register();
+
 require_once "helpers/security.php";
 require_once "helpers/mailer.php";
 require_once "helpers/tenant.php";

@@ -1,0 +1,2 @@
+# Private — application logs are never served over the web.
+Require all denied

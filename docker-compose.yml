@@ -8,9 +8,14 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./app:/var/www/html
+      # Mount the whole project (document root = project root, harden-in-place).
+      - ./:/var/www/html
+      # Keep container-managed storage from being shadowed if you prefer a volume:
+      # - app_storage:/var/www/html/storage
     depends_on:
       - db
+    # NOTE: when running under Docker, set DB_HOST=db in config/.env
+    #       (the XAMPP value is localhost). The app reads config/.env.
 
   db:
     image: mysql:8.0
@@ -18,13 +23,15 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: erp
+      MYSQL_DATABASE: posystem
       MYSQL_USER: erp_user
       MYSQL_PASSWORD: erp_pass
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+      # Auto-load the schema on first boot of an empty database:
+      - ./database/smootherp.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin

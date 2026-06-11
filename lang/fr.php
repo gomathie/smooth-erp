@@ -450,4 +450,5 @@ return [
 	'Debit'             => 'Débit',
 	'Credit'            => 'Crédit',
 	'Reports Center'    => 'Centre de rapports',
+	'No products yet'   => 'Aucun produit pour le moment',
 ];
